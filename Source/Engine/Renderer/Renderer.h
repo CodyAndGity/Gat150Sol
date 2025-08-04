@@ -2,6 +2,7 @@
 #include <SDL3/SDL.h>
 #include <iostream>
 #include <SDL3_ttf/SDL_ttf.h>
+#include <SDL3_image/SDL_image.h>
 namespace bonzai {
 	class Renderer {
 	public:
@@ -23,11 +24,12 @@ namespace bonzai {
 
 		int getWidth() const { return width; }
 		int getHeight() const { return height; }
+		void drawTexture(class Texture* texture, float x, float y, float angle=0.0f);
 	private:
 		SDL_Window* window = nullptr;
 		SDL_Renderer* renderer = nullptr;
 		friend class Text;
-
+		friend class Texture;
 		int width{ 0 };
 		int height{ 0 };
 		

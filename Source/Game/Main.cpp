@@ -10,8 +10,8 @@
 #include "Renderer/Font.h"
 #include "Renderer/Text.h"
 #include "Core/Random.h"
+#include "Renderer/Texture.h"
 #include "Core/File.h"
-
 #include <iostream>
 #include <vector>
 #include <memory>
@@ -31,11 +31,12 @@ int main(int argc, char* argv[]) {
 	game->initialize();
 	
 
+	std::shared_ptr<bonzai::Texture> texture = std::make_shared<bonzai::Texture>();
+	texture->load("pizza.jpg", bonzai::getEngine().getRenderer());
     
     SDL_Event e;
     bool quit = false;
 
-    
     
 	
    
@@ -66,7 +67,7 @@ int main(int argc, char* argv[]) {
        
 
 		
-		
+		bonzai::getEngine().getRenderer().drawTexture(texture.get(), 100, 100);
 		game->draw(bonzai::getEngine().getRenderer());
         
         bonzai::getEngine().getRenderer().present();

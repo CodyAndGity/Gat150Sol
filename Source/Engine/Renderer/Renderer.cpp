@@ -1,6 +1,9 @@
 #include "Renderer.h"
 #include <SDL3/SDL.h>
-
+#include <SDL3_ttf/SDL_ttf.h>
+#include <iostream>
+#include "Texture.h"
+#include "../Math/Vector2.h"
 namespace bonzai {
 
     bool Renderer::initialize() {
@@ -36,6 +39,21 @@ namespace bonzai {
         }
         return true;
     }
+
+    void Renderer::drawTexture(Texture* texture, float x, float y, float angle)
+    {
+        vec2 size = texture->getSize();
+
+            SDL_FRect destRect;
+        destRect.x = x;
+        destRect.y = y;
+        destRect.w = size.x;
+        destRect.h = size.y;
+
+        
+        SDL_RenderTexture(renderer, texture->texture, NULL, &destRect);
+    }
+
 
     void Renderer::setColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
         SDL_SetRenderDrawColor(renderer, r, g, b, a);
