@@ -27,7 +27,7 @@ namespace bonzai {
 	}
 	void Model::smoothSetColor(vec3 color){
 		for (int i = 0; i < 3; i++) {
-			this->color[i] = this->color[i] + 0.2 * (-1 * this->color[i] + color[i]);
+			this->color[i] = this->color[i] + 0.2f * (-1 * this->color[i] + color[i]);
 		}
 	}
 	/// <summary>
