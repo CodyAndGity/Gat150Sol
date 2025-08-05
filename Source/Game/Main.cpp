@@ -12,6 +12,7 @@
 #include "Core/Random.h"
 #include "Renderer/Texture.h"
 #include "Core/File.h"
+#include "Resources/ResourceManager.h"
 #include <iostream>
 #include <vector>
 #include <memory>
@@ -26,14 +27,12 @@ int main(int argc, char* argv[]) {
     // Initialize engine systems
 	bonzai::getEngine().initialize();
    
+	
     //initailize game
 	std::unique_ptr<bonzai::Game> game = std::make_unique<SpaceGame>();
 	game->initialize();
 	
-
-	std::shared_ptr<bonzai::Texture> texture = std::make_shared<bonzai::Texture>();
-	texture->load("pizza.jpg", bonzai::getEngine().getRenderer());
-    
+    auto texture = bonzai::ResourceManager::getResourceManager().get<bonzai::Texture>("pizza.jpg", bonzai::getEngine().getRenderer());
     SDL_Event e;
     bool quit = false;
 

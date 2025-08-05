@@ -12,19 +12,18 @@
 #include "Renderer/ParticleSystem.h"
 #include "Powerup.h"
 #include "Core/StringHelper.h"
+#include "Resources/ResourceManager.h"
 
 bool SpaceGame::initialize(){
 
 	scene = std::make_unique<bonzai::Scene>(this);
-	titleFont = std::make_shared<bonzai::Font>();
-	titleFont->load("radiospacebitmap.ttf", 128.0f);
 
-	uiFont = std::make_shared<bonzai::Font>();
-	uiFont->load("radiospacebitmap.ttf", 32.0f);
-    titleText = std::make_unique< bonzai::Text>(titleFont);
-    scoreText = std::make_unique< bonzai::Text>(uiFont);
-    livesText = std::make_unique< bonzai::Text>(uiFont);
-    healthText = std::make_unique< bonzai::Text>(uiFont);
+	
+
+    titleText = std::make_unique< bonzai::Text>(bonzai::ResourceManager::getResourceManager().get<bonzai::Font>("radiospacebitmap_title.ttf", 128.0f));
+    scoreText = std::make_unique< bonzai::Text>(bonzai::ResourceManager::getResourceManager().get<bonzai::Font>("radiospacebitmap_ui.ttf", 32.0f));
+    livesText = std::make_unique< bonzai::Text>(bonzai::ResourceManager::getResourceManager().get<bonzai::Font>("radiospacebitmap_ui.ttf", 32.0f));
+    healthText = std::make_unique< bonzai::Text>(bonzai::ResourceManager::getResourceManager().get<bonzai::Font>("radiospacebitmap_ui.ttf", 32.0f));
 
 	
 	

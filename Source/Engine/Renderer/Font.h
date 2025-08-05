@@ -1,10 +1,10 @@
 #pragma once
-
+#include "Resources/Resource.h"
 #include <SDL3/SDL.h>
 #include <SDL3_ttf/SDL_ttf.h>
 #include <string>
 namespace bonzai {
-	class Font {
+	class Font : public Resource {
 	public:
 		Font() = default;
 		~Font();

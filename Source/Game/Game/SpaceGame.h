@@ -41,8 +41,7 @@ private:
 	float stateTimer{ 0.0f };
 	std::string powerups[4] { "star","health","tripleShot","laser"};
 
-	std::shared_ptr<class bonzai::Font> titleFont{ nullptr };
-	std::shared_ptr<class bonzai::Font> uiFont{ nullptr };
+	
 
 	std::unique_ptr<class bonzai::Text> titleText{ nullptr };
 	std::unique_ptr<class bonzai::Text> scoreText{ nullptr };

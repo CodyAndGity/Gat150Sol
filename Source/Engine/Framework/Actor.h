@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Math/Transform.h"
+#include "Math/Transform.h"
 #include "../Renderer/Model.h"
 #include <string>
 #include <memory>

@@ -1,13 +1,14 @@
 #pragma once
+#include "Resources/Resource.h"
+#include "Renderer.h"
+#include "Math/Vector2.h"
 #include <string>
 #include <SDL3/SDL.h>
 #include <SDL3_image/SDL_image.h>
-#include "Renderer.h"
-#include "../Math/Vector2.h"
 
 namespace bonzai {
 
-	class Texture {
+	class Texture :public Resource{
 	public:
 		Texture() = default;
 		~Texture();
