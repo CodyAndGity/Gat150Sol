@@ -1,8 +1,9 @@
 #include "AudioSystem.h"
+#include "Core/StringHelper.h"
+#include "Core/Logger.h"
 #include <fmod_errors.h>
 #include <iostream>
 #include <string>
-#include "../Core/StringHelper.h"
 namespace bonzai {
 
 	/// <summary>
@@ -17,7 +18,8 @@ namespace bonzai {
 		key = bonzai::toLower(key);
 		//check if key already exists in map
 		if (sounds.find(key) != sounds.end()) {
-			std::cerr << "Sound with name '" << key << "' already exists!" << std::endl;
+			Logger::Warning("Sound with name '{}' already exists!", key);
+			
 			return false;
 		}
 		FMOD::Sound* sound = nullptr;
@@ -38,7 +40,7 @@ namespace bonzai {
 
 		//check if sound with name exists in map
 		if(sounds.find(key) ==sounds.end()){
-			std::cerr << "Sound with name '" << key << "' not found!" << std::endl;
+			Logger::Warning("Sound with name '{}' not found!", key);
 			return false;
 		}
 		FMOD_RESULT result = system->playSound(sounds[key], 0, false, nullptr);
@@ -53,7 +55,7 @@ namespace bonzai {
 	/// <returns>True if the result indicates success (FMOD_OK); false otherwise, after logging the error.</returns>
 	bool AudioSystem::checkFMODResult(FMOD_RESULT result) {
 		if (result != FMOD_OK) {
-			std::cerr << "FMOD error! (" << result << ") " << FMOD_ErrorString(result) << std::endl;
+			Logger::Error("FMOD error!  {}", FMOD_ErrorString(result));
 			return false;
 		}
 		return true;

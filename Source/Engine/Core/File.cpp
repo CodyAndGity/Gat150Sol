@@ -1,4 +1,5 @@
 #include "File.h"
+#include "Core/Logger.h"
 #include <filesystem>
 #include <fstream>
 #include <sstream>
@@ -118,7 +119,7 @@ namespace bonzai::file {
             str = ss.str();
         }
         else {
-            std::cerr << "Error: Could not open the file.\n";
+			Logger::Error("Could not open the file: {}", path);
             return 1;
         }
         // Store file content

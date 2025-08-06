@@ -1,6 +1,7 @@
 #include "Text.h"
 #include "Font.h"
 #include "Renderer.h"
+#include "Core/Logger.h"
 namespace bonzai {
 	/// <summary>
 	/// Destroys the Text object and releases its associated SDL texture if it exists.
@@ -22,7 +23,7 @@ namespace bonzai {
 		SDL_Color c{ (uint8_t)(color.r * 255), (uint8_t)(color.g * 255), (uint8_t)(color.b * 255), 255 };
 		SDL_Surface* surface = TTF_RenderText_Solid(font->ttfFont, text.c_str(), text.size(), c);
 		if (surface == nullptr) {
-			std::cerr << "Could not create surface.\n";
+			Logger::Error("Could not render text to surface: {}", SDL_GetError());
 			return false;
 		}
 
@@ -30,7 +31,7 @@ namespace bonzai {
 		texture = SDL_CreateTextureFromSurface(renderer.renderer, surface);
 		if (texture == nullptr) {
 			SDL_DestroySurface(surface);
-			std::cerr << "Could not create texture" << SDL_GetError() << std::endl;
+			Logger::Error("Could not create texture from surface: {}", SDL_GetError());
 			return false;
 		}
 

@@ -2,6 +2,7 @@
 #include "Core/StringHelper.h"
 #include "Core/Singleton.h"
 #include "Resource.h"
+#include "Core/Logger.h"
 #include <map>
 #include <iostream>
 namespace bonzai {
@@ -41,7 +42,8 @@ namespace bonzai {
 			auto derived = std::dynamic_pointer_cast<T>(base);
 			//check if cast was successful
 			if (derived == nullptr) {
-				std::cerr << "Resource type Mismatch: " << key << " is not of type " << typeid(T).name() << std::endl;
+				Logger::Error("Resource type Mismatch: {} is not of type {}", key, typeid(T).name());
+				
 				return res_t<T>();
 			}
 			return derived;
@@ -49,7 +51,8 @@ namespace bonzai {
 		//load resource
 		res_t<T> resource = std::make_shared<T>();
 		if (resource->load(name, std::forward<Args>(args)...) == false) {
-			std::cerr << "Failed to load resource: " << name << std::endl;
+			Logger::Error("Failed to load resource: {}", name);
+			
 			return res_t<T>();
 		}
 		//add resource to resource manager

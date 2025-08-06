@@ -1,8 +1,9 @@
 #include "Texture.h"
 #include "Renderer.h"
+#include "Math/Vector2.h"
+#include "Core/Logger.h"
 #include <iostream>
 #include <SDL3_image/SDL_image.h>
-#include "../Math/Vector2.h"
 namespace bonzai {
     Texture::~Texture()
     {
@@ -15,7 +16,8 @@ namespace bonzai {
         // load image onto surface
         SDL_Surface* surface = IMG_Load(filename.c_str());
         if (surface==nullptr){
-            std::cerr << "Could not load image: " << filename << std::endl;
+			Logger::Error("Could not load image: {}", filename);
+            
             return false;
         }
 
@@ -24,7 +26,7 @@ namespace bonzai {
         // once texture is created, surface can be freed up
         SDL_DestroySurface(surface);
         if (!texture){
-            std::cerr << "Could not create texture: " << filename << std::endl;
+			Logger::Error("Could not create texture from surface: {}", filename);
             return false;
         }
 
