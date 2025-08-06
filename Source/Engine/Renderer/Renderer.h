@@ -24,7 +24,8 @@ namespace bonzai {
 
 		int getWidth() const { return width; }
 		int getHeight() const { return height; }
-		void drawTexture(class Texture* texture, float x, float y, float angle=0.0f);
+		void drawTexture(class Texture* texture, float x, float y);
+		void drawTexture(class Texture* texture, float x, float y,float angle, float scale = 1.0f);
 	private:
 		SDL_Window* window = nullptr;
 		SDL_Renderer* renderer = nullptr;

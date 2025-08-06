@@ -4,8 +4,8 @@
 class Powerup:  public bonzai::Actor{
 	public:
 	Powerup() = default;
-	Powerup(const bonzai::Transform& transform, std::shared_ptr<class bonzai::Model> model) :
-		bonzai::Actor{ transform, model }
+	Powerup(const bonzai::Transform& transform, bonzai::res_t<bonzai::Texture> texture) :
+		bonzai::Actor{ transform, texture }
 	{}
 
 	void update(float deltaTime) override;

@@ -2,6 +2,7 @@
 
 #include "Math/Transform.h"
 #include "../Renderer/Model.h"
+#include "Renderer/Texture.h"
 #include <string>
 #include <memory>
 namespace bonzai {
@@ -11,6 +12,8 @@ namespace bonzai {
 		std::string tag;
 		Transform transform;
 		std::shared_ptr<Model> model;
+		res_t<Texture> texture;
+
 		vec2 velocity{ 0,0 };
 		float damping{ 0.0f };
 		bool destroyed{ false };
@@ -19,9 +22,9 @@ namespace bonzai {
 
 	public:
 		Actor() = default;
-		Actor(const Transform& transform, std::shared_ptr<class Model> model) :
+		Actor(const Transform& transform, res_t<Texture> texture) :
 			transform{ transform },
-			model{ model }
+			texture{ texture }
 		{}
 
 		virtual void update(float deltaTime);

@@ -10,8 +10,8 @@ public:
 	bool hasParticles{ true };
 	bonzai::vec3 particleColor{ 0,0,0 };
 	Projectile() = default;
-	Projectile(const bonzai::Transform& transform, std::shared_ptr<class bonzai::Model> model) :
-		bonzai::Actor{ transform, model }
+	Projectile(const bonzai::Transform& transform, bonzai::res_t<bonzai::Texture> texture) :
+		bonzai::Actor{ transform, texture }
 	{}
 
 	void update(float deltaTime) override;

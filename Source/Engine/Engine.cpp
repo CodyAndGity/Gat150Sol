@@ -4,10 +4,7 @@
 #include "Input/InputSystem.h"
 #include "Renderer/ParticleSystem.h"
 namespace bonzai {
-	Engine& getEngine(){
-		static Engine engine;
-		return engine;
-	}
+
 	bool Engine::initialize() {
 		renderer = std::make_unique<bonzai::Renderer>();
 		//initialize renderer and create window

@@ -15,11 +15,11 @@ void bonzai::Actor::update(float deltaTime) {
 
 void bonzai::Actor::draw(Renderer& renderer) {
 	if (destroyed) return;
-
-	model->draw(renderer, transform);
+	renderer.drawTexture(texture.get(), transform.position.x, transform.position.y, transform.rotation, transform.scale);
+	
 }
 
 float bonzai::Actor::getRadius(){
-	 return model ? model->getRadius() * transform.scale *0.9f: 0.0f; 
+	 return (texture) ? (texture->getSize().length() * 0.5f * transform.scale *0.9f): 0.0f; 
 	
 }

@@ -4,14 +4,13 @@
 #include "Input/InputSystem.h"
 #include "Renderer/ParticleSystem.h"
 #include "Core/time.h"
+#include "Core/Singleton.h"
+#include "Resources/ResourceManager.h"
 #include <memory>
 namespace bonzai {
-	class Renderer;
-	class AudioSystem;
-	class InputSystem;
-	class Engine {
+	
+	class Engine :public Singleton<Engine>{
 	public:
-		Engine() = default;
 		bool initialize();
 		void update();
 		void shutdown();
@@ -23,6 +22,9 @@ namespace bonzai {
 		ParticleSystem& getParticlesSystem() { return *particles; }
 		Time& getTime() { return time; }
 	private:
+		friend class Singleton<Engine>;
+		Engine() = default;
+	private:
 		bonzai::Time time;
 		std::unique_ptr<Renderer> renderer;
 		std::unique_ptr<AudioSystem> audio;
@@ -31,5 +33,7 @@ namespace bonzai {
 
 
 	};
-	Engine& getEngine();
+	inline Engine& getEngine(){
+		return Engine::getInstance();
+	}
 };

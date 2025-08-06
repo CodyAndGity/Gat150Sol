@@ -6,8 +6,8 @@ public:
 	float speed{ 200 };
 	float shootCooldown{ 0.0f }; // seconds between shots
 	Enemy() = default;
-	Enemy(const bonzai::Transform& transform, std::shared_ptr<class bonzai::Model> model) :
-		bonzai::Actor{ transform, model }
+	Enemy(const bonzai::Transform& transform, bonzai::res_t<bonzai::Texture> texture) :
+		bonzai::Actor{ transform, texture }
 	{}
 
 	void update(float deltaTime) override;

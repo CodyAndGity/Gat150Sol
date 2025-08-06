@@ -21,15 +21,15 @@ void Player::update(float deltaTime){
         //I know it's bad, but it make the player look cool without seizure vibes
         starColorIndex++;
         if (starColorIndex % 512 == 128) {
-            model->smoothSetColor(starColors[starColorIndex % 3]);
+            //model->smoothSetColor(starColors[starColorIndex % 3]);
 
         }
         else if (starColorIndex % 512 == 1) {
-            model->smoothSetColor(starColors[starColorIndex % 3]);
+           // model->smoothSetColor(starColors[starColorIndex % 3]);
 
         }
         else if (starColorIndex % 512 == 258) {
-            model->smoothSetColor(starColors[starColorIndex % 3]);
+            //model->smoothSetColor(starColors[starColorIndex % 3]);
 
         }
 
@@ -37,26 +37,26 @@ void Player::update(float deltaTime){
             starPowerActive = false;
             powerupTimer = 0;
             damping += 0.001f;
-            model->setColor(starColors[0]);
+            //model->setColor(starColors[0]);
         }
     }
     else if (tripleShotPowerActive) {
         powerupTimer += deltaTime;
-        model->smoothSetColor({0,1,1});
+        //model->smoothSetColor({0,1,1});
 
         if (powerupTimer > 10) {
             tripleShotPowerActive = false;
             powerupTimer = 0;
-            model->setColor(starColors[0]);
+            //model->setColor(starColors[0]);
         }
     }else if (laserPowerActive) {
         powerupTimer += deltaTime;
-        model->smoothSetColor({ 1,0,1 });
+        //model->smoothSetColor({ 1,0,1 });
 
         if (powerupTimer > 11) {
             laserPowerActive = false;
             powerupTimer = 0;
-            model->setColor(starColors[0]);
+            //model->setColor(starColors[0]);
         }
     }
 	bool slowDown = false;
@@ -93,9 +93,10 @@ void Player::update(float deltaTime){
     if (bonzai::getEngine().getInput().getKeyDown(SDL_SCANCODE_SPACE) && laserPowerActive && shootTimer <= 0) {
         shootTimer = shootCooldown/5; // Reset the shoot timer
 
-        std::shared_ptr<bonzai::Model> model = std::make_shared <bonzai::Model>(GameData::laserPoints, bonzai::vec3{ .2f,.8f,.6f});
+        //std::shared_ptr<bonzai::Model> model = std::make_shared <bonzai::Model>(GameData::laserPoints, bonzai::vec3{ .2f,.8f,.6f});
         bonzai::Transform transform{ this->transform.position,this->transform.rotation, 36 };//size
-        std::unique_ptr<Projectile> projectile = std::make_unique<Projectile>(transform, model);
+        std::unique_ptr<Projectile> projectile = std::make_unique<Projectile>(transform, bonzai::resources().get<bonzai::Texture>("Textures/small_spaceship.png", bonzai::getEngine().getRenderer()));
+
         
         projectile->hasParticles=false; // seconds
         projectile->lifespan = 3.0f; // seconds
@@ -113,37 +114,39 @@ void Player::update(float deltaTime){
             shootTimer = shootCooldown; // Reset the shoot timer
 
             if (tripleShotPowerActive) {
-                std::shared_ptr<bonzai::Model> model = std::make_shared <bonzai::Model>(GameData::projectilePoints, bonzai::vec3{ 1.0f,1.0f,1.0f });
+                //std::shared_ptr<bonzai::Model> model = std::make_shared <bonzai::Model>(GameData::projectilePoints, bonzai::vec3{ 1.0f,1.0f,1.0f });
+                
                 bonzai::Transform transform{ this->transform.position,this->transform.rotation - 30.0f, 2 };//size
-                std::unique_ptr<Projectile> projectile = std::make_unique<Projectile>(transform, model);
+                std::unique_ptr<Projectile> projectile = std::make_unique<Projectile>(transform, bonzai::resources().get<bonzai::Texture>("Textures/small_spaceship.png", bonzai::getEngine().getRenderer()));
                 projectile->damping = 0.00f;
                 projectile->speed = this->velocity.length() + 50.0f; // Set speed to a higher value for faster movement
                 projectile->lifespan = 4.0f; // seconds
-                projectile->particleColor = model->getColor();
+                //projectile->particleColor = model->getColor();
                 projectile->name = "projectile"; // Set the name of the player actor
                 projectile->tag = "Player"; // Set the name of the player actor
                 scene->addActor(std::move(projectile));
 
-                model = std::make_shared <bonzai::Model>(GameData::projectilePoints, bonzai::vec3{ 1.0f,1.0f,1.0f });
+                //model = std::make_shared <bonzai::Model>(GameData::projectilePoints, bonzai::vec3{ 1.0f,1.0f,1.0f });
                 transform = { this->transform.position,this->transform.rotation + 30.0f, 2 };//size
-                projectile = std::make_unique<Projectile>(transform, model);
+                projectile = std::make_unique<Projectile>(transform, bonzai::resources().get<bonzai::Texture>("Textures/small_spaceship.png", bonzai::getEngine().getRenderer()));
                 projectile->damping = 0.00f;
                 projectile->speed = this->velocity.length() + 50.0f; // Set speed to a higher value for faster movement
                 projectile->lifespan = 4.0f; // seconds
-                projectile->particleColor = model->getColor();
+                //projectile->particleColor = model->getColor();
                 projectile->name = "projectile"; // Set the name of the player actor
                 projectile->tag = "Player"; // Set the name of the player actor
                 scene->addActor(std::move(projectile));
 
             }
 
-            std::shared_ptr<bonzai::Model> model = std::make_shared <bonzai::Model>(GameData::projectilePoints, bonzai::vec3{ 1.0f,1.0f,1.0f });
+           // std::shared_ptr<bonzai::Model> model = std::make_shared <bonzai::Model>(GameData::projectilePoints, bonzai::vec3{ 1.0f,1.0f,1.0f });
             bonzai::Transform transform{ this->transform.position,this->transform.rotation, 2 };//size
-            std::unique_ptr<Projectile> projectile = std::make_unique<Projectile>(transform, model);
+            std::unique_ptr<Projectile> projectile = std::make_unique<Projectile>(transform, bonzai::resources().get<bonzai::Texture>("Textures/small_spaceship.png", bonzai::getEngine().getRenderer()));
+
             projectile->damping = 0.00f;
             projectile->speed = this->velocity.length() + 50.0f; // Set speed to a higher value for faster movement
             projectile->lifespan = 4.0f; // seconds
-            projectile->particleColor = model->getColor();
+            //projectile->particleColor = model->getColor();
             projectile->name = "projectile"; // Set the name of the player actor
             projectile->tag = "Player"; // Set the name of the player actor
 
@@ -166,7 +169,7 @@ void Player::onCollision(Actor* other){
             bonzai::Particle particle;
             particle.position = transform.position;
             particle.velocity = bonzai::random::onUnitCircle() * bonzai::random::getReal(100.0f, 500.0f);
-            particle.color = model->getColor();
+            //particle.color = model->getColor();
             particle.lifespan = 1.0f;
             bonzai::getEngine().getParticlesSystem().addParticle(particle);
 
