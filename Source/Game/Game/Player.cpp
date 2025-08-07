@@ -102,7 +102,7 @@ void Player::update(float deltaTime){
         projectile->lifespan = 3.0f; // seconds
         projectile->pierce=5; 
         projectile->speed = 0;;
-        projectile->particleColor = model->getColor();
+        projectile->particleColor = this->texture->color;
         projectile->name = "laser"; // Set the name of the player actor
         projectile->tag = "Player"; // Set the name of the player actor
 
@@ -117,22 +117,22 @@ void Player::update(float deltaTime){
                 //std::shared_ptr<bonzai::Model> model = std::make_shared <bonzai::Model>(GameData::projectilePoints, bonzai::vec3{ 1.0f,1.0f,1.0f });
                 
                 bonzai::Transform transform{ this->transform.position,this->transform.rotation - 30.0f, 2 };//size
-                std::unique_ptr<Projectile> projectile = std::make_unique<Projectile>(transform, bonzai::resources().get<bonzai::Texture>("Textures/small_spaceship.png", bonzai::getEngine().getRenderer()));
+                std::unique_ptr<Projectile> projectile = std::make_unique<Projectile>(transform, bonzai::resources().get<bonzai::Texture>("Textures/projectile.png", bonzai::getEngine().getRenderer()));
                 projectile->damping = 0.00f;
                 projectile->speed = this->velocity.length() + 50.0f; // Set speed to a higher value for faster movement
                 projectile->lifespan = 4.0f; // seconds
-                //projectile->particleColor = model->getColor();
+                projectile->particleColor = this->texture->color;
                 projectile->name = "projectile"; // Set the name of the player actor
                 projectile->tag = "Player"; // Set the name of the player actor
                 scene->addActor(std::move(projectile));
 
                 //model = std::make_shared <bonzai::Model>(GameData::projectilePoints, bonzai::vec3{ 1.0f,1.0f,1.0f });
                 transform = { this->transform.position,this->transform.rotation + 30.0f, 2 };//size
-                projectile = std::make_unique<Projectile>(transform, bonzai::resources().get<bonzai::Texture>("Textures/small_spaceship.png", bonzai::getEngine().getRenderer()));
+                projectile = std::make_unique<Projectile>(transform, bonzai::resources().get<bonzai::Texture>("Textures/projectile.png", bonzai::getEngine().getRenderer()));
                 projectile->damping = 0.00f;
                 projectile->speed = this->velocity.length() + 50.0f; // Set speed to a higher value for faster movement
                 projectile->lifespan = 4.0f; // seconds
-                //projectile->particleColor = model->getColor();
+                projectile->particleColor = this->texture->color;
                 projectile->name = "projectile"; // Set the name of the player actor
                 projectile->tag = "Player"; // Set the name of the player actor
                 scene->addActor(std::move(projectile));
@@ -141,12 +141,12 @@ void Player::update(float deltaTime){
 
            // std::shared_ptr<bonzai::Model> model = std::make_shared <bonzai::Model>(GameData::projectilePoints, bonzai::vec3{ 1.0f,1.0f,1.0f });
             bonzai::Transform transform{ this->transform.position,this->transform.rotation, 2 };//size
-            std::unique_ptr<Projectile> projectile = std::make_unique<Projectile>(transform, bonzai::resources().get<bonzai::Texture>("Textures/small_spaceship.png", bonzai::getEngine().getRenderer()));
+            std::unique_ptr<Projectile> projectile = std::make_unique<Projectile>(transform, bonzai::resources().get<bonzai::Texture>("Textures/projectile.png", bonzai::getEngine().getRenderer()));
 
             projectile->damping = 0.00f;
             projectile->speed = this->velocity.length() + 50.0f; // Set speed to a higher value for faster movement
             projectile->lifespan = 4.0f; // seconds
-            //projectile->particleColor = model->getColor();
+            projectile->particleColor = this->texture->color;
             projectile->name = "projectile"; // Set the name of the player actor
             projectile->tag = "Player"; // Set the name of the player actor
 
@@ -169,7 +169,7 @@ void Player::onCollision(Actor* other){
             bonzai::Particle particle;
             particle.position = transform.position;
             particle.velocity = bonzai::random::onUnitCircle() * bonzai::random::getReal(100.0f, 500.0f);
-            //particle.color = model->getColor();
+            particle.color = this->texture->color;
             particle.lifespan = 1.0f;
             bonzai::getEngine().getParticlesSystem().addParticle(particle);
 

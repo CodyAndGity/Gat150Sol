@@ -62,9 +62,10 @@ namespace bonzai {
         destRect.h = size.y * scale;
         destRect.x = x- destRect.w * 0.5f;
         destRect.y = y- destRect.h * 0.5f;
-
+		;
 
         SDL_RenderTextureRotated(renderer, texture->texture, NULL, &destRect,angle,NULL,SDL_FLIP_NONE);
+		SDL_SetTextureColorModFloat(texture->texture, texture->color.r, texture->color.g, texture->color.b);
     }
 
     void Renderer::setColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {

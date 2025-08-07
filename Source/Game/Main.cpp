@@ -32,7 +32,7 @@ int main(int argc, char* argv[]) {
 	std::unique_ptr<bonzai::Game> game = std::make_unique<SpaceGame>();
 	game->initialize();
 	
-    auto texture = bonzai::resources().get<bonzai::Texture>("Textures/blue_spaceship.png|", bonzai::getEngine().getRenderer());
+    auto texture = bonzai::resources().get<bonzai::Texture>("Textures/blue_spaceship.png", bonzai::getEngine().getRenderer());
     SDL_Event e;
     bool quit = false;
 	float rotateAngle = 0.0f;

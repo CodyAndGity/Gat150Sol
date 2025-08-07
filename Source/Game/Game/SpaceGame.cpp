@@ -1,6 +1,7 @@
 #include "SpaceGame.h"
 #include "Framework/Scene.h"
 #include "Renderer/Model.h"
+#include "Renderer/Texture.h"
 #include "Player.h"
 #include "Engine.h"
 #include "Enemy.h"
@@ -61,7 +62,9 @@ void SpaceGame::update(float deltaTime){
             (float)bonzai::getEngine().getRenderer().getHeight() * 0.5f}//position
             ,0,//rotation
             4 };//size
-        std::unique_ptr<Player> player = std::make_unique<Player>(transform, bonzai::resources().get<bonzai::Texture>("Textures/blue_spaceship.png", bonzai::getEngine().getRenderer()));
+        bonzai::res_t skin = bonzai::resources().get<bonzai::Texture>("Textures/blue_player_spaceship_.png", bonzai::getEngine().getRenderer());
+		skin->color = bonzai::vec3{ .8f,.8f,1.0f };
+        std::unique_ptr<Player> player = std::make_unique<Player>(transform, skin);
         player->damping = 0.001f; // Set damping to a very low value for more responsive movement
         player->speed = 510.0f; // Set speed to a higher value for faster movement
         player->rotateSpeed = 180.0f; // Set rotation speed 
@@ -165,7 +168,7 @@ void SpaceGame::spawnEnemy(){
         bonzai::vec2 position{ player->transform.position+bonzai::random::onUnitCircle() *bonzai::random::getReal(350.0f,650.0f)};
         //red_spaceship.png
         bonzai::Transform transform{ position, bonzai::random::getReal(360.0f), 3};
-        std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform, bonzai::resources().get<bonzai::Texture>("Textures/red_spaceship.png", bonzai::getEngine().getRenderer()));
+        std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform, bonzai::resources().get<bonzai::Texture>("Textures/red_enemy_spaceship.png", bonzai::getEngine().getRenderer()));
         enemy->speed = 50.0f + bonzai::random::getReal(50.0f, 100.0f); // Random speed between 100 and 200
         enemy->shootCooldown = 2.0f + bonzai::random::getReal(0.0f, 2.0f); // Random shoot cooldown between 2 and 4 seconds
         enemy->damping = 0.0001f;

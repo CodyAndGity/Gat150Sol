@@ -2,6 +2,7 @@
 #include "Resources/Resource.h"
 #include "Renderer.h"
 #include "Math/Vector2.h"
+#include "Math/Vector3.h"
 #include <string>
 #include <SDL3/SDL.h>
 #include <SDL3_image/SDL_image.h>
@@ -16,6 +17,7 @@ namespace bonzai {
 		bool load(const std::string& filename, class Renderer& renderer);
 		vec2 getSize();
 		friend class Renderer;
+		vec3 color{1.0f,1.0f,1.0f};
 	struct SDL_Texture* texture{ nullptr };
 
 	private:
