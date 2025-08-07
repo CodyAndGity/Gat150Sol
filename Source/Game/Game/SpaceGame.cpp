@@ -62,9 +62,9 @@ void SpaceGame::update(float deltaTime){
             (float)bonzai::getEngine().getRenderer().getHeight() * 0.5f}//position
             ,0,//rotation
             4 };//size
-        bonzai::res_t skin = bonzai::resources().get<bonzai::Texture>("Textures/blue_player_spaceship_.png", bonzai::getEngine().getRenderer());
-		skin->color = bonzai::vec3{ .8f,.8f,1.0f };
-        std::unique_ptr<Player> player = std::make_unique<Player>(transform, skin);
+        bonzai::res_t texture = bonzai::resources().get<bonzai::Texture>("Textures/blue_player_spaceship_.png", bonzai::getEngine().getRenderer());
+        texture->color = bonzai::vec3{ .8f,.8f,1.0f };
+        std::unique_ptr<Player> player = std::make_unique<Player>(transform, texture);
         player->damping = 0.001f; // Set damping to a very low value for more responsive movement
         player->speed = 510.0f; // Set speed to a higher value for faster movement
         player->rotateSpeed = 180.0f; // Set rotation speed 
@@ -163,12 +163,14 @@ void SpaceGame::spawnEnemy(){
 	Player* player = scene->getActorByName<Player>("Player");
     if (player) {
         //std::shared_ptr<bonzai::Model> enemyModel = std::make_shared <bonzai::Model>(GameData::enemyPoints,bonzai::vec3{ 1,0,1 });
-
-		// Spawn enemy at a random position around the player, but not too close
+        bonzai::res_t texture = bonzai::resources().get<bonzai::Texture>("Textures/red_enemy_spaceship.png", bonzai::getEngine().getRenderer());
+        
+        texture->color = bonzai::vec3{ 1.0f,.5f,1.0f };
+        // Spawn enemy at a random position around the player, but not too close
         bonzai::vec2 position{ player->transform.position+bonzai::random::onUnitCircle() *bonzai::random::getReal(350.0f,650.0f)};
         //red_spaceship.png
         bonzai::Transform transform{ position, bonzai::random::getReal(360.0f), 3};
-        std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform, bonzai::resources().get<bonzai::Texture>("Textures/red_enemy_spaceship.png", bonzai::getEngine().getRenderer()));
+        std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform, texture);
         enemy->speed = 50.0f + bonzai::random::getReal(50.0f, 100.0f); // Random speed between 100 and 200
         enemy->shootCooldown = 2.0f + bonzai::random::getReal(0.0f, 2.0f); // Random shoot cooldown between 2 and 4 seconds
         enemy->damping = 0.0001f;
@@ -179,29 +181,37 @@ void SpaceGame::spawnEnemy(){
 void SpaceGame::spawnPowerup(std::string name){
 	Player* player = scene->getActorByName<Player>("Player");
     if (player) {
+        bonzai::res_t<bonzai::Texture> texture = nullptr;
+
+        name = "tripleshot";
         //std::shared_ptr<bonzai::Model> powerupModel = nullptr;
         std::unique_ptr<Powerup> powerup = nullptr;
 
-       /* if (bonzai::toLower(name) == "star") {
-            powerupModel = std::make_shared <bonzai::Model>(GameData::starPowerupPoints,
-                bonzai::vec3{ 1,1,0 });
+        if (bonzai::toLower(name) == "star") {
+            texture = bonzai::resources().get<bonzai::Texture>("Textures/Triple_shot_powerup.png", bonzai::getEngine().getRenderer());
+
+            texture->color = bonzai::vec3{ 0,1,1 };
         }else if(bonzai::toLower(name) == "health") {
-            powerupModel = std::make_shared <bonzai::Model>(GameData::healthPowerupPoints,
-                bonzai::vec3{ 0,1,0 });
+            texture = bonzai::resources().get<bonzai::Texture>("Textures/Triple_shot_powerup.png", bonzai::getEngine().getRenderer());
+
+            texture->color = bonzai::vec3{ 0,1,1 };
         }else if(bonzai::toLower(name) == "tripleshot") {
-            powerupModel = std::make_shared <bonzai::Model>(GameData::tripleShotPowerupPoints,
-                bonzai::vec3{ 0,1,1 });
+            texture = bonzai::resources().get<bonzai::Texture>("Textures/Triple_shot_powerup.png", bonzai::getEngine().getRenderer());
+
+            
+            //Triple_shot_powerup
         }else if (bonzai::toLower(name) == "laser") {
-            powerupModel = std::make_shared <bonzai::Model>(GameData::laserPowerupPoints,
-                bonzai::vec3{ 0,1,1 });
-        }*/
+            texture = bonzai::resources().get<bonzai::Texture>("Textures/Triple_shot_powerup.png", bonzai::getEngine().getRenderer());
+
+            texture->color = bonzai::vec3{ 0,1,1 };
+        }
 
        
 		// Spawn power at a random position around the player, but not too close
         bonzai::vec2 position{ player->transform.position+bonzai::random::onUnitCircle() *bonzai::random::getReal(200.0f,650.0f)};
 
         bonzai::Transform transform{ position, 0, 3};
-         powerup = std::make_unique<Powerup>(transform, bonzai::resources().get<bonzai::Texture>("Textures/small_spaceship.png", bonzai::getEngine().getRenderer()));
+         powerup = std::make_unique<Powerup>(transform, texture);
          
 
         powerup->tag = "Powerup";

@@ -71,13 +71,13 @@ void Enemy::update(float deltaTime){
     if ( shootTimer <= 0 && playerSeen) {
         shootTimer = shootCooldown; // Reset the shoot timer
 
-        //std::shared_ptr<bonzai::Model> model = std::make_shared <bonzai::Model>(GameData::projectilePoints, bonzai::vec3{ 1.0f,0.0f,0.0f });
+        bonzai::res_t texture = bonzai::resources().get<bonzai::Texture>("Textures/Projectile.png", bonzai::getEngine().getRenderer());
+        texture->color = bonzai::vec3{ 1.0f,0.0f,0.0f };
         bonzai::Transform transform{ this->transform.position,this->transform.rotation, 2 };//size
-        std::unique_ptr<Projectile> projectile = std::make_unique<Projectile>(transform, bonzai::resources().get<bonzai::Texture>("Textures/small_spaceship.png", bonzai::getEngine().getRenderer()));
-        projectile->damping = 0.003f;
+        std::unique_ptr<Projectile> projectile = std::make_unique<Projectile>(transform, texture);
         projectile->speed = this->speed + bonzai::random::getReal(100.0f)+200;
         projectile->lifespan = 2.0f; // seconds
-        //projectile->particleColor = model->getColor();
+        projectile->particleColor = texture->color;
         projectile->name = "projectile"; // Set the name of the player actor
         projectile->tag = "Enemy"; // Set the name of the player actor
 
