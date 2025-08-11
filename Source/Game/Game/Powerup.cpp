@@ -22,11 +22,12 @@ void Powerup::onCollision(Actor* other){
 		if (bonzai::toLower(name) == "star") {
 			player->starPowerActive = true;
 			player->damping = player->damping-0.001f;
-			//player->model->setColor({ 1,1,0 });
+			player->texture->color = { 1,1,0 };
 
 		}else if (bonzai::toLower(name) == "health") {
 			player->health = player->health + 3;
-			//player->model->setColor({ 0,1,0 });
+			player->texture->color = { 0,1,0 };
+			player->healthPowerActive = true;
 
 		}else if (bonzai::toLower(name) == "tripleshot") {
 			player->tripleShotPowerActive = true;

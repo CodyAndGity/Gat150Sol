@@ -182,26 +182,24 @@ void SpaceGame::spawnPowerup(std::string name){
 	Player* player = scene->getActorByName<Player>("Player");
     if (player) {
         bonzai::res_t<bonzai::Texture> texture = nullptr;
-
-        name = "tripleshot";
-        //std::shared_ptr<bonzai::Model> powerupModel = nullptr;
         std::unique_ptr<Powerup> powerup = nullptr;
-
+        
         if (bonzai::toLower(name) == "star") {
-            texture = bonzai::resources().get<bonzai::Texture>("Textures/Triple_shot_powerup.png", bonzai::getEngine().getRenderer());
+            texture = bonzai::resources().get<bonzai::Texture>("Textures/star_powerup.png", bonzai::getEngine().getRenderer());
 
-            texture->color = bonzai::vec3{ 0,1,1 };
+            texture->color = bonzai::vec3{ 1,1,1 };
         }else if(bonzai::toLower(name) == "health") {
-            texture = bonzai::resources().get<bonzai::Texture>("Textures/Triple_shot_powerup.png", bonzai::getEngine().getRenderer());
+            texture = bonzai::resources().get<bonzai::Texture>("Textures/health_powerup.png", bonzai::getEngine().getRenderer());
+            texture->color = bonzai::vec3{ 1,1,1};
 
-            texture->color = bonzai::vec3{ 0,1,1 };
         }else if(bonzai::toLower(name) == "tripleshot") {
             texture = bonzai::resources().get<bonzai::Texture>("Textures/Triple_shot_powerup.png", bonzai::getEngine().getRenderer());
+            texture->color = bonzai::vec3{ 1,1,1 };
 
             
-            //Triple_shot_powerup
+            
         }else if (bonzai::toLower(name) == "laser") {
-            texture = bonzai::resources().get<bonzai::Texture>("Textures/Triple_shot_powerup.png", bonzai::getEngine().getRenderer());
+            texture = bonzai::resources().get<bonzai::Texture>("Textures/laser_powerup.png", bonzai::getEngine().getRenderer());
 
             texture->color = bonzai::vec3{ 0,1,1 };
         }
@@ -210,7 +208,7 @@ void SpaceGame::spawnPowerup(std::string name){
 		// Spawn power at a random position around the player, but not too close
         bonzai::vec2 position{ player->transform.position+bonzai::random::onUnitCircle() *bonzai::random::getReal(200.0f,650.0f)};
 
-        bonzai::Transform transform{ position, 0, 3};
+        bonzai::Transform transform{ position, 0, 4};
          powerup = std::make_unique<Powerup>(transform, texture);
          
 

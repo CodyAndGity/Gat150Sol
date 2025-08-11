@@ -21,15 +21,16 @@ void Player::update(float deltaTime){
         //I know it's bad, but it make the player look cool without seizure vibes
         starColorIndex++;
         if (starColorIndex % 512 == 128) {
-            //model->smoothSetColor(starColors[starColorIndex % 3]);
+            texture->color = { starColors[starColorIndex % 3] };
 
         }
         else if (starColorIndex % 512 == 1) {
-           // model->smoothSetColor(starColors[starColorIndex % 3]);
+            texture->color = { starColors[starColorIndex % 3] };
 
         }
         else if (starColorIndex % 512 == 258) {
-            //model->smoothSetColor(starColors[starColorIndex % 3]);
+            texture->color = { starColors[starColorIndex % 3] };
+
 
         }
 
@@ -37,26 +38,40 @@ void Player::update(float deltaTime){
             starPowerActive = false;
             powerupTimer = 0;
             damping += 0.001f;
-            //model->setColor(starColors[0]);
+            texture->color = { starColors[0] };
+
         }
     }
     else if (tripleShotPowerActive) {
         powerupTimer += deltaTime;
-        //model->smoothSetColor({0,1,1});
+        texture->color = { 0,1,1 };
+
+        
 
         if (powerupTimer > 10) {
             tripleShotPowerActive = false;
             powerupTimer = 0;
-            //model->setColor(starColors[0]);
+            texture->color = { starColors[0] };
+
         }
     }else if (laserPowerActive) {
         powerupTimer += deltaTime;
-        //model->smoothSetColor({ 1,0,1 });
+        texture->color = { 1,0,1 };
+       
 
         if (powerupTimer > 11) {
             laserPowerActive = false;
             powerupTimer = 0;
-            //model->setColor(starColors[0]);
+            texture->color = {starColors[0] };
+        }
+    }
+    else if (healthPowerActive) {
+        powerupTimer += deltaTime;
+        texture->color = { 0,1,0 };
+        if (powerupTimer > 10) {
+            healthPowerActive = false;
+            powerupTimer = 0;
+            texture->color = { starColors[0] };
         }
     }
 	bool slowDown = false;
@@ -90,12 +105,13 @@ void Player::update(float deltaTime){
         this->damping -= 0.0005f;
     }
 	shootTimer -= deltaTime;
+	//Laser shot
     if (bonzai::getEngine().getInput().getKeyDown(SDL_SCANCODE_SPACE) && laserPowerActive && shootTimer <= 0) {
         shootTimer = shootCooldown/5; // Reset the shoot timer
 
-        //std::shared_ptr<bonzai::Model> model = std::make_shared <bonzai::Model>(GameData::laserPoints, bonzai::vec3{ .2f,.8f,.6f});
+        
         bonzai::Transform transform{ this->transform.position,this->transform.rotation, 36 };//size
-        std::unique_ptr<Projectile> projectile = std::make_unique<Projectile>(transform, bonzai::resources().get<bonzai::Texture>("Textures/small_spaceship.png", bonzai::getEngine().getRenderer()));
+        std::unique_ptr<Projectile> projectile = std::make_unique<Projectile>(transform, bonzai::resources().get<bonzai::Texture>("Textures/laser_shot.png", bonzai::getEngine().getRenderer()));
 
         
         projectile->hasParticles=false; // seconds
@@ -110,14 +126,20 @@ void Player::update(float deltaTime){
 
 
     }else{
+		//Normal shot
         if (bonzai::getEngine().getInput().getKeyDown(SDL_SCANCODE_SPACE) && shootTimer <= 0) {
             shootTimer = shootCooldown; // Reset the shoot timer
-
+            
+            bonzai::res_t texture = bonzai::resources().get<bonzai::Texture>("Textures/Projectile.png", bonzai::getEngine().getRenderer());
+            texture->color = bonzai::vec3{ 1.0f,1.0f,1.0f };
+			//2 extra shots for triple shot powerup
             if (tripleShotPowerActive) {
-                //std::shared_ptr<bonzai::Model> model = std::make_shared <bonzai::Model>(GameData::projectilePoints, bonzai::vec3{ 1.0f,1.0f,1.0f });
                 
+                
+
                 bonzai::Transform transform{ this->transform.position,this->transform.rotation - 30.0f, 2 };//size
-                std::unique_ptr<Projectile> projectile = std::make_unique<Projectile>(transform, bonzai::resources().get<bonzai::Texture>("Textures/projectile.png", bonzai::getEngine().getRenderer()));
+                std::unique_ptr<Projectile> projectile = std::make_unique<Projectile>(transform, texture);
+
                 projectile->damping = 0.00f;
                 projectile->speed = this->velocity.length() + 50.0f; // Set speed to a higher value for faster movement
                 projectile->lifespan = 4.0f; // seconds
@@ -126,7 +148,7 @@ void Player::update(float deltaTime){
                 projectile->tag = "Player"; // Set the name of the player actor
                 scene->addActor(std::move(projectile));
 
-                //model = std::make_shared <bonzai::Model>(GameData::projectilePoints, bonzai::vec3{ 1.0f,1.0f,1.0f });
+                
                 transform = { this->transform.position,this->transform.rotation + 30.0f, 2 };//size
                 projectile = std::make_unique<Projectile>(transform, bonzai::resources().get<bonzai::Texture>("Textures/projectile.png", bonzai::getEngine().getRenderer()));
                 projectile->damping = 0.00f;
@@ -141,7 +163,8 @@ void Player::update(float deltaTime){
 
            // std::shared_ptr<bonzai::Model> model = std::make_shared <bonzai::Model>(GameData::projectilePoints, bonzai::vec3{ 1.0f,1.0f,1.0f });
             bonzai::Transform transform{ this->transform.position,this->transform.rotation, 2 };//size
-            std::unique_ptr<Projectile> projectile = std::make_unique<Projectile>(transform, bonzai::resources().get<bonzai::Texture>("Textures/projectile.png", bonzai::getEngine().getRenderer()));
+            std::unique_ptr<Projectile> projectile = std::make_unique<Projectile>(transform, texture);
+
 
             projectile->damping = 0.00f;
             projectile->speed = this->velocity.length() + 50.0f; // Set speed to a higher value for faster movement
@@ -160,7 +183,14 @@ void Player::update(float deltaTime){
 void Player::onCollision(Actor* other){
     
     if (other->tag == "Enemy" and !starPowerActive) {
-        health--;
+        if (healthPowerActive) {
+            if(bonzai::random::getReal(0.0f,1.0f)<0.5f){
+                health--;
+			}
+        }
+        else {
+            health--;
+        }
     }
     if(health<=0){
         this->destroyed = true;

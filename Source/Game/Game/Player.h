@@ -11,6 +11,7 @@ public:
 	bool starPowerActive{ false };
 	bool tripleShotPowerActive{ false };
 	bool laserPowerActive{ false };
+	bool healthPowerActive{ false };
 	int health{ 10 };
 public:
 	Player() = default;
@@ -25,7 +26,7 @@ public:
 
 
 private:
-	//bonzai::vec3 starColors[3]{ model->getColor(),{1,1,0},{1,0,0}};
+	bonzai::vec3 starColors[3]{ texture->color,{100,100,0},{10,0,0}};
 	int starColorIndex{ 0 };
 	float powerupTimer{ 0.0f };
 
