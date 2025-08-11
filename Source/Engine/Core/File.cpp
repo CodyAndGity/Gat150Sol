@@ -1,10 +1,8 @@
 #include "File.h"
-#include "Core/Logger.h"
-#include <filesystem>
-#include <fstream>
+
 #include <sstream>
 #include <system_error>
-#include <iostream>
+
 namespace bonzai::file {
 
     /// <summary>

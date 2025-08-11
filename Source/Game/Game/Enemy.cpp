@@ -1,13 +1,13 @@
 #include "Enemy.h"
 #include "Engine.h"
-#include "Framework/Scene.h"
+
 #include "Player.h"
-#include "Framework/Game.h"
+
 #include "Projectile.h"
-#include "Renderer/Model.h"
-#include "GameData.h"
-#include "Core/Random.h"
-#include "Renderer/ParticleSystem.h"
+
+
+
+
 
 /// <summary>
 /// Updates the enemy's state, moving it towards the player and handling screen wrapping.
@@ -71,15 +71,20 @@ void Enemy::update(float deltaTime){
     if ( shootTimer <= 0 && playerSeen) {
         shootTimer = shootCooldown; // Reset the shoot timer
 
-        bonzai::res_t texture = bonzai::resources().get<bonzai::Texture>("Textures/enemy_projectile.png", bonzai::getEngine().getRenderer());
-        texture->color = bonzai::vec3{ 1.0f,0.0f,0.0f };
+       // bonzai::res_t texture = bonzai::resources().get<bonzai::Texture>("Textures/enemy_projectile.png", bonzai::getEngine().getRenderer());
+        //texture->color = bonzai::vec3{ 1.0f,0.0f,0.0f };
         bonzai::Transform transform{ this->transform.position,this->transform.rotation, 2 };//size
-        std::unique_ptr<Projectile> projectile = std::make_unique<Projectile>(transform, texture);
+        std::unique_ptr<Projectile> projectile = std::make_unique<Projectile>(transform); //, texture);
         projectile->speed = this->speed + bonzai::random::getReal(100.0f)+200;
         projectile->lifespan = 2.0f; // seconds
         projectile->particleColor = texture->color;
         projectile->name = "projectile"; // Set the name of the player actor
         projectile->tag = "Enemy"; // Set the name of the player actor
+        
+        //components
+		auto spriteRenderer = std::make_unique<bonzai::SpriteRenderer>();
+        spriteRenderer->textureName = "Textures/enemy_projectile.png";
+		projectile->addComponent(std::move(spriteRenderer));
 
         scene->addActor(std::move(projectile));
 

@@ -1,10 +1,6 @@
 #include "Renderer.h"
 #include "Texture.h"
-#include "Core/Logger.h"
-#include "Math/Vector2.h"
-#include <SDL3/SDL.h>
-#include <SDL3_ttf/SDL_ttf.h>
-#include <iostream>
+
 namespace bonzai {
 
     bool Renderer::initialize() {

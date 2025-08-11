@@ -1,12 +1,14 @@
 #include "Scene.h"
-#include "../Framework/Actor.h"
+
 #include "../Renderer/Renderer.h"
-#include "Actor.h"
-#include "../Core/StringHelper.h"
+
+
 namespace bonzai {
 	void Scene::update(float deltaTime) {
 		for (auto& actor : actors) {
-			actor->update(deltaTime);
+			if (actor->active) {
+				actor->update(deltaTime);
+			}
 		}
 		//remove destroyed actors
 		for (auto iterator = actors.begin(); iterator != actors.end();) {
@@ -34,7 +36,9 @@ namespace bonzai {
 	}
 	void Scene::draw(class Renderer& renderer) {
 		for (auto& actor : actors) {
-			actor->draw(renderer);
+			if (actor->active) {
+				actor->draw(renderer);
+			}
 		}
 	}
 	void Scene::addActor(std::unique_ptr<class Actor> actor)	{

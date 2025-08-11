@@ -1,25 +1,6 @@
 
 
-
-
-#include "Framework/Actor.h"
-#include "Framework/Scene.h"
-
 #include "Game/SpaceGame.h"
-#include "Engine.h"
-#include "Renderer/Font.h"
-#include "Renderer/Text.h"
-#include "Core/Random.h"
-#include "Renderer/Texture.h"
-#include "Core/File.h"
-#include "Resources/ResourceManager.h"
-#include <iostream>
-#include <vector>
-#include <memory>
-
-
-
-
 
 int main(int argc, char* argv[]) {
 

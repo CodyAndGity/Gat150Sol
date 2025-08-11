@@ -1,7 +1,5 @@
 #include "Font.h"
-#include "SDL3_ttf/SDL_ttf.h"
-#include "Core/Logger.h"
-#include <iostream>
+
 namespace bonzai {
 	/// <summary>
 	/// Destroys the Font object and releases associated resources.

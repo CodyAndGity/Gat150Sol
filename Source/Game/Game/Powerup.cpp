@@ -1,9 +1,6 @@
 #include "Powerup.h"
 #include "Player.h"
-#include "Engine.h"
-#include "Core/StringHelper.h"
-#include "Framework/Scene.h"
-#include "Framework/Game.h"
+
 
 
 void Powerup::update(float deltaTime){

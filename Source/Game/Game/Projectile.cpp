@@ -1,8 +1,6 @@
 #include "Projectile.h"
-#include "Engine.h"
-#include "Framework/Scene.h"
 #include "Player.h"
-#include "Core/Random.h"
+
 
 void Projectile::update(float deltaTime) {
 

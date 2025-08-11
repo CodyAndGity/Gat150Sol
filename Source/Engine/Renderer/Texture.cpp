@@ -1,9 +1,6 @@
 #include "Texture.h"
 #include "Renderer.h"
-#include "Math/Vector2.h"
-#include "Core/Logger.h"
-#include <iostream>
-#include <SDL3_image/SDL_image.h>
+
 namespace bonzai {
     Texture::~Texture()
     {

@@ -1,5 +1,5 @@
 #include "InputSystem.h"
-#include <SDL3/SDL.h>
+
 namespace bonzai {
     bool InputSystem::initialize() {
 		int numberOfKeys;

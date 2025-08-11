@@ -15,8 +15,8 @@ public:
 	int health{ 10 };
 public:
 	Player() = default;
-	Player(const bonzai::Transform& transform, bonzai::res_t<bonzai::Texture> texture) :
-		bonzai::Actor{ transform, texture }
+	Player(const bonzai::Transform& transform) :
+		bonzai::Actor{ transform }
 	{}
 
 	void update(float deltaTime) override;

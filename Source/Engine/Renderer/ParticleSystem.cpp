@@ -1,6 +1,4 @@
 #include "ParticleSystem.h"
-#include "../Math/Vector2.h"
-#include "../Math/Vector3.h"
 #include "../Renderer/Renderer.h"
 #include "../Engine.h"
 namespace bonzai{

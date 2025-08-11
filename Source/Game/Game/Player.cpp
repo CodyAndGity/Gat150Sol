@@ -1,13 +1,12 @@
 #include "Player.h"
 #include "Engine.h"
-#include "Input/InputSystem.h"
-#include "GameData.h"
-#include "Framework/Scene.h"
+
+
 #include "Projectile.h"
-#include "Renderer/Model.h"
+
 #include "SpaceGame.h"
-#include "Renderer/ParticleSystem.h"
-#include "Core/Random.h"
+
+
 void Player::update(float deltaTime){
     /*bonzai::Particle particle;
     particle.position = transform.position;
@@ -121,7 +120,12 @@ void Player::update(float deltaTime){
         projectile->particleColor = this->texture->color;
         projectile->name = "laser"; // Set the name of the player actor
         projectile->tag = "Player"; // Set the name of the player actor
-
+        //components
+        auto spriteRenderer = std::make_unique<bonzai::SpriteRenderer>();
+        spriteRenderer->textureName = "Textures/laser_shot.png";
+        projectile->addComponent(std::move(spriteRenderer));
+        
+        
         scene->addActor(std::move(projectile));
 
 

@@ -1,7 +1,8 @@
 #include "Text.h"
 #include "Font.h"
 #include "Renderer.h"
-#include "Core/Logger.h"
+
+
 namespace bonzai {
 	/// <summary>
 	/// Destroys the Text object and releases its associated SDL texture if it exists.
