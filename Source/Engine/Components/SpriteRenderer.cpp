@@ -2,7 +2,7 @@
 #include "../Renderer/Renderer.h"
 #include "Engine.h"
 namespace bonzai {
-	void SpriteRenderer::update(float deltatime) {
+	void SpriteRenderer::update(float deltaTime) {
 		// No update logic needed for static sprite rendering
 	}
 
