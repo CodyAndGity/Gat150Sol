@@ -8,5 +8,9 @@ namespace bonzai {
 	public:
 		void update(float deltatime) override;
 		void draw(class Renderer& renderer) override;
+		bonzai::vec3 getColor();
+		void setColor(vec3 color);
+
+	private:
 	};
 }

@@ -203,8 +203,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Audio\AudioSystem.h" />
+    <ClInclude Include="Components\RendererComponent.h" />
     <ClInclude Include="Components\SpriteRenderer.h" />
-    <ClInclude Include="Componets\RendererComponent.h" />
     <ClInclude Include="Core\File.h" />
     <ClInclude Include="Core\Logger.h" />
     <ClInclude Include="Core\Random.h" />

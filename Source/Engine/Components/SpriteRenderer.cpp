@@ -10,4 +10,11 @@ namespace bonzai {
 			owner->transform.position.x, owner->transform.position.y,
 			owner->transform.rotation,owner->transform.scale	);
 	}
+	bonzai::vec3 SpriteRenderer::getColor()	{
+		return resources().get<Texture>(textureName).get()->color;
+	}
+	void SpriteRenderer::setColor(vec3 color) {
+		resources().get<Texture>(textureName).get()->color=color;
+	}
+
 }

@@ -169,10 +169,10 @@
     <ClInclude Include="Framework\Component.h">
       <Filter>Source\Framework</Filter>
     </ClInclude>
-    <ClInclude Include="Componets\RendererComponent.h">
+    <ClInclude Include="Components\SpriteRenderer.h">
       <Filter>Source\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Components\SpriteRenderer.h">
+    <ClInclude Include="Components\RendererComponent.h">
       <Filter>Source\Components</Filter>
     </ClInclude>
   </ItemGroup>

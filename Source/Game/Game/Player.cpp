@@ -5,7 +5,7 @@
 #include "Projectile.h"
 
 #include "SpaceGame.h"
-
+#include "Components/SpriteRenderer.h"
 
 void Player::update(float deltaTime){
     /*bonzai::Particle particle;
@@ -15,20 +15,20 @@ void Player::update(float deltaTime){
     particle.lifespan = 0.20f;
 	bonzai::getEngine().getParticlesSystem().addParticle(particle);*/
     if (starPowerActive) {
-        
+		//dynamic_cast<SpriteRenderer*>(components[0])->
         powerupTimer += deltaTime;
         //I know it's bad, but it make the player look cool without seizure vibes
         starColorIndex++;
         if (starColorIndex % 512 == 128) {
-            texture->color = { starColors[starColorIndex % 3] };
+            //texture->color = { starColors[starColorIndex % 3] };
 
         }
         else if (starColorIndex % 512 == 1) {
-            texture->color = { starColors[starColorIndex % 3] };
+            //->color = { starColors[starColorIndex % 3] };
 
         }
         else if (starColorIndex % 512 == 258) {
-            texture->color = { starColors[starColorIndex % 3] };
+            //texture->color = { starColors[starColorIndex % 3] };
 
 
         }
