@@ -1,7 +1,8 @@
 #include "Player.h"
 #include "Engine.h"
 
-
+#include "Framework/Scene.h"
+#include "Core/Random.h"
 #include "Projectile.h"
 
 #include "SpaceGame.h"
@@ -37,40 +38,40 @@ void Player::update(float deltaTime){
             starPowerActive = false;
             powerupTimer = 0;
             damping += 0.001f;
-            texture->color = { starColors[0] };
+            //texture->color = { starColors[0] };
 
         }
     }
     else if (tripleShotPowerActive) {
         powerupTimer += deltaTime;
-        texture->color = { 0,1,1 };
+        //texture->color = { 0,1,1 };
 
         
 
         if (powerupTimer > 10) {
             tripleShotPowerActive = false;
             powerupTimer = 0;
-            texture->color = { starColors[0] };
+            //texture->color = { starColors[0] };
 
         }
     }else if (laserPowerActive) {
         powerupTimer += deltaTime;
-        texture->color = { 1,0,1 };
+        //texture->color = { 1,0,1 };
        
 
         if (powerupTimer > 11) {
             laserPowerActive = false;
             powerupTimer = 0;
-            texture->color = {starColors[0] };
+            //texture->color = {starColors[0] };
         }
     }
     else if (healthPowerActive) {
         powerupTimer += deltaTime;
-        texture->color = { 0,1,0 };
+        //texture->color = { 0,1,0 };
         if (powerupTimer > 10) {
             healthPowerActive = false;
             powerupTimer = 0;
-            texture->color = { starColors[0] };
+            //texture->color = { starColors[0] };
         }
     }
 	bool slowDown = false;
@@ -110,14 +111,14 @@ void Player::update(float deltaTime){
 
         
         bonzai::Transform transform{ this->transform.position,this->transform.rotation, 36 };//size
-        std::unique_ptr<Projectile> projectile = std::make_unique<Projectile>(transform, bonzai::resources().get<bonzai::Texture>("Textures/laser_shot.png", bonzai::getEngine().getRenderer()));
-
+        std::unique_ptr<Projectile> projectile = std::make_unique<Projectile>(transform);
+        
         
         projectile->hasParticles=false; // seconds
         projectile->lifespan = 3.0f; // seconds
         projectile->pierce=5; 
         projectile->speed = 0;;
-        projectile->particleColor = this->texture->color;
+       // projectile->particleColor = this->texture->color;
         projectile->name = "laser"; // Set the name of the player actor
         projectile->tag = "Player"; // Set the name of the player actor
         //components
@@ -134,48 +135,60 @@ void Player::update(float deltaTime){
         if (bonzai::getEngine().getInput().getKeyDown(SDL_SCANCODE_SPACE) && shootTimer <= 0) {
             shootTimer = shootCooldown; // Reset the shoot timer
             
-            bonzai::res_t texture = bonzai::resources().get<bonzai::Texture>("Textures/Projectile.png", bonzai::getEngine().getRenderer());
-            texture->color = bonzai::vec3{ 1.0f,1.0f,1.0f };
+            //bonzai::res_t texture = bonzai::resources().get<bonzai::Texture>("Textures/Projectile.png", bonzai::getEngine().getRenderer());
+            //texture->color = bonzai::vec3{ 1.0f,1.0f,1.0f };
 			//2 extra shots for triple shot powerup
             if (tripleShotPowerActive) {
                 
                 
 
                 bonzai::Transform transform{ this->transform.position,this->transform.rotation - 30.0f, 2 };//size
-                std::unique_ptr<Projectile> projectile = std::make_unique<Projectile>(transform, texture);
+                std::unique_ptr<Projectile> projectile = std::make_unique<Projectile>(transform);
+
+                auto spriteRenderer = std::make_unique<bonzai::SpriteRenderer>();
+                spriteRenderer->textureName = "Textures/Projectile.png";
+				spriteRenderer->setColor({ 1.0f,1.0f,1.0f });
 
                 projectile->damping = 0.00f;
                 projectile->speed = this->velocity.length() + 50.0f; // Set speed to a higher value for faster movement
                 projectile->lifespan = 4.0f; // seconds
-                projectile->particleColor = this->texture->color;
+                projectile->particleColor = spriteRenderer->getColor();
                 projectile->name = "projectile"; // Set the name of the player actor
                 projectile->tag = "Player"; // Set the name of the player actor
+                projectile->addComponent(std::move(spriteRenderer));
+                
                 scene->addActor(std::move(projectile));
 
                 
                 transform = { this->transform.position,this->transform.rotation + 30.0f, 2 };//size
-                projectile = std::make_unique<Projectile>(transform, bonzai::resources().get<bonzai::Texture>("Textures/projectile.png", bonzai::getEngine().getRenderer()));
+                projectile = std::make_unique<Projectile>(transform);
                 projectile->damping = 0.00f;
                 projectile->speed = this->velocity.length() + 50.0f; // Set speed to a higher value for faster movement
                 projectile->lifespan = 4.0f; // seconds
-                projectile->particleColor = this->texture->color;
+                projectile->particleColor = spriteRenderer->getColor();
                 projectile->name = "projectile"; // Set the name of the player actor
                 projectile->tag = "Player"; // Set the name of the player actor
+                projectile->addComponent(std::move(spriteRenderer));
+
                 scene->addActor(std::move(projectile));
 
             }
 
            // std::shared_ptr<bonzai::Model> model = std::make_shared <bonzai::Model>(GameData::projectilePoints, bonzai::vec3{ 1.0f,1.0f,1.0f });
             bonzai::Transform transform{ this->transform.position,this->transform.rotation, 2 };//size
-            std::unique_ptr<Projectile> projectile = std::make_unique<Projectile>(transform, texture);
+            std::unique_ptr<Projectile> projectile = std::make_unique<Projectile>(transform);
 
+            auto spriteRenderer = std::make_unique<bonzai::SpriteRenderer>();
+            spriteRenderer->textureName = "Textures/Projectile.png";
+            spriteRenderer->setColor({ 1.0f,1.0f,1.0f });
 
             projectile->damping = 0.00f;
             projectile->speed = this->velocity.length() + 50.0f; // Set speed to a higher value for faster movement
             projectile->lifespan = 4.0f; // seconds
-            projectile->particleColor = this->texture->color;
+            projectile->particleColor = spriteRenderer->getColor();
             projectile->name = "projectile"; // Set the name of the player actor
             projectile->tag = "Player"; // Set the name of the player actor
+            projectile->addComponent(std::move(spriteRenderer));
 
             scene->addActor(std::move(projectile));
         }
@@ -203,7 +216,7 @@ void Player::onCollision(Actor* other){
             bonzai::Particle particle;
             particle.position = transform.position;
             particle.velocity = bonzai::random::onUnitCircle() * bonzai::random::getReal(100.0f, 500.0f);
-            particle.color = this->texture->color;
+            //particle.color = this->texture->color;
             particle.lifespan = 1.0f;
             bonzai::getEngine().getParticlesSystem().addParticle(particle);
 

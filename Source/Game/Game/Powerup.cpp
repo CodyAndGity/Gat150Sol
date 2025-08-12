@@ -1,6 +1,7 @@
 #include "Powerup.h"
 #include "Player.h"
-
+#include "Framework/Scene.h"
+#include "Framework/Game.h"
 
 
 void Powerup::update(float deltaTime){
@@ -19,11 +20,11 @@ void Powerup::onCollision(Actor* other){
 		if (bonzai::toLower(name) == "star") {
 			player->starPowerActive = true;
 			player->damping = player->damping-0.001f;
-			player->texture->color = { 1,1,0 };
+			//player->texture->color = { 1,1,0 };
 
 		}else if (bonzai::toLower(name) == "health") {
 			player->health = player->health + 3;
-			player->texture->color = { 0,1,0 };
+			//player->texture->color = { 0,1,0 };
 			player->healthPowerActive = true;
 
 		}else if (bonzai::toLower(name) == "tripleshot") {

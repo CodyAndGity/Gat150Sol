@@ -4,8 +4,11 @@
 #include "Player.h"
 
 #include "Projectile.h"
+#include "Components/SpriteRenderer.h"
 
-
+#include "Framework/Scene.h"
+#include "Framework/Game.h"
+#include "Core/Random.h"
 
 
 
@@ -75,14 +78,20 @@ void Enemy::update(float deltaTime){
         //texture->color = bonzai::vec3{ 1.0f,0.0f,0.0f };
         bonzai::Transform transform{ this->transform.position,this->transform.rotation, 2 };//size
         std::unique_ptr<Projectile> projectile = std::make_unique<Projectile>(transform); //, texture);
+
+                
+        auto spriteRenderer = std::make_unique<bonzai::SpriteRenderer>();
+        spriteRenderer->textureName = "Textures/Projectile.png";
+        spriteRenderer->setColor({ 1.0f,1.0f,1.0f });
+
         projectile->speed = this->speed + bonzai::random::getReal(100.0f)+200;
         projectile->lifespan = 2.0f; // seconds
-        projectile->particleColor = texture->color;
+        projectile->particleColor = spriteRenderer->getColor();
         projectile->name = "projectile"; // Set the name of the player actor
         projectile->tag = "Enemy"; // Set the name of the player actor
         
         //components
-		auto spriteRenderer = std::make_unique<bonzai::SpriteRenderer>();
+		 spriteRenderer = std::make_unique<bonzai::SpriteRenderer>();
         spriteRenderer->textureName = "Textures/enemy_projectile.png";
 		projectile->addComponent(std::move(spriteRenderer));
 
@@ -100,7 +109,7 @@ void Enemy::onCollision(Actor* other){
             bonzai::Particle particle;
             particle.position = transform.position;
 			particle.velocity = bonzai::random::onUnitCircle() * bonzai::random::getReal(100.0f, 200.0f);
-			particle.color = this->texture->color;
+			//particle.color = this->texture->color;
             particle.lifespan = 0.80f;
             bonzai::getEngine().getParticlesSystem().addParticle(particle);
             

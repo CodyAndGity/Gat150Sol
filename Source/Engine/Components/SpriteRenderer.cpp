@@ -1,5 +1,6 @@
 #include "SpriteRenderer.h"
 #include "../Renderer/Renderer.h"
+#include "Engine.h"
 namespace bonzai {
 	void SpriteRenderer::update(float deltatime) {
 		// No update logic needed for static sprite rendering
@@ -11,10 +12,11 @@ namespace bonzai {
 			owner->transform.rotation,owner->transform.scale	);
 	}
 	bonzai::vec3 SpriteRenderer::getColor()	{
-		return resources().get<Texture>(textureName).get()->color;
+		return resources().get<Texture>(textureName, bonzai::getEngine().getRenderer()).get()->color;
+		
 	}
 	void SpriteRenderer::setColor(vec3 color) {
-		resources().get<Texture>(textureName).get()->color=color;
+		resources().get<Texture>(textureName, bonzai::getEngine().getRenderer()).get()->color=color;
 	}
 
 }
