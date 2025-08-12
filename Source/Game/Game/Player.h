@@ -23,7 +23,9 @@ public:
 	// Inherited via Actor
 	void onCollision(Actor* other) override;
 
-
+	inline void setBaseColor(bonzai::vec3 color) {
+		starColors[0] = color;
+	}
 
 private:
 	bonzai::vec3 starColors[3]{ { 0.8f,0.8f,1.0f },{100,100,0},{10,0,0}};

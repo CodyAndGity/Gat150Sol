@@ -70,6 +70,7 @@ void SpaceGame::update(float deltaTime){
         auto spriteRenderer = std::make_unique<bonzai::SpriteRenderer>();
         spriteRenderer->textureName = "Textures/blue_player_spaceship_.png";
 		spriteRenderer->setColor({ 0.8f,0.8f,1.0f });
+        player->setBaseColor(spriteRenderer.get()->getColor());
         player->addComponent(std::move(spriteRenderer));
 
 
