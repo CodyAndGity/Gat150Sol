@@ -1,6 +1,6 @@
+#include "../GamePCH.h"
 #include "Enemy.h"
 #include "Engine.h"
-
 #include "Player.h"
 
 #include "Projectile.h"
@@ -55,12 +55,20 @@ void Enemy::update(float deltaTime){
 
             transform.rotation += bonzai::math::radToDeg(angle * deltaTime * 10);
             bonzai::vec2 velocity = bonzai::vec2{ 1,0 }.rotate(bonzai::math::degToRad(transform.rotation)) * speed;
-            this->velocity += velocity * deltaTime;
+            
+            auto body= getComponent<bonzai::RigidBody>();
+            if(body) {
+                body->velocity +=velocity* deltaTime;
+			}
+
         }else{
             angle = bonzai::random::getReal(0.1f);
             transform.rotation += bonzai::math::radToDeg(angle * deltaTime * 10);
             bonzai::vec2 velocity = bonzai::vec2{ 1,0 }.rotate(bonzai::math::degToRad(transform.rotation)) * speed*0.1f;
-            this->velocity += velocity * deltaTime;
+            auto body = getComponent<bonzai::RigidBody>();
+            if (body) {
+                body->velocity += velocity * deltaTime;
+            }
 
         }
     }
@@ -86,7 +94,12 @@ void Enemy::update(float deltaTime){
 
         projectile->speed = this->speed + bonzai::random::getReal(100.0f)+200;
         projectile->lifespan = 2.0f; // seconds
-        projectile->particleColor = dynamic_cast<bonzai::SpriteRenderer*>(components[0].get())->getColor();
+
+        auto sprite = getComponent<bonzai::SpriteRenderer>();
+        if (sprite) {
+            projectile->particleColor = sprite->getColor();
+            
+        }
         projectile->name = "projectile"; // Set the name of the player actor
         projectile->tag = "Enemy"; // Set the name of the player actor
         
@@ -94,6 +107,11 @@ void Enemy::update(float deltaTime){
 		 spriteRenderer = std::make_unique<bonzai::SpriteRenderer>();
         spriteRenderer->textureName = "Textures/enemy_projectile.png";
 		projectile->addComponent(std::move(spriteRenderer));
+
+
+        auto collider = std::make_unique<bonzai::CircleCollider2D>();
+        collider->radius = 10.0f; // Set the radius of the collider
+        projectile->addComponent(std::move(collider));
 
         scene->addActor(std::move(projectile));
 

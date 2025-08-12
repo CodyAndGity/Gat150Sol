@@ -12,13 +12,14 @@ namespace bonzai {
 		void update();
 
 		bool addSound(const std::string& filename, const  std::string name = "");
-		bool playSound(const  std::string  name );
+		bool playSound(const std::string name );
+		bool playSound(class AudioClip& );
 	private:
-		bool checkFMODResult(FMOD_RESULT result);
+		static bool checkFMODResult(FMOD_RESULT result);
 	private:
-		FMOD::System* system{ nullptr };
 		std::map<std::string, FMOD::Sound*> sounds;
-
+		FMOD::System* system{ nullptr };
+		friend class AudioClip;
 
 
 	};

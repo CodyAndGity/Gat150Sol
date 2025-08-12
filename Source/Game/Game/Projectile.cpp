@@ -10,7 +10,11 @@ void Projectile::update(float deltaTime) {
 
     
     bonzai::vec2 velocity = bonzai::vec2{ 1,0 }.rotate(bonzai::math::degToRad(transform.rotation)) * speed;
-	this->velocity += velocity.normalized() ;
+    auto body = getComponent<bonzai::RigidBody>();
+    if (body) {
+        body->velocity += velocity.normalized();
+    }
+	
 
     transform.position.x = bonzai::math::wrap(transform.position.x, 0.0f, (float)bonzai::getEngine().getRenderer().getWidth());
     transform.position.y = bonzai::math::wrap(transform.position.y, 0.0f, (float)bonzai::getEngine().getRenderer().getHeight());

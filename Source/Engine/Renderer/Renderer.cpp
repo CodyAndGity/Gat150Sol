@@ -38,8 +38,8 @@ namespace bonzai {
         return true;
     }
 
-    void Renderer::drawTexture(Texture* texture, float x, float y){
-        vec2 size = texture->getSize();
+    void Renderer::drawTexture(Texture& texture, float x, float y){
+        vec2 size = texture.getSize();
 
             SDL_FRect destRect;
         destRect.x = x;
@@ -48,10 +48,10 @@ namespace bonzai {
         destRect.h = size.y;
 
         
-        SDL_RenderTexture(renderer, texture->texture, NULL, &destRect);
+        SDL_RenderTexture(renderer, texture.texture, NULL, &destRect);
     }
-    void Renderer::drawTexture(Texture* texture, float x, float y, float angle, float scale ) {
-        vec2 size = texture->getSize();
+    void Renderer::drawTexture(Texture& texture, float x, float y, float angle, float scale ) {
+        vec2 size = texture.getSize();
 
         SDL_FRect destRect;
         destRect.w = size.x *scale;
@@ -60,8 +60,8 @@ namespace bonzai {
         destRect.y = y- destRect.h * 0.5f;
 		;
 
-        SDL_RenderTextureRotated(renderer, texture->texture, NULL, &destRect,angle,NULL,SDL_FLIP_NONE);
-		SDL_SetTextureColorModFloat(texture->texture, texture->color.r, texture->color.g, texture->color.b);
+        SDL_RenderTextureRotated(renderer, texture.texture, NULL, &destRect,angle,NULL,SDL_FLIP_NONE);
+		SDL_SetTextureColorModFloat(texture.texture, texture.color.r, texture.color.g, texture.color.b);
     }
 
     void Renderer::setColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {

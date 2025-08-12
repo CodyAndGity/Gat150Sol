@@ -7,9 +7,12 @@ namespace bonzai {
 	}
 
 	void SpriteRenderer::draw(class Renderer& renderer) {
-		renderer.drawTexture(resources().get<Texture>(textureName, renderer).get(),
+		auto texture = resources().get<Texture>(textureName, renderer).get();
+		if (texture) {
+		renderer.drawTexture(*texture,
 			owner->transform.position.x, owner->transform.position.y,
-			owner->transform.rotation,owner->transform.scale	);
+			owner->transform.rotation, owner->transform.scale);
+		}
 	}
 	bonzai::vec3 SpriteRenderer::getColor()	{
 		return resources().get<Texture>(textureName, bonzai::getEngine().getRenderer()).get()->color;

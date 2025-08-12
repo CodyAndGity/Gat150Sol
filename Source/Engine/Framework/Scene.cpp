@@ -1,7 +1,7 @@
 #include "Scene.h"
 
 #include "../Renderer/Renderer.h"
-
+#include "Components/ColliderComponent.h"
 
 namespace bonzai {
 	void Scene::update(float deltaTime) {
@@ -20,17 +20,22 @@ namespace bonzai {
 			}
 		}
 
+		//check for collisions
 		for (auto& actorA : actors) {
 			for (auto& actorB : actors) {
 				if (actorA == actorB || actorA->destroyed || actorB->destroyed) continue; //skip self, just in case the're destroyed
-				float distance = (actorA->transform.position - actorB->transform.position).length();
-				if(distance <= (actorA->getRadius() + actorB->getRadius())) {
+				auto colliderA = actorA->getComponent<ColliderComponent>();
+				auto colliderB = actorB->getComponent<ColliderComponent>();
+
+				if (colliderA == nullptr || colliderB == nullptr) continue; //skip if no collider
+
+				if (colliderA->checkCollision(*colliderB)) {
 					actorA->onCollision(actorB.get());
 					actorB->onCollision(actorA.get());
 				}
+				
 			}
 		}
-		//check for collisions
 
 
 	}

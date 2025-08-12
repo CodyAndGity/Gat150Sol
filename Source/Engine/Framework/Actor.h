@@ -6,6 +6,7 @@
 #include "Renderer/Texture.h"
 #include <string>
 #include <memory>
+#include <vector>
 namespace bonzai {
 	class Actor :public Object{
 	public:
@@ -15,8 +16,7 @@ namespace bonzai {
 		std::shared_ptr<Model> model;
 		
 
-		vec2 velocity{ 0,0 };
-		float damping{ 0.0f };
+		
 		bool destroyed{ false };
 		float lifespan{ 0.0f }; 
 		class Scene* scene{ nullptr }; // Pointer to the scene this actor belongs to
@@ -33,11 +33,38 @@ namespace bonzai {
 		Transform& getTransform() { return transform; }
 
 		virtual void onCollision(Actor* other)=0;
-		float getRadius();
+		
 		void addComponent(std::unique_ptr<Component> component);
+		
+		template<typename T>
+		T* getComponent();
+
+		template<typename T>
+		std::vector<T*> getComponents();
 
 	protected:
 
 
 	};
+	template<typename T>
+	inline T* Actor::getComponent()	{
+		for (auto& component : components) {
+			auto result =dynamic_cast<T*>(component.get());
+			if(result) {
+				return result;
+			}
+		}
+		return nullptr;
+	}
+	template<typename T>
+	inline std::vector<T*> Actor::getComponents()	{
+		std::vector<T*> results;
+		for (auto& component : components) {
+			auto result = dynamic_cast<T*>(component.get());
+			if (result) {
+				results.push_back(result);
+			}
+		}
+		return results;
+	}
 }

@@ -12,7 +12,7 @@ void bonzai::Actor::update(float deltaTime) {
 		}
 		
 	}
-	
+	//Update all components
 	for(auto& component : components) {
 		if (component->active) {
 			component->update(deltaTime);
@@ -36,10 +36,7 @@ void bonzai::Actor::draw(Renderer& renderer) {
 	
 }
 
-float bonzai::Actor::getRadius(){
-	return 50.f;//(texture) ? (texture->getSize().length() * 0.5f * transform.scale *0.9f): 0.0f; 
-	
-}
+
 
 void bonzai::Actor::addComponent(std::unique_ptr<Component> component){
 	component->owner = this;

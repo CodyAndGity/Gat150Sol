@@ -1,5 +1,5 @@
 #include "AudioSystem.h"
-
+#include "Audio/AudioClip.h"
 namespace bonzai {
 
 	/// <summary>
@@ -42,6 +42,11 @@ namespace bonzai {
 		FMOD_RESULT result = system->playSound(sounds[key], 0, false, nullptr);
 		if (!checkFMODResult(result)) return false;
 
+		return true;
+	}
+	bool AudioSystem::playSound(AudioClip& audioClip)	{
+		FMOD_RESULT result = system->playSound(audioClip.sound, 0, false, nullptr);
+		if (!checkFMODResult(result)) return false;
 		return true;
 	}
 	/// <summary>

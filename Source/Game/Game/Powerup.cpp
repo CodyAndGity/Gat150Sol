@@ -19,7 +19,12 @@ void Powerup::onCollision(Actor* other){
 		Player* player =dynamic_cast<Player*> (other);
 		if (bonzai::toLower(name) == "star") {
 			player->starPowerActive = true;
-			player->damping = player->damping-0.001f;
+
+			
+			auto playerBody = player->getComponent<bonzai::RigidBody>();
+			if (playerBody) {
+				playerBody->damping -= 0.001f;
+			}
 			dynamic_cast<bonzai::SpriteRenderer*>(player->components[0].get())->setColor( { 1,1,0 });
 
 		}else if (bonzai::toLower(name) == "health") {
