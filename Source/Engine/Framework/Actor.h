@@ -20,6 +20,7 @@ namespace bonzai {
 		bool destroyed{ false };
 		float lifespan{ 0.0f }; 
 		class Scene* scene{ nullptr }; // Pointer to the scene this actor belongs to
+		std::vector<std::unique_ptr<Component>> components;
 
 	public:
 		Actor() = default;
@@ -36,7 +37,6 @@ namespace bonzai {
 		void addComponent(std::unique_ptr<Component> component);
 
 	protected:
-		std::vector<std::unique_ptr<Component>> components;
 
 
 	};

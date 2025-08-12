@@ -2,7 +2,7 @@
 #include "Player.h"
 #include "Framework/Scene.h"
 #include "Framework/Game.h"
-
+#include "Components/SpriteRenderer.h"
 
 void Powerup::update(float deltaTime){
 	transform.position.x = bonzai::math::wrap(transform.position.x, 0.0f, (float)bonzai::getEngine().getRenderer().getWidth());
@@ -20,11 +20,12 @@ void Powerup::onCollision(Actor* other){
 		if (bonzai::toLower(name) == "star") {
 			player->starPowerActive = true;
 			player->damping = player->damping-0.001f;
-			//player->texture->color = { 1,1,0 };
+			dynamic_cast<bonzai::SpriteRenderer*>(player->components[0].get())->setColor( { 1,1,0 });
 
 		}else if (bonzai::toLower(name) == "health") {
 			player->health = player->health + 3;
-			//player->texture->color = { 0,1,0 };
+			dynamic_cast<bonzai::SpriteRenderer*>(player->components[0].get())->setColor({ 0,1,0 });
+
 			player->healthPowerActive = true;
 
 		}else if (bonzai::toLower(name) == "tripleshot") {

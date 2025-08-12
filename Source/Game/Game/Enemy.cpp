@@ -82,11 +82,11 @@ void Enemy::update(float deltaTime){
                 
         auto spriteRenderer = std::make_unique<bonzai::SpriteRenderer>();
         spriteRenderer->textureName = "Textures/Projectile.png";
-        spriteRenderer->setColor({ 1.0f,1.0f,1.0f });
+        
 
         projectile->speed = this->speed + bonzai::random::getReal(100.0f)+200;
         projectile->lifespan = 2.0f; // seconds
-        projectile->particleColor = spriteRenderer->getColor();
+        projectile->particleColor = dynamic_cast<bonzai::SpriteRenderer*>(components[0].get())->getColor();
         projectile->name = "projectile"; // Set the name of the player actor
         projectile->tag = "Enemy"; // Set the name of the player actor
         
@@ -109,7 +109,7 @@ void Enemy::onCollision(Actor* other){
             bonzai::Particle particle;
             particle.position = transform.position;
 			particle.velocity = bonzai::random::onUnitCircle() * bonzai::random::getReal(100.0f, 200.0f);
-			//particle.color = this->texture->color;
+			particle.color = dynamic_cast<bonzai::SpriteRenderer*>(components[0].get())->getColor();
             particle.lifespan = 0.80f;
             bonzai::getEngine().getParticlesSystem().addParticle(particle);
             

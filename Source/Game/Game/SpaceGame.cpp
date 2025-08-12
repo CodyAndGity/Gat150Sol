@@ -58,8 +58,7 @@ void SpaceGame::update(float deltaTime){
             (float)bonzai::getEngine().getRenderer().getHeight() * 0.5f}//position
             ,0,//rotation
             4 };//size
-        //bonzai::res_t texture = bonzai::resources().get<bonzai::Texture>("Textures/blue_player_spaceship_.png", bonzai::getEngine().getRenderer());
-        //texture->color = bonzai::vec3{ .8f,.8f,1.0f };
+        
         std::unique_ptr<Player> player = std::make_unique<Player>(transform);
         player->damping = 0.001f; // Set damping to a very low value for more responsive movement
         player->speed = 510.0f; // Set speed to a higher value for faster movement
@@ -70,6 +69,7 @@ void SpaceGame::update(float deltaTime){
         //components
         auto spriteRenderer = std::make_unique<bonzai::SpriteRenderer>();
         spriteRenderer->textureName = "Textures/blue_player_spaceship_.png";
+		spriteRenderer->setColor({ 0.8f,0.8f,1.0f });
         player->addComponent(std::move(spriteRenderer));
 
 
@@ -165,9 +165,7 @@ void SpaceGame::spawnEnemy(){
 	Player* player = scene->getActorByName<Player>("Player");
     if (player) {
         
-        //bonzai::res_t texture = bonzai::resources().get<bonzai::Texture>("Textures/red_enemy_spaceship.png", bonzai::getEngine().getRenderer());
         
-        //texture->color = bonzai::vec3{ 1.0f,.5f,1.0f };
         // Spawn enemy at a random position around the player, but not too close
         bonzai::vec2 position{ player->transform.position+bonzai::random::onUnitCircle() *bonzai::random::getReal(350.0f,650.0f)};
         //red_spaceship.png
@@ -181,6 +179,7 @@ void SpaceGame::spawnEnemy(){
         //components
         auto spriteRenderer = std::make_unique<bonzai::SpriteRenderer>();
         spriteRenderer->textureName = "Textures/red_enemy_spaceship.png";
+		spriteRenderer->setColor({ 1.0f,0.5f,0.5f });
         enemy->addComponent(std::move(spriteRenderer));
 
         scene->addActor(std::move(enemy));
