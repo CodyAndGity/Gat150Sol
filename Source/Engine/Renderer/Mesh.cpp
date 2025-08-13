@@ -1,5 +1,6 @@
 #include "Mesh.h"
 #include "Renderer.h"
+#include "Math/Vector3.h"
 namespace bonzai {
 	bool Mesh::load(const std::string& filename){
 		std::string buffer;

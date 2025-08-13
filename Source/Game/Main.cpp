@@ -7,39 +7,11 @@ int main(int argc, char* argv[]) {
 
     bonzai::file::SetCurrentDirectory("Assets");
 
-    //command -line arguments
-	std::cout << argc << std::endl;
-    for (int i = 0; i < argc; i++) {
-		//bonzai::Logger::Debug("Arg {}: {}", i, argv[i]);
-        
-    }
-    //streams
-	//console input/output
-	/*std::cout << "hi" << std::endl;
-    int age{ 0 };
-	std::cout << "Enter your age: ";
-    if (!(std::cin >> age)) {
-		std::cerr << "Invalid input. Please enter a number." << std::endl;
-    }
-	std::cout << "You are " << (age *365)<< " days old!" << std::endl;*/
-
-    //file streams
-    std::ifstream stream("text.txt");
-    if (!stream) {
-		std::cout << "Failed to open file." << std::endl;
-    }
-    std::cout << stream.rdbuf();
-
-    std::string line;
-    while (std::getline(stream, line)) {
-
-		std::cout << line << std::endl;
-    }
-    //user data type streams
+    
 
 
     bonzai::vec3 v={ 1.0f,2.2f,2.8f };
-	std::cout << "Vector: " << v << std::endl;
+	std::cout << v << std::endl;
 
 	std::string vectorString("{23.4,45.6}");
 	std::stringstream streamVec(vectorString);
@@ -52,7 +24,7 @@ int main(int argc, char* argv[]) {
 	bonzai::getEngine().initialize();
    
 	
-    //initailize game
+    //initialize game
 	std::unique_ptr<bonzai::Game> game = std::make_unique<SpaceGame>();
 	game->initialize();
 	

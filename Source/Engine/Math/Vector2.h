@@ -122,7 +122,7 @@ namespace bonzai {
 			stream.setstate(std::ios::failbit);
 			return stream;
 		}
-		if ((!stream >> std::ws >> vector.x)) { // read x
+		if (!(stream >> std::ws >> vector.x)) { // read x
 			stream.setstate(std::ios::failbit);
 
 			return stream;
@@ -132,7 +132,7 @@ namespace bonzai {
 
 			return stream;
 		}
-		if ((!stream >> std::ws >> vector.y)) { // read y
+		if (!(stream >> std::ws >> vector.y)) { // read y
 			stream.setstate(std::ios::failbit);
 
 			return stream;
