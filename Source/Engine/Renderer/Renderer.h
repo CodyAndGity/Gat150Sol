@@ -9,7 +9,7 @@ namespace bonzai {
 		Renderer() = default;
 
 		bool initialize();
-		bool createWindow(const std::string& name, int width, int height);
+		bool createWindow(const std::string& name, int width, int height, bool fullscreen=false);
 
 		void clear();
 		void present();

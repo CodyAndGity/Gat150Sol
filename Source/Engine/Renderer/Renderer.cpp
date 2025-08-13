@@ -18,10 +18,11 @@ namespace bonzai {
         return true;
     }
 
-    bool Renderer::createWindow(const std::string& name, int width, int height)   {
+    bool Renderer::createWindow(const std::string& name, int width, int height, bool fullscreen)   {
 		this->width = width;
 		this->height = height;
-        window = SDL_CreateWindow(name.c_str(), width, height, 0);
+
+        window = SDL_CreateWindow(name.c_str(), width, height, fullscreen ? SDL_WINDOW_FULLSCREEN:0);
         if (window == nullptr) {
 			Logger::Error("Failed to create SDL Window: {}", SDL_GetError());
             SDL_Quit();
@@ -35,6 +36,7 @@ namespace bonzai {
             SDL_Quit();
             return false;
         }
+		SDL_SetRenderLogicalPresentation(renderer, width, height, SDL_LOGICAL_PRESENTATION_LETTERBOX);
         return true;
     }
 

@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include "Math.h"
 #include <cassert>
 namespace bonzai {
@@ -107,6 +108,43 @@ namespace bonzai {
 			return result.angle();
 		}
 	};
+
+	template<typename T>
+	std::ostream& operator << (std::ostream& stream, const Vector2<T>& vector) {
+		stream << "{" << vector.x << ", " << vector.y << "}";
+		return stream;
+	}
+
+	template<typename T>
+	std::istream& operator >> (std::istream& stream,  Vector2<T>& vector) {
+		char ch = '\0';
+		if (!(stream >> std::ws >> ch) || ch != '{') {// read '{'
+			stream.setstate(std::ios::failbit);
+			return stream;
+		}
+		if ((!stream >> std::ws >> vector.x)) { // read x
+			stream.setstate(std::ios::failbit);
+
+			return stream;
+		}
+		if (!(stream >> std::ws >> ch) || ch != ',') {// read ','
+			stream.setstate(std::ios::failbit);
+
+			return stream;
+		}
+		if ((!stream >> std::ws >> vector.y)) { // read y
+			stream.setstate(std::ios::failbit);
+
+			return stream;
+		}
+		if (!(stream >> std::ws >> ch) || ch != '}') {// read '}'
+			stream.setstate(std::ios::failbit);
+
+			return stream;
+		}
+
+		return stream;
+	}
 	using ivec2 = Vector2<int>;
 	using vec2 = Vector2<float>;
 }

@@ -51,6 +51,53 @@ namespace bonzai {
 		/// <returns>The length of the vector as a floating-point value.</returns>
 		float length() { return math::sqrtf(lengthSquared()); }
 	};
+
+	template<typename T>
+	std::ostream& operator << (std::ostream& stream, const Vector3<T>& vector) {
+		stream << "{" << vector.x << ", " << vector.y << ", " << vector.z << "}";
+		return stream;
+	}
+
+	template<typename T>
+	std::istream& operator >> (std::istream& stream, Vector3<T>& vector) {
+		char ch = '\0';
+		if (!(stream >> std::ws >> ch) || ch != '{') {// read '{'
+			stream.setstate(std::ios::failbit);
+			return stream;
+		}
+		if ((!stream >> std::ws >> vector.x)) { // read x
+			stream.setstate(std::ios::failbit);
+
+			return stream;
+		}
+		if (!(stream >> std::ws >> ch) || ch != ',') {// read ','
+			stream.setstate(std::ios::failbit);
+
+			return stream;
+		}
+		if ((!stream >> std::ws >> vector.y)) { // read y
+			stream.setstate(std::ios::failbit);
+
+			return stream;
+		}
+		if (!(stream >> std::ws >> ch) || ch != ',') {// read ','
+			stream.setstate(std::ios::failbit);
+
+			return stream;
+		}
+		if ((!stream >> std::ws >> vector.z)) { // read y
+			stream.setstate(std::ios::failbit);
+
+			return stream;
+		}
+		if (!(stream >> std::ws >> ch) || ch != '}') {// read '}'
+			stream.setstate(std::ios::failbit);
+
+			return stream;
+		}
+
+		return stream;
+	}
 	using ivec3 = Vector3<int>;
 	using vec3 = Vector3<float>;
 }

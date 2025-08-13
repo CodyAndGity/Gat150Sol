@@ -9,7 +9,7 @@ namespace bonzai {
 		renderer = std::make_unique<bonzai::Renderer>();
 		//initialize renderer and create window
 		renderer->initialize();
-		renderer->createWindow("Bonzai Engine", 1280, 1024);
+		renderer->createWindow("Bonzai Engine", 1280, 1024, false);
 
 		input = std::make_unique<bonzai::InputSystem>();
 		input->initialize();
@@ -28,6 +28,7 @@ namespace bonzai {
 		particles->update(time.getDeltaTime());
 	}
 	void Engine::shutdown() {
+		resources().clear();
 		particles->shutdown();
 		audio->shutdown();
 		input->shutdown();

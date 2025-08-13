@@ -2,7 +2,7 @@
 #include "Framework/Object.h"
 #include "Framework/Component.h"
 #include "Math/Transform.h"
-#include "../Renderer/Model.h"
+#include "../Renderer/Mesh.h"
 #include "Renderer/Texture.h"
 #include <string>
 #include <memory>
@@ -13,7 +13,7 @@ namespace bonzai {
 		
 		std::string tag;
 		Transform transform;
-		std::shared_ptr<Model> model;
+		std::shared_ptr<Mesh> model;
 		
 
 		

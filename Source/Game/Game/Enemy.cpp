@@ -82,8 +82,7 @@ void Enemy::update(float deltaTime){
     if ( shootTimer <= 0 && playerSeen) {
         shootTimer = shootCooldown; // Reset the shoot timer
 
-       // bonzai::res_t texture = bonzai::resources().get<bonzai::Texture>("Textures/enemy_projectile.png", bonzai::getEngine().getRenderer());
-        //texture->color = bonzai::vec3{ 1.0f,0.0f,0.0f };
+       
         bonzai::Transform transform{ this->transform.position,this->transform.rotation, 2 };//size
         std::unique_ptr<Projectile> projectile = std::make_unique<Projectile>(transform); //, texture);
 
@@ -127,7 +126,12 @@ void Enemy::onCollision(Actor* other){
             bonzai::Particle particle;
             particle.position = transform.position;
 			particle.velocity = bonzai::random::onUnitCircle() * bonzai::random::getReal(100.0f, 200.0f);
-			particle.color = dynamic_cast<bonzai::SpriteRenderer*>(components[0].get())->getColor();
+
+            auto sprite = getComponent<bonzai::SpriteRenderer>();
+            if (sprite) {
+                particle.color = sprite->getColor();
+
+            }
             particle.lifespan = 0.80f;
             bonzai::getEngine().getParticlesSystem().addParticle(particle);
             

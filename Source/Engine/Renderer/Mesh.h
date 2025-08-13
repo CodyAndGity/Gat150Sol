@@ -2,17 +2,18 @@
 #include "../Math/Vector2.h"
 #include "../Math/Vector3.h"
 #include "../Math/Transform.h"
+#include "../Resources/Resource.h"
 #include <vector>
 namespace bonzai {
-	class Model {
+	class Mesh:public Resource {
 	public:
-		Model() = default;
-		Model(const std::vector<vec2>& points, const vec3& color) :
+		Mesh() = default;
+		Mesh(const std::vector<vec2>& points, const vec3& color) :
 			points(points), 
 			color(color) {
 			calculateRadius();
 		}
-
+		bool load(const std::string& filename);
 		void draw(class Renderer& renderer,const vec2& position,float rotation, float scale);
 		void draw(class Renderer& renderer,const Transform& transform);
 

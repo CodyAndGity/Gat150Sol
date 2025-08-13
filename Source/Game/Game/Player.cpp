@@ -10,22 +10,34 @@
 #include "Components/RigidBody.h"
 
 void Player::update(float deltaTime){
-    
+    // bonzai::getEngine().getAudio().playSound(*bonzai::resources().get<bonzai::AudioClip>("bass.wav", bonzai::getEngine().getAudio()).get());
+    auto sound = bonzai::resources().get<bonzai::AudioClip>("bass.wav", bonzai::getEngine().getAudio()).get();
+    if (sound) {
+        bonzai::getEngine().getAudio().playSound(*sound);
+    }
     if (starPowerActive) {
         
         powerupTimer += deltaTime;
         //I know it's bad, but it make the player look cool without seizure vibes
         starColorIndex++;
         if (starColorIndex % 512 == 128) {
-            dynamic_cast<bonzai::SpriteRenderer*>(components[0].get())->setColor({ starColors[starColorIndex % 3] });
-
+            auto sprite = getComponent<bonzai::SpriteRenderer>();
+            if (sprite) {
+                 sprite->setColor({ starColors[starColorIndex % 3] });
+            }
         }
         else if (starColorIndex % 512 == 1) {
-            dynamic_cast<bonzai::SpriteRenderer*>(components[0].get())->setColor({ starColors[starColorIndex % 3] });
+            auto sprite = getComponent<bonzai::SpriteRenderer>();
+            if (sprite) {
+                sprite->setColor({ starColors[starColorIndex % 3] });
+            }
 
         }
         else if (starColorIndex % 512 == 258) {
-            dynamic_cast<bonzai::SpriteRenderer*>(components[0].get())->setColor({ starColors[starColorIndex % 3] });
+            auto sprite = getComponent<bonzai::SpriteRenderer>();
+            if (sprite) {
+                sprite->setColor({ starColors[starColorIndex % 3] });
+            }
 
         }
 
@@ -37,42 +49,67 @@ void Player::update(float deltaTime){
             if (body) {
                 body->damping += 0.001f;
             }
-            dynamic_cast<bonzai::SpriteRenderer*>(components[0].get())->setColor({ starColors[0] });
+            auto sprite = getComponent<bonzai::SpriteRenderer>();
+            if (sprite) {
+                sprite->setColor({ starColors[0] });
+            }
+            
 
 
         }
     }
     else if (tripleShotPowerActive) {
         powerupTimer += deltaTime;
-        dynamic_cast<bonzai::SpriteRenderer*>(components[0].get())->setColor( { 0,1,1 });
+        auto sprite = getComponent<bonzai::SpriteRenderer>();
+        if (sprite) {
+            sprite->setColor({ 0,1,1 });
+        }
+        
 
         
 
         if (powerupTimer > 10) {
             tripleShotPowerActive = false;
             powerupTimer = 0;
-            dynamic_cast<bonzai::SpriteRenderer*>(components[0].get())->setColor({ starColors[0] });
+            auto sprite = getComponent<bonzai::SpriteRenderer>();
+            if (sprite) {
+                sprite->setColor({ starColors[0] });
+            }
+            
 
 
         }
     }else if (laserPowerActive) {
         powerupTimer += deltaTime;
-        dynamic_cast<bonzai::SpriteRenderer*>(components[0].get())->setColor( { 1,0,1 });
-       
+        
+        auto sprite = getComponent<bonzai::SpriteRenderer>();
+        if (sprite) {
+            sprite->setColor( { 1,0,1 } );
+        }
 
         if (powerupTimer > 11) {
             laserPowerActive = false;
             powerupTimer = 0;
-            dynamic_cast<bonzai::SpriteRenderer*>(components[0].get())->setColor( {starColors[0] });
+            auto sprite = getComponent<bonzai::SpriteRenderer>();
+            if (sprite) {
+                sprite->setColor({ starColors[0] });
+            }
         }
     }
     else if (healthPowerActive) {
         powerupTimer += deltaTime;
-        dynamic_cast<bonzai::SpriteRenderer*>(components[0].get())->setColor( { 0,1,0 });
+        
+        auto sprite = getComponent<bonzai::SpriteRenderer>();
+        if (sprite) {
+            sprite->setColor({ 0,1,0 });
+        }
         if (powerupTimer > 10) {
             healthPowerActive = false;
             powerupTimer = 0;
-            dynamic_cast<bonzai::SpriteRenderer*>(components[0].get())->setColor({ starColors[0] });
+            auto sprite = getComponent<bonzai::SpriteRenderer>();
+            if (sprite) {
+                sprite->setColor({ starColors[0] });
+            }
 
         }
     }
@@ -130,8 +167,13 @@ void Player::update(float deltaTime){
         projectile->hasParticles=false; // seconds
         projectile->lifespan = 3.0f; // seconds
         projectile->pierce=5; 
-        projectile->speed = 0;;
-       // projectile->particleColor = this->texture->color;
+        projectile->speed = 0;
+        auto sprite = getComponent<bonzai::SpriteRenderer>();
+        if (sprite) {
+            projectile->particleColor = sprite->getColor();
+
+        }
+       
         projectile->name = "laser"; // Set the name of the player actor
         projectile->tag = "Player"; // Set the name of the player actor
         //components
@@ -151,8 +193,7 @@ void Player::update(float deltaTime){
         if (bonzai::getEngine().getInput().getKeyDown(SDL_SCANCODE_SPACE) && shootTimer <= 0) {
             shootTimer = shootCooldown; // Reset the shoot timer
             
-            //bonzai::res_t texture = bonzai::resources().get<bonzai::Texture>("Textures/Projectile.png", bonzai::getEngine().getRenderer());
-            //texture->color = bonzai::vec3{ 1.0f,1.0f,1.0f };
+            
 			//2 extra shots for triple shot powerup
             if (tripleShotPowerActive) {
                 
@@ -168,7 +209,12 @@ void Player::update(float deltaTime){
                     //projectile->damping = 0.00f;
                     //projectile->speed = this->velocity.length() + 50.0f; // Set speed to a higher value for faster movement
                     projectile->lifespan = 4.0f; // seconds
-                    projectile->particleColor = dynamic_cast<bonzai::SpriteRenderer*>(components[0].get())->getColor();
+                    auto sprite = getComponent<bonzai::SpriteRenderer>();
+                    if (sprite) {
+                        projectile->particleColor = sprite->getColor();
+
+                    }
+                    
                     projectile->name = "projectile"; // Set the name of the player actor
                     projectile->tag = "Player"; // Set the name of the player actor
                     projectile->addComponent(std::move(spriteRenderer));
@@ -199,7 +245,11 @@ void Player::update(float deltaTime){
 
                
                 projectile->lifespan = 4.0f; // seconds
-                projectile->particleColor = dynamic_cast<bonzai::SpriteRenderer*>(components[0].get())->getColor();
+                auto sprite = getComponent<bonzai::SpriteRenderer>();
+                if (sprite) {
+                    projectile->particleColor = sprite->getColor();
+
+                }
                 projectile->name = "projectile"; // Set the name of the player actor
                 projectile->tag = "Player"; // Set the name of the player actor
                 projectile->addComponent(std::move(spriteRenderer));
@@ -221,7 +271,6 @@ void Player::update(float deltaTime){
 
             }
 
-            bonzai::getEngine().getAudio().playSound(*bonzai::resources().get<bonzai::AudioClip>("Assets/bass.wav", bonzai::getEngine().getAudio()).get());
 
             bonzai::Transform transform{ this->transform.position,this->transform.rotation, 2 };//size
             std::unique_ptr<Projectile> projectile = std::make_unique<Projectile>(transform);
@@ -233,7 +282,11 @@ void Player::update(float deltaTime){
             
             
             projectile->lifespan = 4.0f; // seconds
-            projectile->particleColor = dynamic_cast<bonzai::SpriteRenderer*>(components[0].get())->getColor();
+            auto sprite = getComponent<bonzai::SpriteRenderer>();
+            if (sprite) {
+                projectile->particleColor = sprite->getColor();
+
+            }
             projectile->name = "projectile"; // Set the name of the player actor
             projectile->tag = "Player"; // Set the name of the player actor
             projectile->addComponent(std::move(spriteRenderer));
@@ -278,7 +331,12 @@ void Player::onCollision(Actor* other){
             bonzai::Particle particle;
             particle.position = transform.position;
             particle.velocity = bonzai::random::onUnitCircle() * bonzai::random::getReal(100.0f, 500.0f);
-            particle.color = dynamic_cast<bonzai::SpriteRenderer*>(components[0].get())->getColor();
+            auto sprite = getComponent<bonzai::SpriteRenderer>();
+            if (sprite) {
+                particle.color  = sprite->getColor();
+
+            }
+           
             particle.lifespan = 1.0f;
             bonzai::getEngine().getParticlesSystem().addParticle(particle);
 

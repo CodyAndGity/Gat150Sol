@@ -12,6 +12,6 @@ namespace bonzai{
         FMOD_RESULT result = audioSystem.system->createSound(filename.c_str(), FMOD_DEFAULT, 0, &sound);
         if (!AudioSystem::checkFMODResult(result)) return false;
 
-        return false;
+        return true;
     }
 }
