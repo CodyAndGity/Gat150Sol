@@ -74,7 +74,7 @@ void SpaceGame::update(float deltaTime){
         player->addComponent(std::move(spriteRenderer));
 
 		auto rigidBody = std::make_unique<bonzai::RigidBody>();
-		rigidBody->damping = 0.0001f; 
+		rigidBody->damping = 0.00025f; 
 		player->addComponent(std::move(rigidBody));
 
 		auto collider = std::make_unique<bonzai::CircleCollider2D>();
@@ -241,6 +241,9 @@ void SpaceGame::spawnPowerup(std::string name){
          powerup = std::make_unique<Powerup>(transform);
          powerup->addComponent(std::move(spriteRenderer));
 
+		 auto collider = std::make_unique<bonzai::CircleCollider2D>();
+		 collider->radius = 40.0f; // Set the radius of the collider
+		 powerup->addComponent(std::move(collider));
 
         powerup->tag = "Powerup";
         powerup->name = name;

@@ -7,19 +7,6 @@ int main(int argc, char* argv[]) {
 
     bonzai::file::SetCurrentDirectory("Assets");
 
-    
-
-
-    bonzai::vec3 v={ 1.0f,2.2f,2.8f };
-	std::cout << v << std::endl;
-
-	std::string vectorString("{23.4,45.6}");
-	std::stringstream streamVec(vectorString);
-	bonzai::vec2 v2;
-	streamVec >> v2;
-	std::cout << "Parsed Vector2: " << v2 << std::endl;
-
-    return 0;
     // Initialize engine systems
 	bonzai::getEngine().initialize();
    

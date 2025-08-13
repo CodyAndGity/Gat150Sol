@@ -142,7 +142,7 @@ void Player::update(float deltaTime){
     if (slowDown) {
         auto body = getComponent<bonzai::RigidBody>();
         if (body) {
-            body->damping += 0.0005f;
+            body->damping += 0.0025f;
         }
         
     }
@@ -150,7 +150,7 @@ void Player::update(float deltaTime){
     if (slowDown) {
         auto body = getComponent<bonzai::RigidBody>();
         if (body) {
-            body->damping -= 0.0005f;
+            body->damping -= 0.0025f;
         }
         
     }

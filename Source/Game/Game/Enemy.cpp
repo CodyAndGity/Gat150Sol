@@ -107,6 +107,9 @@ void Enemy::update(float deltaTime){
         spriteRenderer->textureName = "Textures/enemy_projectile.png";
 		projectile->addComponent(std::move(spriteRenderer));
 
+		auto body = std::make_unique<bonzai::RigidBody>();
+		body->velocity = bonzai::vec2{ 1,0 }.rotate(bonzai::math::degToRad(transform.rotation)) * projectile->speed;
+		projectile->addComponent(std::move(body));
 
         auto collider = std::make_unique<bonzai::CircleCollider2D>();
         collider->radius = 10.0f; // Set the radius of the collider
