@@ -98,6 +98,9 @@
     <ClCompile Include="Components\AudioSource.cpp">
       <Filter>Source\Components</Filter>
     </ClCompile>
+    <ClCompile Include="Core\Json.cpp">
+      <Filter>Source\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Random.h">
@@ -207,6 +210,9 @@
     </ClInclude>
     <ClInclude Include="Components\AudioSource.h">
       <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Json.h">
+      <Filter>Source\Core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

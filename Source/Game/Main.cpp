@@ -6,6 +6,39 @@
 int main(int argc, char* argv[]) {
 
     bonzai::file::SetCurrentDirectory("Assets");
+    // load the json data from a file
+
+    std::string buffer;
+    bonzai::file::ReadTextFile("json.txt", buffer);
+    // show the contents of the json file (debug)
+    std::cout << buffer << std::endl;
+
+    // create json document from the json file contents
+    rapidjson::Document document;
+    bonzai::json::load("json.txt", document);
+
+    // read/show the data from the json file
+    std::string name;
+    int age;
+    float speed;
+    bool isAwake;
+    bonzai::vec2 position;
+    bonzai::vec3 color;
+
+    // read the json data
+    JSON_READ(document, name);
+    JSON_READ(document, age);
+    JSON_READ(document, speed);
+    JSON_READ(document, isAwake);
+    JSON_READ(document, position);
+    JSON_READ(document, color);
+
+    // show the data
+    std::cout << name << " " << age << " " << speed << " " << isAwake << std::endl;
+    std::cout << position.x << " " << position.y << std::endl;
+    std::cout << color.r << " " << color.g << " " << color.b << " " << std::endl;
+
+    return 0;
 
     // Initialize engine systems
 	bonzai::getEngine().initialize();
