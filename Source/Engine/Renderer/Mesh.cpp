@@ -4,12 +4,21 @@
 namespace bonzai {
 	bool Mesh::load(const std::string& filename){
 		std::string buffer;
-		file::ReadTextFile(filename, buffer);
+		if (!(file::ReadTextFile(filename, buffer))) {
+			Logger::Error("Failed to load mesh from file: {}", filename);
+			return false;
+		}
 		std::stringstream stream(buffer);
 		stream >> color;
 		vec2 point;
 		while (stream >> point) {
 			points.push_back(point);
+		}
+
+		if (!(stream.eof())) {
+			Logger::Error("Could not parse file: {}", filename);
+			return false;
+
 		}
 		return true;
 	}

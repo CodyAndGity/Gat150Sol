@@ -212,7 +212,7 @@
     <ClInclude Include="Game\SpaceGame.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\..\Build\Meshes\enemy.txt" />
+    <Text Include="..\..\Build\Assets\Meshes\enemy.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

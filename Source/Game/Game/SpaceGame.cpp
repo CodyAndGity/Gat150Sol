@@ -177,7 +177,7 @@ void SpaceGame::spawnEnemy(){
         // Spawn enemy at a random position around the player, but not too close
         bonzai::vec2 position{ player->transform.position+bonzai::random::onUnitCircle() *bonzai::random::getReal(350.0f,650.0f)};
         //red_spaceship.png
-        bonzai::Transform transform{ position, bonzai::random::getReal(360.0f), 3};
+		bonzai::Transform transform{ position, bonzai::random::getReal(360.0f), 13 };//3 for sprite size
         std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform);
         enemy->speed = 50.0f + bonzai::random::getReal(50.0f, 100.0f); // Random speed between 100 and 200
         enemy->shootCooldown = 2.0f + bonzai::random::getReal(0.0f, 2.0f); // Random shoot cooldown between 2 and 4 seconds
@@ -190,11 +190,13 @@ void SpaceGame::spawnEnemy(){
         rigidBody->damping = 0.0001f;
         enemy->addComponent(std::move(rigidBody));
 
-        auto spriteRenderer = std::make_unique<bonzai::SpriteRenderer>();
+        /*auto spriteRenderer = std::make_unique<bonzai::SpriteRenderer>();
         spriteRenderer->textureName = "Textures/red_enemy_spaceship.png";
 		spriteRenderer->setColor({ 1.0f,0.5f,0.5f });
-        enemy->addComponent(std::move(spriteRenderer));
-
+        enemy->addComponent(std::move(spriteRenderer));*/
+		auto meshRenderer = std::make_unique<bonzai::MeshRenderer>();
+		meshRenderer->meshName = "Meshes/enemy.txt";
+		enemy->addComponent(std::move(meshRenderer));
 
         auto collider = std::make_unique<bonzai::CircleCollider2D>();
         collider->radius = 60.0f; // Set the radius of the collider
