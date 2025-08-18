@@ -3,43 +3,74 @@
 #include "Game/SpaceGame.h"
 #include "Math/Vector2.h"
 
+class Animal {
+public:
+    virtual void speak() = 0;
+};
+class Cat : public Animal {
+public:
+    void speak() override {
+        std::cout << "Meow" << std::endl;
+	}
+};
+class Dog : public Animal {
+public:
+    void speak() override {
+        std::cout << "Woof" << std::endl;
+	}
+    void fetch() {
+        std::cout << "Fetching the ball!" << std::endl;
+	}
+};
+class Bird : public Animal {
+public:
+    void speak() override {
+        std::cout << "Chirp" << std::endl;
+	}
+};
+
+enum class AnimalType {
+    CAT = 1,
+    DOG = 2,
+    BIRD = 3
+};
+Animal* createAnimal(AnimalType id) {
+	Animal* animal = nullptr;
+    switch (id) {
+    case AnimalType::CAT:
+		animal= new Cat();
+        break;
+    case AnimalType::DOG:
+		animal= new Dog();
+        break;
+    case AnimalType::BIRD:
+		animal= new Bird();
+        break;
+    default:
+        break;
+    }
+    return animal;
+}
+
+
 int main(int argc, char* argv[]) {
 
     bonzai::file::SetCurrentDirectory("Assets");
     // load the json data from a file
-
-    std::string buffer;
-    bonzai::file::ReadTextFile("json.txt", buffer);
-    // show the contents of the json file (debug)
-    std::cout << buffer << std::endl;
-
-    // create json document from the json file contents
-    rapidjson::Document document;
-    bonzai::json::load("json.txt", document);
-
-    // read/show the data from the json file
-    std::string name;
-    int age;
-    float speed;
-    bool isAwake;
-    bonzai::vec2 position;
-    bonzai::vec3 color;
-
-    // read the json data
-    JSON_READ(document, name);
-    JSON_READ(document, age);
-    JSON_READ(document, speed);
-    JSON_READ(document, isAwake);
-    JSON_READ(document, position);
-    JSON_READ(document, color);
-
-    // show the data
-    std::cout << name << " " << age << " " << speed << " " << isAwake << std::endl;
-    std::cout << position.x << " " << position.y << std::endl;
-    std::cout << color.r << " " << color.g << " " << color.b << " " << std::endl;
-
-    return 0;
-
+    auto animal = createAnimal(AnimalType::BIRD);
+    if (animal) {
+        animal->speak();
+        auto dog = dynamic_cast<Dog*>(animal);
+        if(dog){
+			dog->fetch();
+		}
+        
+    }
+	
+	//auto spriteRenderer = bonzai::Factory::getInstance().create("MeshRenderer");
+    //spriteRenderer->name = "Steve";
+   
+    //return 0;
     // Initialize engine systems
 	bonzai::getEngine().initialize();
    

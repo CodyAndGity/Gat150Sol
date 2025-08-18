@@ -1,6 +1,7 @@
 #pragma once
 
 //core
+#include "Core/Factory.h"
 #include "Core/File.h"
 #include "Core/Json.h"
 #include "Core/Logger.h"

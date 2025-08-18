@@ -1,8 +1,9 @@
 #pragma once
-#include "../../Engine/Framework/Actor.h"
+#include "Framework/Component.h"
 #include "Math/Vector3.h"
 #include "Renderer/Texture.h"
-class Player : public bonzai::Actor {
+
+class Player : public bonzai::Component {
 public:
 	float speed{ 0 };
 	float rotateSpeed{ 0 };
@@ -15,13 +16,13 @@ public:
 	int health{ 10 };
 public:
 	Player() = default;
-	Player(const bonzai::Transform& transform) :
+	/*Player(const bonzai::Transform& transform) :
 		bonzai::Actor{ transform }
-	{}
+	{}*/
 
 	void update(float deltaTime) override;
 	// Inherited via Actor
-	void onCollision(Actor* other) override;
+	void onCollision(class Actor* other) ;
 
 	inline void setBaseColor(bonzai::vec3 color) {
 		starColors[0] = color;

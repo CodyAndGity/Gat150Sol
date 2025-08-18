@@ -9,6 +9,8 @@
 #include "Components/SpriteRenderer.h"
 #include "Components/RigidBody.h"
 
+FACTORY_REGISTER(Player)
+
 void Player::update(float deltaTime){
     // bonzai::getEngine().getAudio().playSound(*bonzai::resources().get<bonzai::AudioClip>("bass.wav", bonzai::getEngine().getAudio()).get());
     auto sound = bonzai::resources().get<bonzai::AudioClip>("bass.wav", bonzai::getEngine().getAudio()).get();

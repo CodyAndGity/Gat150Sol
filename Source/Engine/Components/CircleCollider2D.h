@@ -8,7 +8,7 @@ namespace bonzai {
 
 
 		// Inherited via ColliderComponent
-		void update(float deltatime) override;
+		void update(float deltaTime) override;
 
 		bool checkCollision(ColliderComponent& other) override;
 

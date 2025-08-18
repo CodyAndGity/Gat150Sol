@@ -4,6 +4,8 @@
 #include "Framework/Game.h"
 #include "Components/SpriteRenderer.h"
 
+FACTORY_REGISTER(Powerup)
+
 void Powerup::update(float deltaTime){
 	transform.position.x = bonzai::math::wrap(transform.position.x, 0.0f, (float)bonzai::getEngine().getRenderer().getWidth());
 	transform.position.y = bonzai::math::wrap(transform.position.y, 0.0f, (float)bonzai::getEngine().getRenderer().getHeight());

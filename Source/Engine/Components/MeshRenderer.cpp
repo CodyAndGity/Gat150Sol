@@ -1,6 +1,7 @@
 #include "Components/MeshRenderer.h"
 
 namespace bonzai {
+	FACTORY_REGISTER(MeshRenderer)
 
 	void MeshRenderer::update(float deltaTime) {
 

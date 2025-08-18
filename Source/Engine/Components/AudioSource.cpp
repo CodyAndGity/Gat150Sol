@@ -4,6 +4,8 @@
 #include "Engine.h"
 
 namespace bonzai {
+	FACTORY_REGISTER(AudioSource)
+
 	void AudioSource::update(float deltaTime) {
 		//
 

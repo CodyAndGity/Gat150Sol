@@ -1,7 +1,9 @@
 #include "EnginePCH.h"
 #include "CircleCollider2D.h"
 namespace bonzai {
-    void CircleCollider2D::update(float deltatime) {
+    FACTORY_REGISTER(CircleCollider2D)
+
+    void CircleCollider2D::update(float deltaTime) {
         //
     }
 

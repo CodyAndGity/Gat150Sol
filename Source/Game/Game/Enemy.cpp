@@ -10,6 +10,7 @@
 #include "Framework/Game.h"
 #include "Core/Random.h"
 
+FACTORY_REGISTER(Enemy)
 
 
 /// <summary>
@@ -19,32 +20,32 @@
 void Enemy::update(float deltaTime){
     bool playerSeen{ false };
 
-	Player* player = scene->getActorByName<Player>("Player");
+	Actor* player = owner->scene->getActorByName<Actor>("Player");
 
     
     if (player) {
       bonzai::vec2 direction{0,0 };
-		direction = player->transform.position - transform.position; // Calculate direction towards the player
+		direction = player->transform.position - owner->transform.position; // Calculate direction towards the player
         
 		//if the player is close to the edge, use the screen wrap to get to the player faster
         //left edge x
-        if (bonzai::math::fabs(direction.x) > bonzai::math::fabs(player->transform.position.x + bonzai::getEngine().getRenderer().getWidth() - transform.position.x)) {
+        if (bonzai::math::fabs(direction.x) > bonzai::math::fabs(player->transform.position.x + bonzai::getEngine().getRenderer().getWidth() - owner->transform.position.x)) {
            
-            direction.x = player->transform.position.x + bonzai::getEngine().getRenderer().getWidth() - transform.position.x;
-        } else if (bonzai::math::fabs(direction.x) > bonzai::math::fabs(player->transform.position.x - bonzai::getEngine().getRenderer().getWidth() - transform.position.x)) {
+            direction.x = player->transform.position.x + bonzai::getEngine().getRenderer().getWidth() - owner->transform.position.x;
+        } else if (bonzai::math::fabs(direction.x) > bonzai::math::fabs(player->transform.position.x - bonzai::getEngine().getRenderer().getWidth() - owner->transform.position.x)) {
             //right edge x    
-            direction.x = player->transform.position.x - bonzai::getEngine().getRenderer().getWidth() - transform.position.x;
+            direction.x = player->transform.position.x - bonzai::getEngine().getRenderer().getWidth() - owner->transform.position.x;
         }
 
         //bottom edge y
-        if (bonzai::math::fabs(direction.y) > bonzai::math::fabs(player->transform.position.y + bonzai::getEngine().getRenderer().getHeight() - transform.position.y)) {
-            direction.y = player->transform.position.y + bonzai::getEngine().getRenderer().getHeight() - transform.position.y;
-        }else if (bonzai::math::fabs(direction.y) > bonzai::math::fabs(player->transform.position.y - bonzai::getEngine().getRenderer().getHeight() - transform.position.y)) {
+        if (bonzai::math::fabs(direction.y) > bonzai::math::fabs(player->transform.position.y + bonzai::getEngine().getRenderer().getHeight() - owner->transform.position.y)) {
+            direction.y = player->transform.position.y + bonzai::getEngine().getRenderer().getHeight() - owner->transform.position.y;
+        }else if (bonzai::math::fabs(direction.y) > bonzai::math::fabs(player->transform.position.y - bonzai::getEngine().getRenderer().getHeight() - owner->transform.position.y)) {
             //top edge y
-            direction.y = player->transform.position.y - bonzai::getEngine().getRenderer().getHeight() - transform.position.y;
+            direction.y = player->transform.position.y - bonzai::getEngine().getRenderer().getHeight() - owner->transform.position.y;
         }
 		direction = direction.normalized(); // Normalize the direction vector
-        bonzai::vec2 forward = bonzai::vec2{ 1,0 }.rotate(bonzai::math::degToRad(transform.rotation));
+        bonzai::vec2 forward = bonzai::vec2{ 1,0 }.rotate(bonzai::math::degToRad(owner->transform.rotation));
         float angle = bonzai::math::radToDeg( bonzai::vec2::angleBetween (forward,direction));
 
 
@@ -53,19 +54,19 @@ void Enemy::update(float deltaTime){
             angle = (bonzai::vec2::signedAngleBetween(forward, direction));
             angle = bonzai::math::sign(angle);
 
-            transform.rotation += bonzai::math::radToDeg(angle * deltaTime * 10);
-            bonzai::vec2 velocity = bonzai::vec2{ 1,0 }.rotate(bonzai::math::degToRad(transform.rotation)) * speed;
+            owner->transform.rotation += bonzai::math::radToDeg(angle * deltaTime * 10);
+            bonzai::vec2 velocity = bonzai::vec2{ 1,0 }.rotate(bonzai::math::degToRad(owner->transform.rotation)) * speed;
             
-            auto body= getComponent<bonzai::RigidBody>();
+            auto body= owner->getComponent<bonzai::RigidBody>();
             if(body) {
                 body->velocity +=velocity* deltaTime;
 			}
 
         }else{
             angle = bonzai::random::getReal(0.1f);
-            transform.rotation += bonzai::math::radToDeg(angle * deltaTime * 10);
+            owner->transform.rotation += bonzai::math::radToDeg(angle * deltaTime * 10);
             bonzai::vec2 velocity = bonzai::vec2{ 1,0 }.rotate(bonzai::math::degToRad(transform.rotation)) * speed*0.1f;
-            auto body = getComponent<bonzai::RigidBody>();
+            auto body = owner->getComponent<bonzai::RigidBody>();
             if (body) {
                 body->velocity += velocity * deltaTime;
             }
@@ -75,32 +76,32 @@ void Enemy::update(float deltaTime){
     
     
 
-    transform.position.x = bonzai::math::wrap(transform.position.x, 0.0f, (float)bonzai::getEngine().getRenderer().getWidth());
-    transform.position.y = bonzai::math::wrap(transform.position.y, 0.0f, (float)bonzai::getEngine().getRenderer().getHeight());
+    owner->transform.position.x = bonzai::math::wrap(owner->transform.position.x, 0.0f, (float)bonzai::getEngine().getRenderer().getWidth());
+    owner->transform.position.y = bonzai::math::wrap(owner->transform.position.y, 0.0f, (float)bonzai::getEngine().getRenderer().getHeight());
     
     shootTimer -= deltaTime;
     if ( shootTimer <= 0 && playerSeen) {
         shootTimer = shootCooldown; // Reset the shoot timer
 
        
-        bonzai::Transform transform{ this->transform.position,this->transform.rotation, 2 };//size
-        std::unique_ptr<Projectile> projectile = std::make_unique<Projectile>(transform); //, texture);
+        bonzai::Transform transform{ this->owner->transform.position,this->owner->transform.rotation, 2 };//size
+        std::unique_ptr<Actor> projectile = std::make_unique<Actor>(transform); //, texture);
 
                 
         auto spriteRenderer = std::make_unique<bonzai::SpriteRenderer>();
         spriteRenderer->textureName = "Textures/Projectile.png";
         
 
-        projectile->speed = this->speed + bonzai::random::getReal(100.0f)+200;
-        projectile->lifespan = 2.0f; // seconds
+        projectile->owner->speed = this->speed + bonzai::random::getReal(100.0f)+200;
+        projectile->owner->lifespan = 2.0f; // seconds
 
-        auto sprite = getComponent<bonzai::SpriteRenderer>();
+        auto sprite = owner->getComponent<bonzai::SpriteRenderer>();
         if (sprite) {
             projectile->particleColor = sprite->getColor();
             
         }
         projectile->name = "projectile"; // Set the name of the player actor
-        projectile->tag = "Enemy"; // Set the name of the player actor
+        projectile->owner->tag = "Enemy"; // Set the name of the player actor
         
         //components
 		 spriteRenderer = std::make_unique<bonzai::SpriteRenderer>();

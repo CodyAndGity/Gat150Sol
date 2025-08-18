@@ -1,18 +1,18 @@
 #pragma once
-#include "Framework/Actor.h"
+#include "Framework/Component.h"
 
-class Enemy : public bonzai::Actor {
+class Enemy : public bonzai::Component {
 public:
 	float speed{ 200 };
 	float shootCooldown{ 0.0f }; // seconds between shots
 	Enemy() = default;
-	Enemy(const bonzai::Transform& transform) :
+	/*Enemy(const bonzai::Transform& transform) :
 		bonzai::Actor{ transform }
-	{}
+	{}*/
 
 	void update(float deltaTime) override;
 	// Inherited via Actor
-	void onCollision(Actor* other) override;
+	void onCollision(class Actor* other) ;
 
 
 

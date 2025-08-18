@@ -1,6 +1,8 @@
 #include "RigidBody.h"
 
 namespace bonzai {
+	FACTORY_REGISTER(RigidBody)
+
 	void RigidBody::update(float deltaTime){
 		if (velocity.x != velocity.x) {
 			return;

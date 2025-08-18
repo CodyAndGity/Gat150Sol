@@ -1,5 +1,6 @@
 #include "Projectile.h"
 #include "Player.h"
+FACTORY_REGISTER(Projectile)
 
 
 void Projectile::update(float deltaTime) {
