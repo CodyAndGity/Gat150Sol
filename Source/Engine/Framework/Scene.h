@@ -1,5 +1,6 @@
 #pragma once
 #include "Core/StringHelper.h"
+#include "Core/Serializable.h"
 #include <vector>
 #include <memory>
 #include <list>
@@ -8,10 +9,13 @@ namespace bonzai {
 	class Actor;
 	class Game;
 
-	class Scene {
+	class Scene:public Serializable {
 	public:
+
+
 		Scene(Game* game) : game{ game }{}
 
+		void read(const json::value_t& value) override;
 		void update(float deltaTime);
 		void draw(class Renderer& renderer);
 

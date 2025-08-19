@@ -12,6 +12,7 @@
 FACTORY_REGISTER(Player)
 
 void Player::update(float deltaTime){
+    
     // bonzai::getEngine().getAudio().playSound(*bonzai::resources().get<bonzai::AudioClip>("bass.wav", bonzai::getEngine().getAudio()).get());
     auto sound = bonzai::resources().get<bonzai::AudioClip>("bass.wav", bonzai::getEngine().getAudio()).get();
     if (sound) {
@@ -23,20 +24,20 @@ void Player::update(float deltaTime){
         //I know it's bad, but it make the player look cool without seizure vibes
         starColorIndex++;
         if (starColorIndex % 512 == 128) {
-            auto sprite = getComponent<bonzai::SpriteRenderer>();
+            auto sprite = owner->getComponent<bonzai::SpriteRenderer>();
             if (sprite) {
                  sprite->setColor({ starColors[starColorIndex % 3] });
             }
         }
         else if (starColorIndex % 512 == 1) {
-            auto sprite = getComponent<bonzai::SpriteRenderer>();
+            auto sprite = owner->getComponent<bonzai::SpriteRenderer>();
             if (sprite) {
                 sprite->setColor({ starColors[starColorIndex % 3] });
             }
 
         }
         else if (starColorIndex % 512 == 258) {
-            auto sprite = getComponent<bonzai::SpriteRenderer>();
+            auto sprite = owner->getComponent<bonzai::SpriteRenderer>();
             if (sprite) {
                 sprite->setColor({ starColors[starColorIndex % 3] });
             }
@@ -47,11 +48,11 @@ void Player::update(float deltaTime){
             starPowerActive = false;
             powerupTimer = 0;
             
-            auto body = getComponent<bonzai::RigidBody>();
+            auto body = owner->getComponent<bonzai::RigidBody>();
             if (body) {
                 body->damping += 0.001f;
             }
-            auto sprite = getComponent<bonzai::SpriteRenderer>();
+            auto sprite = owner->getComponent<bonzai::SpriteRenderer>();
             if (sprite) {
                 sprite->setColor({ starColors[0] });
             }
@@ -62,7 +63,7 @@ void Player::update(float deltaTime){
     }
     else if (tripleShotPowerActive) {
         powerupTimer += deltaTime;
-        auto sprite = getComponent<bonzai::SpriteRenderer>();
+        auto sprite = owner->getComponent<bonzai::SpriteRenderer>();
         if (sprite) {
             sprite->setColor({ 0,1,1 });
         }
@@ -73,7 +74,7 @@ void Player::update(float deltaTime){
         if (powerupTimer > 10) {
             tripleShotPowerActive = false;
             powerupTimer = 0;
-            auto sprite = getComponent<bonzai::SpriteRenderer>();
+            auto sprite = owner->getComponent<bonzai::SpriteRenderer>();
             if (sprite) {
                 sprite->setColor({ starColors[0] });
             }
@@ -84,7 +85,7 @@ void Player::update(float deltaTime){
     }else if (laserPowerActive) {
         powerupTimer += deltaTime;
         
-        auto sprite = getComponent<bonzai::SpriteRenderer>();
+        auto sprite = owner->getComponent<bonzai::SpriteRenderer>();
         if (sprite) {
             sprite->setColor( { 1,0,1 } );
         }
@@ -92,7 +93,7 @@ void Player::update(float deltaTime){
         if (powerupTimer > 11) {
             laserPowerActive = false;
             powerupTimer = 0;
-            auto sprite = getComponent<bonzai::SpriteRenderer>();
+            auto sprite = owner->getComponent<bonzai::SpriteRenderer>();
             if (sprite) {
                 sprite->setColor({ starColors[0] });
             }
@@ -101,14 +102,14 @@ void Player::update(float deltaTime){
     else if (healthPowerActive) {
         powerupTimer += deltaTime;
         
-        auto sprite = getComponent<bonzai::SpriteRenderer>();
+        auto sprite = owner->getComponent<bonzai::SpriteRenderer>();
         if (sprite) {
             sprite->setColor({ 0,1,0 });
         }
         if (powerupTimer > 10) {
             healthPowerActive = false;
             powerupTimer = 0;
-            auto sprite = getComponent<bonzai::SpriteRenderer>();
+            auto sprite = owner->getComponent<bonzai::SpriteRenderer>();
             if (sprite) {
                 sprite->setColor({ starColors[0] });
             }
@@ -123,7 +124,7 @@ void Player::update(float deltaTime){
     if (bonzai::getEngine().getInput().getKeyDown(SDL_SCANCODE_D)) {
         rotate = 1;
     }
-    transform.rotation += (rotate *rotateSpeed)* deltaTime;
+    owner->transform.rotation += (rotate *rotateSpeed)* deltaTime;
 
     float thrust = 0;
     if (bonzai::getEngine().getInput().getKeyDown(SDL_SCANCODE_W)) {
@@ -133,29 +134,31 @@ void Player::update(float deltaTime){
 		slowDown = true;
     }
     bonzai::vec2 direction{ 1,0 };
-	bonzai::vec2 velocity = direction.rotate(bonzai::math::degToRad( transform.rotation)) *thrust * speed;
-    auto body = getComponent<bonzai::RigidBody>();
+	bonzai::vec2 velocity = direction.rotate(bonzai::math::degToRad(owner->transform.rotation)) *thrust * speed;
+    auto body = owner->getComponent<bonzai::RigidBody>();
     if (body) {
         body->velocity += velocity * deltaTime;
     }
 
-    transform.position.x=bonzai::math::wrap(transform.position.x, 0.0f, (float)bonzai::getEngine().getRenderer().getWidth());
-	transform.position.y = bonzai::math::wrap(transform.position.y, 0.0f, (float)bonzai::getEngine().getRenderer().getHeight());
+    owner->transform.position.x=bonzai::math::wrap(owner->transform.position.x, 0.0f, (float)bonzai::getEngine().getRenderer().getWidth());
+    owner->transform.position.y = bonzai::math::wrap(owner->transform.position.y, 0.0f, (float)bonzai::getEngine().getRenderer().getHeight());
     if (slowDown) {
-        auto body = getComponent<bonzai::RigidBody>();
+        auto body = owner->getComponent<bonzai::RigidBody>();
         if (body) {
             body->damping += 0.0025f;
         }
         
     }
-    Actor::update(deltaTime);
+    
+    this->owner->bonzai::Actor::update(deltaTime);
     if (slowDown) {
-        auto body = getComponent<bonzai::RigidBody>();
+        auto body = owner->getComponent<bonzai::RigidBody>();
         if (body) {
             body->damping -= 0.0025f;
         }
         
     }
+    /*
 	shootTimer -= deltaTime;
 	//Laser shot
     if (bonzai::getEngine().getInput().getKeyDown(SDL_SCANCODE_SPACE) && laserPowerActive && shootTimer <= 0) {
@@ -311,10 +314,10 @@ void Player::update(float deltaTime){
         }
     }
     
-
+    */
 }
 
-void Player::onCollision(Actor* other){
+void Player::onCollision(bonzai::Actor* other){
     
     if (other->tag == "Enemy" and !starPowerActive) {
         if (healthPowerActive) {
@@ -327,13 +330,13 @@ void Player::onCollision(Actor* other){
         }
     }
     if(health<=0){
-        this->destroyed = true;
-		dynamic_cast<SpaceGame*>(scene->getGame())->onDeath();
+        this->owner->destroyed = true;
+		dynamic_cast<SpaceGame*>(owner->scene->getGame())->onDeath();
         for (int i = 0; i < 500; i++) {
             bonzai::Particle particle;
-            particle.position = transform.position;
+            particle.position = owner->transform.position;
             particle.velocity = bonzai::random::onUnitCircle() * bonzai::random::getReal(100.0f, 500.0f);
-            auto sprite = getComponent<bonzai::SpriteRenderer>();
+            auto sprite = owner->getComponent<bonzai::SpriteRenderer>();
             if (sprite) {
                 particle.color  = sprite->getColor();
 

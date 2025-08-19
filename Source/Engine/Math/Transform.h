@@ -1,7 +1,8 @@
 #pragma once
 #include "Vector2.h"
+#include "Core/Serializable.h"
 namespace bonzai {
-	struct Transform {
+	struct Transform : public Serializable {
 		vec2 position{ 0,0 };
 		float rotation{ 0 }; // in radians
 		float scale { 0 };
@@ -10,6 +11,8 @@ namespace bonzai {
 			: position(position),
 			  rotation(rotation),
 			  scale(scale) {}
+
+		void read(const json::value_t& value) override;
 	};
 
 }

@@ -4,6 +4,15 @@
 #include "Components/ColliderComponent.h"
 
 namespace bonzai {
+
+	void Scene::read(const json::value_t& value) {
+		for (auto& actorValue : value["actors"].GetArray()) {
+			auto actor = Factory::getInstance().create<Actor>("Actor");
+			actor->read(actorValue);
+			addActor(std::move(actor));
+		}
+
+	}
 	void Scene::update(float deltaTime) {
 		for (auto& actor : actors) {
 			if (actor->active) {

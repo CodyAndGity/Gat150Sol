@@ -22,5 +22,11 @@ namespace bonzai {
 	void SpriteRenderer::setColor(vec3 color) {
 		resources().get<Texture>(textureName, bonzai::getEngine().getRenderer()).get()->color=color;
 	}
+	void SpriteRenderer::read(const json::value_t& value) {
+		Object::read(value);
+		JSON_READ(value, textureName);
+
+
+	}
 
 }

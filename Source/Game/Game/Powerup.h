@@ -4,13 +4,11 @@
 class Powerup:  public bonzai::Component {
 	public:
 	Powerup() = default;
-	/*Powerup(const bonzai::Transform& transform) :
-		bonzai::Actor{ transform }
-	{}*/
+	
 
 	void update(float deltaTime) override;
 	// Inherited via Actor
-	void onCollision(class Actor* other) ;
+	void onCollision(class bonzai::Actor* other) ;
 
 
 

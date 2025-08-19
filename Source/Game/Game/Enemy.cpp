@@ -18,6 +18,7 @@ FACTORY_REGISTER(Enemy)
 /// </summary>
 /// <param name="deltaTime">The time elapsed since the last update, used to ensure frame-rate independent movement.</param>
 void Enemy::update(float deltaTime){
+    /*
     bool playerSeen{ false };
 
 	Actor* player = owner->scene->getActorByName<Actor>("Player");
@@ -120,18 +121,19 @@ void Enemy::update(float deltaTime){
 
     }
     Actor::update(deltaTime);
+    */
 }
 
-void Enemy::onCollision(Actor* other){
-    if (tag !=other->tag) {
-        this->destroyed = true;
-		scene->getGame()->addScore(100);
+void Enemy::onCollision(bonzai::Actor* other){
+    if (owner->tag !=other->tag) {
+        this->owner->destroyed = true;
+        owner->scene->getGame()->addScore(100);
         for (int i = 0; i < 100; i++) {
             bonzai::Particle particle;
-            particle.position = transform.position;
+            particle.position = owner->transform.position;
 			particle.velocity = bonzai::random::onUnitCircle() * bonzai::random::getReal(100.0f, 200.0f);
 
-            auto sprite = getComponent<bonzai::SpriteRenderer>();
+            auto sprite = owner->getComponent<bonzai::SpriteRenderer>();
             if (sprite) {
                 particle.color = sprite->getColor();
 

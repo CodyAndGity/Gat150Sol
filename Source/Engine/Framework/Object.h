@@ -1,13 +1,16 @@
 #pragma once
+#include "Core/Serializable.h"
 #include <string>
 namespace bonzai {
-	class Object {
+	class Object : public Serializable {
 	public:
 		std::string name;
 		bool active{ true };
 	public:
 		Object() = default;
 		virtual ~Object() = default;
+		virtual void read(const json::value_t& value) override;
+
 	};
 
 }

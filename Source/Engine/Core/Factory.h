@@ -64,9 +64,18 @@ namespace bonzai {
 		auto iter = registry.find(key);
 		if (iter != registry.end()) {
 			//found creator, create instance
-			return iter->second->Create();
+			auto object = iter->second->Create();
+			T* derived = dynamic_cast<T*>(object.get());
+			if(derived) {
+				object.release(); // Transfer ownership to the caller
+				return std::unique_ptr<T>(derived);
+			}
+			Logger::Error("Factory: Type mismatch of class/Object with name: {}", name);
+
 		}
-		Logger::Error("Factory: No class/Object registered with name: {}", name);
-		return nullptr;
+		else {
+			Logger::Error("Factory: No class/Object registered with name: {}", name);
+		}
+		return nullptr; 
 	}
 }

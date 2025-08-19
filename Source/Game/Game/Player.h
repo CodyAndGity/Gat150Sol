@@ -16,13 +16,11 @@ public:
 	int health{ 10 };
 public:
 	Player() = default;
-	/*Player(const bonzai::Transform& transform) :
-		bonzai::Actor{ transform }
-	{}*/
+	
 
 	void update(float deltaTime) override;
 	// Inherited via Actor
-	void onCollision(class Actor* other) ;
+	void onCollision(class bonzai::Actor* other) ;
 
 	inline void setBaseColor(bonzai::vec3 color) {
 		starColors[0] = color;

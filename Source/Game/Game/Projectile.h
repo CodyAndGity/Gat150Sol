@@ -11,14 +11,12 @@ public:
 	bool hasParticles{ true };
 	bonzai::vec3 particleColor{ 0,0,0 };
 	Projectile() = default;
-	/*Projectile(const bonzai::Transform& transform) :
-		bonzai::Actor{ transform }
-	{}*/
+	
 
 	void update(float deltaTime) override;
 
 	// Inherited via Actor
-	void onCollision(class Actor* other) ;
+	void onCollision(class bonzai::Actor* other) ;
 
 
 private:

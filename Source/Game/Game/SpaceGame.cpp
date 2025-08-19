@@ -15,8 +15,9 @@ bool SpaceGame::initialize(){
 
 	scene = std::make_unique<bonzai::Scene>(this);
 
-	
-
+	bonzai::json::document_t document;
+    bonzai::json::load("scene.json", document);
+    scene->read(document);
     titleText = std::make_unique< bonzai::Text>(bonzai::resources().getWithID<bonzai::Font>("title_font","radiospacebitmap.ttf", 128.0f));
     scoreText = std::make_unique< bonzai::Text>(bonzai::resources().getWithID<bonzai::Font>("ui_font", "radiospacebitmap.ttf", 32.0f));
     livesText = std::make_unique< bonzai::Text>(bonzai::resources().getWithID<bonzai::Font>("ui_font","radiospacebitmap.ttf", 32.0f));
@@ -52,8 +53,8 @@ void SpaceGame::update(float deltaTime){
     case GameState::STARTING_LEVEL:
     {
 		scene->removeAllActors();
-       // std::shared_ptr<bonzai::Model> model = std::make_shared <bonzai::Model>(GameData::shipPoints, bonzai::vec3{ .5f,.5f,1 });
-        
+       
+        /*
         bonzai::Transform transform{ { (float)bonzai::getEngine().getRenderer().getWidth() * 0.5f,
             (float)bonzai::getEngine().getRenderer().getHeight() * 0.5f}//position
             ,0,//rotation
@@ -82,6 +83,7 @@ void SpaceGame::update(float deltaTime){
 		player->addComponent(std::move(collider));
 
         scene->addActor(std::move(player));
+        */
         gameState = GameState::PLAYING_GAME;
     }
         break;
@@ -170,6 +172,7 @@ void SpaceGame::onDeath(){
 }
 
 void SpaceGame::spawnEnemy(){
+    /*
 	Player* player = scene->getActorByName<Player>("Player");
     if (player) {
         
@@ -197,15 +200,19 @@ void SpaceGame::spawnEnemy(){
 		/*auto meshRenderer = std::make_unique<bonzai::MeshRenderer>();
 		meshRenderer->meshName = "Meshes/enemy.txt";
 		enemy->addComponent(std::move(meshRenderer));*/
-
+        /*
         auto collider = std::make_unique<bonzai::CircleCollider2D>();
         collider->radius = 60.0f; // Set the radius of the collider
         enemy->addComponent(std::move(collider));
 
         scene->addActor(std::move(enemy));
-    }
+        
+        
+    }*/
+
 }
 void SpaceGame::spawnPowerup(std::string name){
+    /*
 	Player* player = scene->getActorByName<Player>("Player");
     if (player) {
 
@@ -253,4 +260,5 @@ void SpaceGame::spawnPowerup(std::string name){
 
         scene->addActor(std::move(powerup));
     }
+    */
 }

@@ -10,6 +10,7 @@ namespace bonzai {
 		void draw(class Renderer& renderer) override;
 		bonzai::vec3 getColor();
 		void setColor(vec3 color);
+		void read(const json::value_t& value) override;
 
 	private:
 	};

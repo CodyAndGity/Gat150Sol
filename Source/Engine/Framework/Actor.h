@@ -8,12 +8,12 @@
 #include <memory>
 #include <vector>
 namespace bonzai {
-	class Actor :public Object{
+	class Actor :public Object {
 	public:
 		
 		std::string tag;
 		Transform transform;
-		std::shared_ptr<Mesh> model;
+		
 		
 
 		
@@ -23,16 +23,18 @@ namespace bonzai {
 		std::vector<std::unique_ptr<Component>> components;
 
 	public:
+
 		Actor() = default;
 		Actor(const Transform& transform) :
 			transform{ transform }
 		{}
+		void read(const json::value_t& value) override;
 
 		virtual void update(float deltaTime);
 		virtual void draw(class Renderer& renderer);
 		Transform& getTransform() { return transform; }
 
-		virtual void onCollision(Actor* other)=0;
+		virtual void onCollision(Actor* other) {}
 		
 		void addComponent(std::unique_ptr<Component> component);
 		

@@ -7,7 +7,7 @@
 
 namespace bonzai::json
 {
-    bool load(const std::string& filename, rapidjson::Document& document) {
+    bool load(const std::string& filename, document_t& document) {
         // read the file into a string
         std::string buffer;
         if (!file::ReadTextFile(filename, buffer)) {
@@ -30,7 +30,7 @@ namespace bonzai::json
         return true;
     }
 
-    bool read(const rapidjson::Value& value, const std::string& name, int& data) {
+    bool read(const value_t& value, const std::string& name, int& data) {
         // check if the value has the "<name>" and the correct data type
         if (!value.HasMember(name.c_str()) || !value[name.c_str()].IsInt()) {
             Logger::Error("Could not read Json value (int): {}.", name);
@@ -43,7 +43,7 @@ namespace bonzai::json
         return true;
     }
 
-    bool read(const rapidjson::Value& value, const std::string& name, bool& data) {
+    bool read(const value_t& value, const std::string& name, bool& data) {
         // check if the value has the "<name>" and the correct data type
         if (!value.HasMember(name.c_str()) || !value[name.c_str()].IsBool()) {
             Logger::Error("Could not read Json value (bool): {}.", name);
@@ -56,7 +56,7 @@ namespace bonzai::json
         return true;
     }
 
-    bool read(const rapidjson::Value& value, const std::string& name, float& data) {
+    bool read(const value_t& value, const std::string& name, float& data) {
         // check if the value has the "<name>" and the correct data type
         if (!value.HasMember(name.c_str()) || !value[name.c_str()].IsFloat()) {
             Logger::Error("Could not read Json value (float): {}.", name);
@@ -69,7 +69,7 @@ namespace bonzai::json
         return true;
     }
 
-    bool read(const rapidjson::Value& value, const std::string& name, std::string& data) {
+    bool read(const value_t& value, const std::string& name, std::string& data) {
         // check if the value has the "<name>" and the correct data type
         if (!value.HasMember(name.c_str()) || !value[name.c_str()].IsString()) {
             Logger::Error("Could not read Json value (string): {}.", name);
@@ -82,7 +82,7 @@ namespace bonzai::json
         return true;
     }
 
-    bool read(const rapidjson::Value& value, const std::string& name, vec2& data) {
+    bool read(const value_t& value, const std::string& name, vec2& data) {
         // check if the value has the "<name>" and is an array with 2 elements
         if (!value.HasMember(name.c_str()) || !value[name.c_str()].IsArray() || value[name.c_str()].Size() != 2) {
             Logger::Error("Could not read Json value (vec2): {}.", name);
@@ -105,7 +105,7 @@ namespace bonzai::json
         return true;
     }
 
-    bool read(const rapidjson::Value& value, const std::string& name, vec3& data) {
+    bool read(const value_t& value, const std::string& name, vec3& data) {
         // check if the value has the "<name>" and is an array with 2 elements
         if (!value.HasMember(name.c_str()) || !value[name.c_str()].IsArray() || value[name.c_str()].Size() != 3) {
             Logger::Error("Could not read Json value (vec3): {}.", name);

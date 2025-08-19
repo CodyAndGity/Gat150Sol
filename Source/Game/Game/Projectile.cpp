@@ -1,10 +1,11 @@
+#include "../GamePCH.h"
 #include "Projectile.h"
 #include "Player.h"
 FACTORY_REGISTER(Projectile)
 
 
 void Projectile::update(float deltaTime) {
-
+    /*
 
     
 
@@ -32,14 +33,15 @@ void Projectile::update(float deltaTime) {
         particle.lifespan = bonzai::random::getReal(0.3f, 0.6f);
         bonzai::getEngine().getParticlesSystem().addParticle(particle);
     }
+    */
 }
 
-void Projectile::onCollision(Actor* other){
-    if (other->tag !=tag && other->tag!="Powerup") {
+void Projectile::onCollision(bonzai::Actor* other){
+    if (other->tag != owner->tag && other->tag!="Powerup") {
         pierce--;
         
 	}
     if (pierce <= 0) {
-        this->destroyed = true;
+        this->owner->destroyed = true;
     }
 }
