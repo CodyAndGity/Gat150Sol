@@ -11,9 +11,9 @@ namespace bonzai {
         float distance = (owner->transform.position - other.owner->transform.position).length();
 
 		//check circle to circle collision
-		auto cirleCollider = dynamic_cast<CircleCollider2D*>(&other);
-        if (cirleCollider) {
-		    float radii = radius + cirleCollider->radius;
+		auto circleCollider = dynamic_cast<CircleCollider2D*>(&other);
+        if (circleCollider) {
+		    float radii = radius + circleCollider->radius;
             if( distance <= radii) {
                 // Collision detected
                 return true;
@@ -23,4 +23,11 @@ namespace bonzai {
 
         return false;
     }
+    void CircleCollider2D::read(const json::value_t& value)    {
+        Object::read(value);
+        JSON_READ(value, radius);
+		
+    }
+    
+
 }

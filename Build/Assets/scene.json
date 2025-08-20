@@ -2,15 +2,56 @@
   "actors": [
     {
       "name": "Sprite",
+      "tag": "background",
+      "lifespan": 40,
       "transform": {
-        "position": [ 400, 300 ],
+        "position": [
+          640,
+          512
+        ],
         "rotation": 30,
-        "scale": 2
+        "scale": 1
       },
       "components": [
         {
           "type": "SpriteRenderer",
-          "textureName": "textures/pizza.jpg"
+          "textureName": "Textures/space_background.jpg"
+        }
+      ]
+    },
+    {
+      "name": "Player",
+      "tag": "player",
+      "transform": {
+        "position": [
+          640,
+          512
+        ],
+        "rotation": 0,
+        "scale": 3
+      },
+      "components": [
+        {
+          "type": "Player",
+          "speed": 510,
+          "rotateSpeed": 180
+        },
+        {
+          "type": "SpriteRenderer",
+          "textureName": "Textures/blue_player_spaceship_.png"
+        },
+        {
+          "type": "Rigidbody",
+          "damping": 0.00025,
+          "velocity": [
+            30,
+            0
+          ]
+
+        },
+        {
+          "type": "CircleCollider2D",
+          "radius": 60
         }
       ]
     }

@@ -140,6 +140,7 @@ void SpaceGame::shutdown(){
 
 void SpaceGame::draw( bonzai::Renderer& renderer){
 
+    scene->draw(renderer);
     if (gameState == GameState::TITLE) {
         titleText->create(renderer, "SPACE GAME", bonzai::vec3{ 0,1,0 });
         titleText->draw(renderer, 20.0f, renderer.getHeight() * 0.5f);
@@ -160,7 +161,6 @@ void SpaceGame::draw( bonzai::Renderer& renderer){
         healthText->draw(renderer, (float)renderer.getWidth() - 200.0f, 60.0f);
     }
 
-    scene->draw(renderer);
 
 	bonzai::getEngine().getParticlesSystem().draw(renderer);
 

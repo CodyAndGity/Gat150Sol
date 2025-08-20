@@ -2,7 +2,7 @@
 #include "Framework/Component.h"
 #include "Math/Vector3.h"
 #include "Renderer/Texture.h"
-
+#include "Core/Json.h"
 class Player : public bonzai::Component {
 public:
 	float speed{ 0 };
@@ -25,6 +25,8 @@ public:
 	inline void setBaseColor(bonzai::vec3 color) {
 		starColors[0] = color;
 	}
+	void read(const bonzai::json::value_t& value) override;
+
 
 private:
 	bonzai::vec3 starColors[3]{ { 0.8f,0.8f,1.0f },{100,100,0},{10,0,0}};

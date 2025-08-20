@@ -3,75 +3,13 @@
 #include "Game/SpaceGame.h"
 #include "Math/Vector2.h"
 
-class Animal {
-public:
-    virtual void speak() = 0;
-};
-class Cat : public Animal {
-public:
-    void speak() override {
-        std::cout << "Meow" << std::endl;
-	}
-};
-class Dog : public Animal {
-public:
-    void speak() override {
-        std::cout << "Woof" << std::endl;
-	}
-    void fetch() {
-        std::cout << "Fetching the ball!" << std::endl;
-	}
-};
-class Bird : public Animal {
-public:
-    void speak() override {
-        std::cout << "Chirp" << std::endl;
-	}
-};
-
-enum class AnimalType {
-    CAT = 1,
-    DOG = 2,
-    BIRD = 3
-};
-Animal* createAnimal(AnimalType id) {
-	Animal* animal = nullptr;
-    switch (id) {
-    case AnimalType::CAT:
-		animal= new Cat();
-        break;
-    case AnimalType::DOG:
-		animal= new Dog();
-        break;
-    case AnimalType::BIRD:
-		animal= new Bird();
-        break;
-    default:
-        break;
-    }
-    return animal;
-}
 
 
 int main(int argc, char* argv[]) {
 
     bonzai::file::SetCurrentDirectory("Assets");
-    // load the json data from a file
-    auto animal = createAnimal(AnimalType::BIRD);
-    if (animal) {
-        animal->speak();
-        auto dog = dynamic_cast<Dog*>(animal);
-        if(dog){
-			dog->fetch();
-		}
-        
-    }
-	
-	//auto spriteRenderer = bonzai::Factory::getInstance().create("MeshRenderer");
-    //spriteRenderer->name = "Steve";
-   
-    //return 0;
-    // Initialize engine systems
+    
+
 	bonzai::getEngine().initialize();
    
 	

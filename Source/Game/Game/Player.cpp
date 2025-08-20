@@ -150,7 +150,7 @@ void Player::update(float deltaTime){
         
     }
     
-    this->owner->bonzai::Actor::update(deltaTime);
+    
     if (slowDown) {
         auto body = owner->getComponent<bonzai::RigidBody>();
         if (body) {
@@ -348,4 +348,17 @@ void Player::onCollision(bonzai::Actor* other){
 
         }
     }
+}
+
+void Player::read(const bonzai::json::value_t& value){
+	Object::read(value);
+	JSON_READ(value, speed);
+	JSON_READ(value, rotateSpeed);
+	JSON_READ(value, shootCooldown);
+	JSON_READ(value, starPowerActive);
+	JSON_READ(value, tripleShotPowerActive);
+	JSON_READ(value, laserPowerActive);
+	JSON_READ(value, healthPowerActive);
+	JSON_READ(value, health);
+	//JSON_READ(value, starColors);
 }

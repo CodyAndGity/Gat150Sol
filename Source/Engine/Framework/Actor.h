@@ -15,10 +15,10 @@ namespace bonzai {
 		Transform transform;
 		
 		
+		float lifespan{ 0.0f }; 
 
 		
 		bool destroyed{ false };
-		float lifespan{ 0.0f }; 
 		class Scene* scene{ nullptr }; // Pointer to the scene this actor belongs to
 		std::vector<std::unique_ptr<Component>> components;
 

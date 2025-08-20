@@ -8,7 +8,7 @@ namespace bonzai {
 	}
 
 	void SpriteRenderer::draw(class Renderer& renderer) {
-		auto texture = resources().get<Texture>(textureName, renderer).get();
+		auto texture = resources().get<Texture>(textureName, renderer);
 		if (texture) {
 		renderer.drawTexture(*texture,
 			owner->transform.position.x, owner->transform.position.y,
@@ -25,7 +25,6 @@ namespace bonzai {
 	void SpriteRenderer::read(const json::value_t& value) {
 		Object::read(value);
 		JSON_READ(value, textureName);
-
 
 	}
 

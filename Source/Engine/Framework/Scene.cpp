@@ -1,15 +1,18 @@
 #include "Scene.h"
-
+#include "Core/Json.h"
 #include "../Renderer/Renderer.h"
 #include "Components/ColliderComponent.h"
 
 namespace bonzai {
 
 	void Scene::read(const json::value_t& value) {
-		for (auto& actorValue : value["actors"].GetArray()) {
-			auto actor = Factory::getInstance().create<Actor>("Actor");
-			actor->read(actorValue);
-			addActor(std::move(actor));
+		//read actors
+		if (JSON_HAS(value, actors)) {
+			for (auto& actorValue : JSON_GET(value, actors).GetArray()) {
+				auto actor = Factory::getInstance().create<Actor>("Actor");
+				actor->read(actorValue);
+				addActor(std::move(actor));
+			}
 		}
 
 	}

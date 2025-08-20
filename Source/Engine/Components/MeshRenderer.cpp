@@ -12,5 +12,10 @@ namespace bonzai {
 			mesh->draw(renderer, owner->transform);
 		}
 	}
+	void MeshRenderer::read(const json::value_t& value) {
+		Object::read(value);
+		JSON_READ(value, meshName);
+
+	}
 
 }

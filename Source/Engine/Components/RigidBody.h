@@ -9,5 +9,7 @@ namespace bonzai {
 		float damping{ 0.0f }; 
 	public:
 		void update(float deltaTime) override;
+		void read(const json::value_t& value) override;
+
 	};
 }
