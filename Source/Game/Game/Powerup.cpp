@@ -8,12 +8,7 @@
 FACTORY_REGISTER(Powerup)
 
 void Powerup::update(float deltaTime){
-	/*
-	transform.position.x = bonzai::math::wrap(transform.position.x, 0.0f, (float)bonzai::getEngine().getRenderer().getWidth());
-	transform.position.y = bonzai::math::wrap(transform.position.y, 0.0f, (float)bonzai::getEngine().getRenderer().getHeight());
-
-	Actor::update(deltaTime);
-	*/
+	
 
 }
 
@@ -30,12 +25,15 @@ void Powerup::onCollision(bonzai::Actor* other){
 			if (playerBody) {
 				playerBody->damping -= 0.001f;
 			}
-			dynamic_cast<bonzai::SpriteRenderer*>(player->owner->components[0].get())->setColor( { 1,1,0 });
-
+			
+			
+			auto sprite = player->owner->getComponent<bonzai::SpriteRenderer>();
+			sprite->setColor({ 1, 1, 0 });
 		}else if (bonzai::toLower(name) == "health") {
 			player->health = player->health + 3;
-			dynamic_cast<bonzai::SpriteRenderer*>(player->owner->components[0].get())->setColor({ 0,1,0 });
-
+			
+			auto sprite = player->owner->getComponent<bonzai::SpriteRenderer>();
+			sprite->setColor({ 0, 1, 0 });
 			player->healthPowerActive = true;
 
 		}else if (bonzai::toLower(name) == "tripleshot") {
