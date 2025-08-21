@@ -3,10 +3,50 @@
 #include "Game/SpaceGame.h"
 #include "Math/Vector2.h"
 
+class A {
+public:
+    A() = default;
+    A(int size) : size{ size } {
+        buffer = new int[size];
+        for (int i = 0; i < size; i++) {
+            buffer[i] = i;
+		}
+    }
+    A(const A& other) : 
+        size{ other.size }  {
+		 buffer = new int[other.size];
+          for (int i = 0; i < size; i++) {
+            buffer[i] = i;
+        }
+        } //{}//= default;// 
+	A& operator=(const A& other){
+        size = other.size+1;
+        buffer = other.buffer;
+        return *this; } //= default;// 
+    ~A() = default;
 
+public:
+    int size{ 0 };
+    int* buffer{ nullptr };
+};
 
 int main(int argc, char* argv[]) {
+	A a1{ 4 };
+	std::cout << "Size of a1: " << a1.size << std::endl;
+	std::cout << " a1 buf: " << a1.buffer[2] << std::endl;
 
+    A a2{ a1 };//copy constructor
+
+    a1.buffer[2] = 45;
+	std::cout << "Size of a2: " << a2.size << std::endl;
+	std::cout << " a2 buf: " << a1.buffer[2] << std::endl;
+
+    A a3;
+    a3 = a1;//assignment operator
+	std::cout << "Size of a3: " << a3.size << std::endl;
+
+
+    return 0;
     bonzai::file::SetCurrentDirectory("Assets");
     
 
@@ -17,10 +57,10 @@ int main(int argc, char* argv[]) {
 	std::unique_ptr<bonzai::Game> game = std::make_unique<SpaceGame>();
 	game->initialize();
 	
-	bonzai::getEngine().getAudio().addSound("bass.wav", "bass.wav");
+	
     SDL_Event e;
     bool quit = false;
-	float rotateAngle = 0.0f;
+	
     
 	
    
@@ -47,7 +87,7 @@ int main(int argc, char* argv[]) {
         bonzai::getEngine().getRenderer().clear();
        
 
-		rotateAngle += 90* bonzai::getEngine().getTime().getDeltaTime();
+		
 		
 		game->draw(bonzai::getEngine().getRenderer());
         
