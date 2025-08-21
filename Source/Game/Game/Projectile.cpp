@@ -5,34 +5,34 @@ FACTORY_REGISTER(Projectile)
 
 
 void Projectile::update(float deltaTime) {
-    /*
 
     
 
 
     
-    bonzai::vec2 velocity = bonzai::vec2{ 1,0 }.rotate(bonzai::math::degToRad(transform.rotation)) * speed;
-    auto body = getComponent<bonzai::RigidBody>();
+    bonzai::vec2 velocity = bonzai::vec2{ 1,0 }.rotate(bonzai::math::degToRad(owner->transform.rotation)) * speed;
+    auto body = owner->getComponent<bonzai::RigidBody>();
     if (body) {
         body->velocity += velocity.normalized();
     }
 	
 
-    transform.position.x = bonzai::math::wrap(transform.position.x, 0.0f, (float)bonzai::getEngine().getRenderer().getWidth());
-    transform.position.y = bonzai::math::wrap(transform.position.y, 0.0f, (float)bonzai::getEngine().getRenderer().getHeight());
+    owner->transform.position.x = bonzai::math::wrap(owner->transform.position.x, 0.0f, (float)bonzai::getEngine().getRenderer().getWidth());
+    owner->transform.position.y = bonzai::math::wrap(owner->transform.position.y, 0.0f, (float)bonzai::getEngine().getRenderer().getHeight());
     
-    Actor::update(deltaTime);
+    
     if (hasParticles) {
-        float angle = transform.rotation + bonzai::random::getReal(-30.0f, 30.0f);
+        float angle = owner->transform.rotation + bonzai::random::getReal(-30.0f, 30.0f);
         bonzai::vec2 particleVelocity = bonzai::vec2{ 1,0 }.rotate(bonzai::math::degToRad(angle));
         particleVelocity *= bonzai::random::getReal(80.0f, 150.0f) * -1;
         bonzai::Particle particle;
-        particle.position = transform.position;
+        particle.position = owner->transform.position;
         particle.velocity = particleVelocity;
         particle.color = particleColor;
         particle.lifespan = bonzai::random::getReal(0.3f, 0.6f);
         bonzai::getEngine().getParticlesSystem().addParticle(particle);
     }
+    /*
     */
 }
 

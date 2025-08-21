@@ -13,11 +13,13 @@ FACTORY_REGISTER(Player)
 
 void Player::update(float deltaTime){
     
-    // bonzai::getEngine().getAudio().playSound(*bonzai::resources().get<bonzai::AudioClip>("bass.wav", bonzai::getEngine().getAudio()).get());
+    
+    /*
     auto sound = bonzai::resources().get<bonzai::AudioClip>("bass.wav", bonzai::getEngine().getAudio()).get();
     if (sound) {
         bonzai::getEngine().getAudio().playSound(*sound);
     }
+    */
     if (starPowerActive) {
         
         powerupTimer += deltaTime;

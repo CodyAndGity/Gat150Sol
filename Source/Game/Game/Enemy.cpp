@@ -9,7 +9,7 @@
 #include "Framework/Scene.h"
 #include "Framework/Game.h"
 #include "Core/Random.h"
-
+#include "Framework/Actor.h"
 FACTORY_REGISTER(Enemy)
 
 
@@ -18,11 +18,11 @@ FACTORY_REGISTER(Enemy)
 /// </summary>
 /// <param name="deltaTime">The time elapsed since the last update, used to ensure frame-rate independent movement.</param>
 void Enemy::update(float deltaTime){
-    /*
     bool playerSeen{ false };
 
-	Actor* player = owner->scene->getActorByName<Actor>("Player");
+	bonzai::Actor* player = owner->scene->getActorByName<bonzai::Actor>("Player");
 
+    
     
     if (player) {
       bonzai::vec2 direction{0,0 };
@@ -66,7 +66,7 @@ void Enemy::update(float deltaTime){
         }else{
             angle = bonzai::random::getReal(0.1f);
             owner->transform.rotation += bonzai::math::radToDeg(angle * deltaTime * 10);
-            bonzai::vec2 velocity = bonzai::vec2{ 1,0 }.rotate(bonzai::math::degToRad(transform.rotation)) * speed*0.1f;
+            bonzai::vec2 velocity = bonzai::vec2{ 1,0 }.rotate(bonzai::math::degToRad(owner->transform.rotation)) * speed*0.1f;
             auto body = owner->getComponent<bonzai::RigidBody>();
             if (body) {
                 body->velocity += velocity * deltaTime;
@@ -79,7 +79,7 @@ void Enemy::update(float deltaTime){
 
     owner->transform.position.x = bonzai::math::wrap(owner->transform.position.x, 0.0f, (float)bonzai::getEngine().getRenderer().getWidth());
     owner->transform.position.y = bonzai::math::wrap(owner->transform.position.y, 0.0f, (float)bonzai::getEngine().getRenderer().getHeight());
-    
+    /*
     shootTimer -= deltaTime;
     if ( shootTimer <= 0 && playerSeen) {
         shootTimer = shootCooldown; // Reset the shoot timer
@@ -120,7 +120,7 @@ void Enemy::update(float deltaTime){
         scene->addActor(std::move(projectile));
 
     }
-    Actor::update(deltaTime);
+    
     */
 }
 
