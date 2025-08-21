@@ -11,7 +11,8 @@ public:
 	bool hasParticles{ true };
 	bonzai::vec3 particleColor{ 0,0,0 };
 	Projectile() = default;
-	
+	CLASS_PROTOTYPE(Projectile)
+
 
 	void update(float deltaTime) override;
 

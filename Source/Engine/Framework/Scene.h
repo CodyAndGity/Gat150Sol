@@ -20,7 +20,7 @@ namespace bonzai {
 		void draw(class Renderer& renderer);
 
 		void addActor(std::unique_ptr< Actor> actor);
-		void removeAllActors();
+		void removeAllActors(bool force=false);
 		template<typename T = Actor>
 		 T* getActorByName(const std::string& name);
 

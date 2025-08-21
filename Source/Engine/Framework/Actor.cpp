@@ -1,9 +1,20 @@
 #include "Component.h"
 #include "Object.h"
 #include "Components/RendererComponent.h"
+#include "Actor.h"
 namespace bonzai {
 	FACTORY_REGISTER(Actor);
-
+	Actor::Actor(const Actor& other) : 
+		Object{ other },
+		tag{ other.tag },
+		lifespan{ other.lifespan },
+		transform{ other.transform } {
+		//copy components
+		for (auto& component : other.components) {
+			auto clone = std::unique_ptr<Component>(dynamic_cast<Component*>(component->clone().release()));
+			addComponent(std::move(clone));
+		}
+	}
 
 	void Actor::update(float deltaTime) {
 		if (destroyed) return;
@@ -44,11 +55,14 @@ namespace bonzai {
 		components.push_back(std::move(component));
 	}
 
+	
+
 	void Actor::read(const json::value_t& value) {
 		Object::read(value);
 
 		JSON_READ(value, tag);
 		JSON_READ(value, lifespan);
+		JSON_READ(value, persistent);
 
 		if (JSON_HAS(value, transform)) {
 			transform.read(JSON_GET(value,transform));

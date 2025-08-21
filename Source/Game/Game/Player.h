@@ -16,7 +16,8 @@ public:
 	int health{ 10 };
 public:
 	Player() = default;
-	
+	CLASS_PROTOTYPE(Player)
+
 
 	void update(float deltaTime) override;
 	// Inherited via Actor

@@ -7,6 +7,7 @@ namespace bonzai {
 	public:
 		std::string meshName;
 	public:
+		CLASS_PROTOTYPE(MeshRenderer)
 		void update(float deltaTime) override;
 		void draw(class Renderer& renderer) override;
 		bonzai::vec3 getColor();

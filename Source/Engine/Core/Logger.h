@@ -87,6 +87,6 @@ namespace bonzai {
 		}
 
 	private:
-		inline static LogLevel s_enabledLevels = bonzai::LogLevel::Warning | bonzai::LogLevel::Error | bonzai::LogLevel::Debug;//LogLevel::All;
+		inline static LogLevel s_enabledLevels = LogLevel::All;
 	};
 }

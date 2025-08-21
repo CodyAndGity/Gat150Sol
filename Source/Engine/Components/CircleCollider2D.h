@@ -6,6 +6,7 @@ namespace bonzai {
 	public:
 		float radius{ 0.0f }; // Radius of the circle collider
 	public:
+		CLASS_PROTOTYPE(CircleCollider2D)
 
 
 		// Inherited via ColliderComponent

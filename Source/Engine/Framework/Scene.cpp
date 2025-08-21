@@ -6,6 +6,19 @@
 namespace bonzai {
 
 	void Scene::read(const json::value_t& value) {
+
+		//read prototypes
+		if (JSON_HAS(value, prototypes)) {
+			for (auto& actorValue : JSON_GET(value, prototypes).GetArray()) {
+				auto actor = Factory::getInstance().create<Actor>("Actor");
+				actor->read(actorValue);
+				//add prototype to factory
+				std::string actorName = actor->name;
+				Factory::getInstance().RegisterPrototype<Actor>(actorName, std::move(actor));
+				
+			}
+		}
+
 		//read actors
 		if (JSON_HAS(value, actors)) {
 			for (auto& actorValue : JSON_GET(value, actors).GetArray()) {
@@ -64,8 +77,21 @@ namespace bonzai {
 
 	}
 
-	void Scene::removeAllActors()	{
-		actors.clear();
+	void Scene::removeAllActors(bool force)	{
+		if (force) {
+			actors.clear();
+		}
+		else {
+			for (auto iterator = actors.begin(); iterator != actors.end();) {
+				if (!(*iterator)->persistent) {
+					iterator = actors.erase(iterator);
+				}
+				else {
+					iterator++;
+				}
+			}
+			
+		}
 	}
 	
 }

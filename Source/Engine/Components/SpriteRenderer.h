@@ -6,6 +6,7 @@ namespace bonzai {
 	public:
 		std::string textureName;
 	public:
+		CLASS_PROTOTYPE(SpriteRenderer)
 		void update(float deltaTime) override;
 		void draw(class Renderer& renderer) override;
 		bonzai::vec3 getColor();

@@ -8,6 +8,7 @@ namespace bonzai {
 		vec2 velocity{ 0,0 };
 		float damping{ 0.0f }; 
 	public:
+		CLASS_PROTOTYPE(RigidBody)
 		void update(float deltaTime) override;
 		void read(const json::value_t& value) override;
 

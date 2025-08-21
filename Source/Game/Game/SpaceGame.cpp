@@ -53,7 +53,8 @@ void SpaceGame::update(float deltaTime){
     case GameState::STARTING_LEVEL:
     {
 		scene->removeAllActors();
-       
+        auto player = bonzai::Factory::getInstance().create<bonzai::Actor>("player");
+		scene->addActor(std::move(player));
         /*
         bonzai::Transform transform{ { (float)bonzai::getEngine().getRenderer().getWidth() * 0.5f,
             (float)bonzai::getEngine().getRenderer().getHeight() * 0.5f}//position
@@ -172,15 +173,25 @@ void SpaceGame::onDeath(){
 }
 
 void SpaceGame::spawnEnemy(){
-    /*
-	Player* player = scene->getActorByName<Player>("Player");
+    bonzai::Actor* player = scene->getActorByName<bonzai::Actor>("Player");
     if (player) {
-        
         
         // Spawn enemy at a random position around the player, but not too close
         bonzai::vec2 position{ player->transform.position+bonzai::random::onUnitCircle() *bonzai::random::getReal(350.0f,650.0f)};
         //red_spaceship.png
 		bonzai::Transform transform{ position, bonzai::random::getReal(360.0f), 3 };//3 for sprite size
+
+        auto enemy = bonzai::Instantiate("Enemy", transform);
+        scene->addActor(std::move(enemy));
+
+
+    }
+    /*
+	Player* player = scene->getActorByName<Player>("Player");
+    if (player) {
+        
+        
+        
         std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform);
         enemy->speed = 50.0f + bonzai::random::getReal(50.0f, 100.0f); // Random speed between 100 and 200
         enemy->shootCooldown = 2.0f + bonzai::random::getReal(0.0f, 2.0f); // Random shoot cooldown between 2 and 4 seconds
@@ -212,6 +223,8 @@ void SpaceGame::spawnEnemy(){
 
 }
 void SpaceGame::spawnPowerup(std::string name){
+    //enemy->getComponent < bonzai::SpriteRenderer > ()->textureName = "Textures/red_enemy_spaceship.png";
+
     /*
 	Player* player = scene->getActorByName<Player>("Player");
     if (player) {

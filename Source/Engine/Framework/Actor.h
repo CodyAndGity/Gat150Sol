@@ -13,7 +13,7 @@ namespace bonzai {
 		
 		std::string tag;
 		Transform transform;
-		
+		bool persistent{ false };
 		
 		float lifespan{ 0.0f }; 
 
@@ -28,6 +28,9 @@ namespace bonzai {
 		Actor(const Transform& transform) :
 			transform{ transform }
 		{}
+		Actor(const Actor& other);
+		CLASS_PROTOTYPE(Actor)
+
 		void read(const json::value_t& value) override;
 
 		virtual void update(float deltaTime);

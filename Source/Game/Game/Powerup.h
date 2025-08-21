@@ -4,7 +4,8 @@
 class Powerup:  public bonzai::Component {
 	public:
 	Powerup() = default;
-	
+	CLASS_PROTOTYPE(Powerup)
+
 
 	void update(float deltaTime) override;
 	// Inherited via Actor
