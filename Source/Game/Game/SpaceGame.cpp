@@ -54,7 +54,9 @@ void SpaceGame::update(float deltaTime){
     {
 		scene->removeAllActors();
         auto player = bonzai::Factory::getInstance().create<bonzai::Actor>("player");
+        player->getComponent<bonzai::SpriteRenderer>()->setColor({ .8f,0.8f,1.0f });
 		scene->addActor(std::move(player));
+
         /*
         bonzai::Transform transform{ { (float)bonzai::getEngine().getRenderer().getWidth() * 0.5f,
             (float)bonzai::getEngine().getRenderer().getHeight() * 0.5f}//position
@@ -177,12 +179,16 @@ void SpaceGame::spawnEnemy(){
     if (player) {
         
         // Spawn enemy at a random position around the player, but not too close
-        bonzai::vec2 position{ player->transform.position+bonzai::random::onUnitCircle() *bonzai::random::getReal(350.0f,650.0f)};
+        //bonzai::vec2 position{ player->transform.position+bonzai::random::onUnitCircle() *bonzai::random::getReal(350.0f,650.0f)};
+        bonzai::vec2 position{ player->transform.position};
         //red_spaceship.png
 		bonzai::Transform transform{ position, bonzai::random::getReal(360.0f), 3 };//3 for sprite size
 
         auto enemy = bonzai::Instantiate("Enemy", transform);
+        enemy->getComponent<bonzai::SpriteRenderer>()->setColor({ 1.0f,0.5f,0.5f });
+
         scene->addActor(std::move(enemy));
+
 
 
     }

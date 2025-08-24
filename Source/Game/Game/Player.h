@@ -33,6 +33,7 @@ private:
 	bonzai::vec3 starColors[3]{ { 0.8f,0.8f,1.0f },{100,100,0},{10,0,0}};
 	int starColorIndex{ 0 };
 	float powerupTimer{ 0.0f };
-
+private:
+	void shoot(bonzai::Actor* owner, float angle = 0.0f, std::string type = "Projectile");
 
 };

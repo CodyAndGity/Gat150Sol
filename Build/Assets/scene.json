@@ -50,8 +50,8 @@
       "components": [
         {
           "type": "Enemy",
-          "speed": 510,
-          "rotateSpeed": 180
+          "speed": 75,
+          "shootCooldown": 3
         },
         {
           "type": "SpriteRenderer",
@@ -59,7 +59,49 @@
         },
         {
           "type": "Rigidbody",
-          "damping": 0.00025,
+          "damping": "0.0001",
+          "velocity": [
+            30,
+            0
+          ]
+
+        },
+        {
+          "type": "CircleCollider2D",
+          "radius": 60
+        }
+      ]
+    },
+    {
+      "name": "projectile",
+      "tag": "player",
+      "transform": {
+        "position": [
+          640,
+          512
+        ],
+        "rotation": 0,
+        "scale": 2
+      },
+      "components": [
+        {
+          "type": "Projectile",
+          "pierce": 1,
+          "speed": 200,
+          "hasParticles": true,
+          "particleColor": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "type": "SpriteRenderer",
+          "textureName": "Textures/projectile.png"
+        },
+        {
+          "type": "Rigidbody",
+          "damping": 0.0000,
           "velocity": [
             30,
             0
@@ -84,7 +126,7 @@
           640,
           512
         ],
-        "rotation": 30,
+        "rotation": 0,
         "scale": 1
       },
       "components": [

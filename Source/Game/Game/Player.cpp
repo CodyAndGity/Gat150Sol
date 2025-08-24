@@ -160,10 +160,11 @@ void Player::update(float deltaTime){
         }
         
     }
-    /*
+    
 	shootTimer -= deltaTime;
 	//Laser shot
     if (bonzai::getEngine().getInput().getKeyDown(SDL_SCANCODE_SPACE) && laserPowerActive && shootTimer <= 0) {
+    /*
         shootTimer = shootCooldown/5; // Reset the shoot timer
 
         
@@ -193,14 +194,14 @@ void Player::update(float deltaTime){
         projectile->addComponent(std::move(collider));
 
         scene->addActor(std::move(projectile));
-
+        */
 
     }else{
 		//Normal shot
         if (bonzai::getEngine().getInput().getKeyDown(SDL_SCANCODE_SPACE) && shootTimer <= 0) {
             shootTimer = shootCooldown; // Reset the shoot timer
             
-            
+            /*
 			//2 extra shots for triple shot powerup
             if (tripleShotPowerActive) {
                 
@@ -313,11 +314,36 @@ void Player::update(float deltaTime){
             projectile->addComponent(std::move(collider));
 
             scene->addActor(std::move(projectile));
+    */
+            shoot(owner);
+            if (tripleShotPowerActive) {
+                shoot(owner, -30.0f);
+			    shoot(owner, 30.0f);
+            }
+
         }
     }
     
-    */
+    
 }
+
+
+
+void Player::shoot(bonzai::Actor* owner, float angle, std::string type){
+    bonzai::Transform transform{ owner->transform.position,owner->transform.rotation + angle, 2 };//size
+
+    auto projectile = bonzai::Instantiate(type, transform);
+    projectile->getComponent<bonzai::SpriteRenderer>()->setColor({ 1.0f,1.0f,1.0f });
+	projectile->getComponent<Projectile>()->particleColor = owner->getComponent<bonzai::SpriteRenderer>()->getColor();
+        
+    projectile->getComponent<Projectile>()->speed= projectile->getComponent<bonzai::RigidBody>()->velocity.length() + 50.0f;
+	projectile->getComponent<bonzai::CircleCollider2D>()->radius = 10.0f; // Set the radius of the collider
+    
+    
+    projectile->lifespan = 4.0f; // seconds
+    owner->scene->addActor(std::move(projectile));
+}
+
 
 void Player::onCollision(bonzai::Actor* other){
     
@@ -364,3 +390,4 @@ void Player::read(const bonzai::json::value_t& value){
 	JSON_READ(value, health);
 	//JSON_READ(value, starColors);
 }
+

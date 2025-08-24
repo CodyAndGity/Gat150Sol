@@ -32,8 +32,7 @@ void Projectile::update(float deltaTime) {
         particle.lifespan = bonzai::random::getReal(0.3f, 0.6f);
         bonzai::getEngine().getParticlesSystem().addParticle(particle);
     }
-    /*
-    */
+    
 }
 
 void Projectile::onCollision(bonzai::Actor* other){
