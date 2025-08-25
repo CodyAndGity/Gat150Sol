@@ -1,9 +1,9 @@
 #pragma once
 #include "Json.h"
 namespace bonzai {
-	class Serializable {
+	class ISerializable {
 	public:
-		virtual ~Serializable() = default;
+		virtual ~ISerializable() = default;
 		virtual void read(const json::value_t& value) = 0;
 	};
 }

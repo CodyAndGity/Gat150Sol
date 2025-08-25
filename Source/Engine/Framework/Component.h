@@ -6,6 +6,9 @@ namespace bonzai {
 		class Actor* owner{ nullptr }; // Pointer to the actor that owns this component
 	public:
 		Component() = default;
+		virtual void start() {}
+		virtual void destroy() {}
+
 		virtual void update(float deltaTime)=0;
 	};
 }

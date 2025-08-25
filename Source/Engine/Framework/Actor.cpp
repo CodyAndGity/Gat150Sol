@@ -16,6 +16,19 @@ namespace bonzai {
 		}
 	}
 
+	void Actor::start(){
+		//start all components
+		for (auto& component : components) {
+			component->start();
+		}
+	}
+	void Actor::destroy(){
+		//destroy all components
+		for (auto& component : components) {
+			component->destroy();
+		}
+	}
+
 	void Actor::update(float deltaTime) {
 		if (destroyed) return;
 
@@ -87,6 +100,12 @@ namespace bonzai {
 			}
 		}
 		
+	}
+	void Actor::onCollision(Actor* other) {
+		auto collidables = getComponents<ICollidable>();
+		for (auto& collidable : collidables) {
+			collidable->onCollision(other);
+		}
 	}
 }
 

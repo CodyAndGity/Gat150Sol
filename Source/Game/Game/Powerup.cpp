@@ -13,6 +13,7 @@ void Powerup::update(float deltaTime){
 }
 
 void Powerup::onCollision(bonzai::Actor* other){
+	auto test = other->name;
 	if (other->name == "Player") {
 		owner->scene->getGame()->addScore(250);
 

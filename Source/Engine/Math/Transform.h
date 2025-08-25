@@ -2,7 +2,7 @@
 #include "Vector2.h"
 #include "Core/Serializable.h"
 namespace bonzai {
-	struct Transform : public Serializable {
+	struct Transform : public ISerializable {
 		vec2 position{ 0,0 };
 		float rotation{ 0 }; // in radians
 		float scale { 0 };

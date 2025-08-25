@@ -9,17 +9,19 @@ namespace bonzai {
 	class Actor;
 	class Game;
 
-	class Scene:public Serializable {
+	class Scene:public ISerializable {
 	public:
 
 
 		Scene(Game* game) : game{ game }{}
 
+		bool load(const std::string& sceneName);
+
 		void read(const json::value_t& value) override;
 		void update(float deltaTime);
 		void draw(class Renderer& renderer);
 
-		void addActor(std::unique_ptr< Actor> actor);
+		void addActor(std::unique_ptr< Actor> actor, bool start=true);
 		void removeAllActors(bool force=false);
 		template<typename T = Actor>
 		 T* getActorByName(const std::string& name);

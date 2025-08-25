@@ -13,6 +13,11 @@
 FACTORY_REGISTER(Enemy)
 
 
+void Enemy::start(){
+    body = owner->getComponent<bonzai::RigidBody>();
+	shootTimer = shootCooldown; // Initialize the shoot timer
+}
+
 /// <summary>
 /// Updates the enemy's state, moving it towards the player and handling screen wrapping.
 /// </summary>
@@ -58,7 +63,7 @@ void Enemy::update(float deltaTime){
             owner->transform.rotation += bonzai::math::radToDeg(angle * deltaTime * 10);
             bonzai::vec2 velocity = bonzai::vec2{ 1,0 }.rotate(bonzai::math::degToRad(owner->transform.rotation)) * speed;
             
-            auto body= owner->getComponent<bonzai::RigidBody>();
+
             if(body) {
                 body->velocity +=velocity* deltaTime;
 			}
@@ -67,7 +72,7 @@ void Enemy::update(float deltaTime){
             angle = bonzai::random::getReal(0.1f);
             owner->transform.rotation += bonzai::math::radToDeg(angle * deltaTime * 10);
             bonzai::vec2 velocity = bonzai::vec2{ 1,0 }.rotate(bonzai::math::degToRad(owner->transform.rotation)) * speed*0.1f;
-            auto body = owner->getComponent<bonzai::RigidBody>();
+
             if (body) {
                 body->velocity += velocity * deltaTime;
             }

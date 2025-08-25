@@ -15,9 +15,7 @@ bool SpaceGame::initialize(){
 
 	scene = std::make_unique<bonzai::Scene>(this);
 
-	bonzai::json::document_t document;
-    bonzai::json::load("scene.json", document);
-    scene->read(document);
+    scene->load("scene.json");
     titleText = std::make_unique< bonzai::Text>(bonzai::resources().getWithID<bonzai::Font>("title_font","radiospacebitmap.ttf", 128.0f));
     scoreText = std::make_unique< bonzai::Text>(bonzai::resources().getWithID<bonzai::Font>("ui_font", "radiospacebitmap.ttf", 32.0f));
     livesText = std::make_unique< bonzai::Text>(bonzai::resources().getWithID<bonzai::Font>("ui_font","radiospacebitmap.ttf", 32.0f));

@@ -32,12 +32,13 @@ namespace bonzai {
 		CLASS_PROTOTYPE(Actor)
 
 		void read(const json::value_t& value) override;
-
+		virtual void start();
+		virtual void destroy();
 		virtual void update(float deltaTime);
 		virtual void draw(class Renderer& renderer);
 		Transform& getTransform() { return transform; }
 
-		virtual void onCollision(Actor* other) {}
+		virtual void onCollision(Actor* other);
 		
 		void addComponent(std::unique_ptr<Component> component);
 		

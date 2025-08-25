@@ -11,6 +11,11 @@
 
 FACTORY_REGISTER(Player)
 
+
+void Player::start() {
+     body = owner->getComponent<bonzai::RigidBody>();
+
+}
 void Player::update(float deltaTime){
     
     if (starPowerActive) {
@@ -130,7 +135,7 @@ void Player::update(float deltaTime){
     }
     bonzai::vec2 direction{ 1,0 };
 	bonzai::vec2 velocity = direction.rotate(bonzai::math::degToRad(owner->transform.rotation)) *thrust * speed;
-    auto body = owner->getComponent<bonzai::RigidBody>();
+    
     if (body) {
         body->velocity += velocity * deltaTime;
     }
@@ -138,7 +143,7 @@ void Player::update(float deltaTime){
     owner->transform.position.x=bonzai::math::wrap(owner->transform.position.x, 0.0f, (float)bonzai::getEngine().getRenderer().getWidth());
     owner->transform.position.y = bonzai::math::wrap(owner->transform.position.y, 0.0f, (float)bonzai::getEngine().getRenderer().getHeight());
     if (slowDown) {
-        auto body = owner->getComponent<bonzai::RigidBody>();
+        
         if (body) {
             body->damping += 0.0025f;
         }
@@ -147,7 +152,7 @@ void Player::update(float deltaTime){
     
     
     if (slowDown) {
-        auto body = owner->getComponent<bonzai::RigidBody>();
+        
         if (body) {
             body->damping -= 0.0025f;
         }

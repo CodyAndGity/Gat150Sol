@@ -4,7 +4,7 @@
 #include "Framework/Component.h"
 #include "Math/Vector3.h"
 
-class Projectile : public bonzai::Component {
+class Projectile : public bonzai::Component, public bonzai::ICollidable {
 public:
 	int pierce{ 1 };
 	float speed{ 000 };
@@ -17,7 +17,7 @@ public:
 	void update(float deltaTime) override;
 
 	// Inherited via Actor
-	void onCollision(class bonzai::Actor* other) ;
+	void onCollision(class bonzai::Actor* other) override ;
 
 
 private:

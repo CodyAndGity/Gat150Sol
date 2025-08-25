@@ -27,11 +27,30 @@ namespace bonzai {
 			for (auto& actorValue : JSON_GET(value, actors).GetArray()) {
 				auto actor = Factory::getInstance().create<Actor>("Actor");
 				actor->read(actorValue);
-				addActor(std::move(actor));
+				addActor(std::move(actor), false);
 			}
 		}
 
 	}
+
+	bool Scene::load(const std::string& sceneName) {
+		//load json
+		bonzai::json::document_t document;
+		if (!(bonzai::json::load(sceneName, document))) {
+			Logger::Error("Failed to load scene: {}", sceneName);
+			return false;
+		}
+		//create scene
+		read(document);
+
+		//start actors
+		for (auto& actor : actors) {
+			actor->start();
+		}
+		return true;
+	}
+
+
 	void Scene::update(float deltaTime) {
 		for (auto& actor : actors) {
 			if (actor->active) {
@@ -39,14 +58,19 @@ namespace bonzai {
 			}
 		}
 		//remove destroyed actors
-		for (auto iterator = actors.begin(); iterator != actors.end();) {
+		std::erase_if(actors, [](auto& actor) {
+			return (actor->destroyed);
+		});
+
+
+		/*for (auto iterator = actors.begin(); iterator != actors.end();) {
 			if ((*iterator)->destroyed) {
 				 iterator= actors.erase(iterator);
 			}
 			else {
 				iterator++;
 			}
-		}
+		}*/
 
 		//check for collisions
 		for (auto& actorA : actors) {
@@ -60,17 +84,7 @@ namespace bonzai {
 				if (colliderA->checkCollision(*colliderB)) {
 					actorA->onCollision(actorB.get());
 					actorB->onCollision(actorA.get());
-					////temporary, just to test stuff
-					//if (actorA->getComponent<Player>()) {
-					//	actorA->getComponent<Player>()->onCollision(actorB.get());
-					//}else if (actorB->getComponent<Player>()) {
-					//	actorB->getComponent<Player>()->onCollision(actorA.get());
-					//}
-					//if (actorA->getComponent<Enemy>()) {
-					//	actorA->getComponent<Enemy>()->onCollision(actorB.get());
-					//}else if (actorB->getComponent<Enemy>()) {
-					//	actorB->getComponent<Enemy>()->onCollision(actorA.get());
-					//}
+					
 				}
 				
 			}
@@ -85,8 +99,11 @@ namespace bonzai {
 			}
 		}
 	}
-	void Scene::addActor(std::unique_ptr<class Actor> actor)	{
+	void Scene::addActor(std::unique_ptr<class Actor> actor, bool start)	{
 		actor->scene = this; // Set the scene pointer for the actor
+		if (start) {
+			actor->start(); // Call start method when adding the actor to the scene
+		}
 		actors.push_back(std::move(actor));
 
 	}

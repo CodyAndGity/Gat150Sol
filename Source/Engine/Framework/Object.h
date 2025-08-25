@@ -4,7 +4,7 @@
 #define CLASS_PROTOTYPE(className) virtual std::unique_ptr<Object> clone() {return std::make_unique<className>(*this);}
 
 namespace bonzai {
-	class Object : public Serializable {
+	class Object : public ISerializable {
 	public:
 		std::string name;
 		bool active{ true };

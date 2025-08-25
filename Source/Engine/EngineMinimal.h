@@ -9,7 +9,6 @@
 #include "Core/Singleton.h"
 #include "Core/StringHelper.h"
 #include "Core/Time.h"
-
 //framework
 #include "Framework/Object.h"
 #include "Framework/Actor.h"
@@ -22,9 +21,17 @@
 #include "Math/Vector2.h"
 #include "Math/Vector3.h"
 
+//physics
+#include "Physics/ICollidable.h"
+
 //resources
 #include "Resources/Resource.h"
 #include "Resources/ResourceManager.h"
+
+//Event manager
+#include "Event/Event.h"
+#include "Event/EventManager.h"
+#include "Event/Observer.h"
 
 //third party libraries
 #include <fmod.hpp>

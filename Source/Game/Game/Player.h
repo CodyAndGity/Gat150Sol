@@ -3,7 +3,7 @@
 #include "Math/Vector3.h"
 #include "Renderer/Texture.h"
 #include "Core/Json.h"
-class Player : public bonzai::Component {
+class Player : public bonzai::Component, bonzai::ICollidable {
 public:
 	float speed{ 0 };
 	float rotateSpeed{ 0 };
@@ -14,14 +14,16 @@ public:
 	bool laserPowerActive{ false };
 	bool healthPowerActive{ false };
 	int health{ 10 };
+
+	bonzai::RigidBody* body{ nullptr };
 public:
 	Player() = default;
 	CLASS_PROTOTYPE(Player)
 
-
+	void start() override;
 	void update(float deltaTime) override;
 	// Inherited via Actor
-	void onCollision(class bonzai::Actor* other) ;
+	void onCollision(class bonzai::Actor* other) override;
 
 	inline void setBaseColor(bonzai::vec3 color) {
 		starColors[0] = color;

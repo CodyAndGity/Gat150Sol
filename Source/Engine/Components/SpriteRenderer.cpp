@@ -3,12 +3,18 @@
 #include "Engine.h"
 namespace bonzai {
 	FACTORY_REGISTER(SpriteRenderer)
+
+
+	void SpriteRenderer::start(){
+		 texture = resources().get<Texture>(textureName, getEngine().getRenderer());
+
+	}
 	void SpriteRenderer::update(float deltaTime) {
 		// No update logic needed for static sprite rendering
 	}
 
 	void SpriteRenderer::draw(class Renderer& renderer) {
-		auto texture = resources().get<Texture>(textureName, renderer);
+		texture = resources().get<Texture>(textureName, renderer);
 		if (texture) {
 		renderer.drawTexture(*texture,
 			owner->transform.position.x, owner->transform.position.y,
