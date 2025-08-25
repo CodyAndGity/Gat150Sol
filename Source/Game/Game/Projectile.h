@@ -7,7 +7,7 @@
 class Projectile : public bonzai::Component {
 public:
 	int pierce{ 1 };
-	float speed{ 200 };
+	float speed{ 000 };
 	bool hasParticles{ true };
 	bonzai::vec3 particleColor{ 0,0,0 };
 	Projectile() = default;

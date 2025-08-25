@@ -85,12 +85,12 @@ void Enemy::update(float deltaTime){
     
         bonzai::Transform transform{ owner->transform.position,owner->transform.rotation, 2 };//size
 
-        auto projectile = bonzai::Instantiate("Projectile", transform);
+        auto projectile = bonzai::Instantiate("Rocket", transform);
         projectile->getComponent<bonzai::SpriteRenderer>()->setColor({ 1.0f,1.0f,1.0f });
 		projectile->getComponent<bonzai::SpriteRenderer>()->textureName = "Textures/enemy_projectile.png";
         projectile->getComponent<Projectile>()->particleColor = owner->getComponent<bonzai::SpriteRenderer>()->getColor();
 		projectile->tag = "enemy"; 
-		projectile->name = "projectile"; 
+		projectile->name = "Rocket"; 
 
         projectile->getComponent<Projectile>()->speed = 300;
         projectile->getComponent<bonzai::CircleCollider2D>()->radius = 10.0f; // Set the radius of the collider

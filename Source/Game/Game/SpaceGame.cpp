@@ -105,6 +105,10 @@ void SpaceGame::update(float deltaTime){
     }else {
         bonzai::getEngine().getTime().setTimeScale(1.0f);
     }
+    if (bonzai::getEngine().getInput().getKeyDown(SDL_SCANCODE_H)) {
+        bonzai::Actor* player = scene->getActorByName<bonzai::Actor>("Player");
+		player->getComponent<Player>()->laserPowerActive = true;
+    }
     scene->update(bonzai::getEngine().getTime().getDeltaTime());
 
 }
@@ -165,43 +169,35 @@ void SpaceGame::spawnEnemy(){
 
     }
     /*
-	Player* player = scene->getActorByName<Player>("Player");
-    if (player) {
-        
-        
-        
-        std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform);
+	
         enemy->speed = 50.0f + bonzai::random::getReal(50.0f, 100.0f); // Random speed between 100 and 200
         enemy->shootCooldown = 2.0f + bonzai::random::getReal(0.0f, 2.0f); // Random shoot cooldown between 2 and 4 seconds
-        
-        enemy->tag = "Enemy";
-
-
-        //components
-        auto rigidBody = std::make_unique<bonzai::RigidBody>();
-        rigidBody->damping = 0.0001f;
-        enemy->addComponent(std::move(rigidBody));
-
-        auto spriteRenderer = std::make_unique<bonzai::SpriteRenderer>();
-        spriteRenderer->textureName = "Textures/red_enemy_spaceship.png";
-		spriteRenderer->setColor({ 1.0f,0.5f,0.5f });
-        enemy->addComponent(std::move(spriteRenderer));
-		/*auto meshRenderer = std::make_unique<bonzai::MeshRenderer>();
-		meshRenderer->meshName = "Meshes/enemy.txt";
-		enemy->addComponent(std::move(meshRenderer));*/
-        /*
-        auto collider = std::make_unique<bonzai::CircleCollider2D>();
-        collider->radius = 60.0f; // Set the radius of the collider
-        enemy->addComponent(std::move(collider));
-
-        scene->addActor(std::move(enemy));
-        
-        
-    }*/
+    */
 
 }
 void SpaceGame::spawnPowerup(std::string name){
-    //enemy->getComponent < bonzai::SpriteRenderer > ()->textureName = "Textures/red_enemy_spaceship.png";
+    bonzai::Actor* player = scene->getActorByName<bonzai::Actor>("Player");
+    if (player) {
+
+        // Spawn enemy at a random position around the player, but not too close
+        bonzai::vec2 position{ player->transform.position + bonzai::random::onUnitCircle() * bonzai::random::getReal(350.0f,650.0f) };
+
+
+        bonzai::Transform transform{ position, 0, 3 };//3 for sprite size
+		name = "laser";
+        auto powerup = bonzai::Instantiate(name, transform);
+        if (name == "laser") {
+            powerup->getComponent<bonzai::SpriteRenderer>()->setColor({ 0.0f,1.0f,1.0f });
+        }
+        else {
+            powerup->getComponent<bonzai::SpriteRenderer>()->setColor({ 1.0f,1.0f,1.0f });
+        }
+        scene->addActor(std::move(powerup));
+
+
+
+    }
+    
 
     /*
 	Player* player = scene->getActorByName<Player>("Player");
@@ -217,9 +213,7 @@ void SpaceGame::spawnPowerup(std::string name){
             spriteRenderer->setColor({ 1.0f,1.0f,1.0f });
 
             
-        }else if(bonzai::toLower(name) == "health") {
-            spriteRenderer->textureName = "Textures/health_powerup.png";
-            spriteRenderer->setColor({ 1.0f,1.0f,1.0f });
+        
 
         }else if(bonzai::toLower(name) == "tripleshot") {
             spriteRenderer->textureName = "Textures/Triple_shot_powerup.png";

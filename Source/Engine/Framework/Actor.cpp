@@ -76,8 +76,14 @@ namespace bonzai {
 				JSON_READ(componentValue, type);
 
 				auto component = Factory::getInstance().create<Component>(type);
-				component->read(componentValue);
-				addComponent(std::move(component));
+				if (component) {
+					component->read(componentValue);
+					addComponent(std::move(component));
+				}
+				else {
+					Logger::Error("Failed to create component of type: {}", type);
+				}
+				
 			}
 		}
 		

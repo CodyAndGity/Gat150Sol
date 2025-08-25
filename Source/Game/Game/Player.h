@@ -34,6 +34,6 @@ private:
 	int starColorIndex{ 0 };
 	float powerupTimer{ 0.0f };
 private:
-	void shoot(bonzai::Actor* owner, float angle = 0.0f, std::string type = "Projectile");
+	void shoot(bonzai::Actor* owner, float angle = 0.0f, std::string type = "Rocket");
 
 };

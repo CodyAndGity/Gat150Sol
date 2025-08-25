@@ -13,13 +13,6 @@ FACTORY_REGISTER(Player)
 
 void Player::update(float deltaTime){
     
-    
-    /*
-    auto sound = bonzai::resources().get<bonzai::AudioClip>("bass.wav", bonzai::getEngine().getAudio()).get();
-    if (sound) {
-        bonzai::getEngine().getAudio().playSound(*sound);
-    }
-    */
     if (starPowerActive) {
         
         powerupTimer += deltaTime;
@@ -164,37 +157,9 @@ void Player::update(float deltaTime){
 	shootTimer -= deltaTime;
 	//Laser shot
     if (bonzai::getEngine().getInput().getKeyDown(SDL_SCANCODE_SPACE) && laserPowerActive && shootTimer <= 0) {
-    /*
         shootTimer = shootCooldown/5; // Reset the shoot timer
-
-        
-        bonzai::Transform transform{ this->transform.position,this->transform.rotation, 36 };//size
-        std::unique_ptr<Projectile> projectile = std::make_unique<Projectile>(transform);
-        
-        
-        projectile->hasParticles=false; // seconds
-        projectile->lifespan = 3.0f; // seconds
-        projectile->pierce=5; 
-        projectile->speed = 0;
-        auto sprite = getComponent<bonzai::SpriteRenderer>();
-        if (sprite) {
-            projectile->particleColor = sprite->getColor();
-
-        }
-       
-        projectile->name = "laser"; // Set the name of the player actor
-        projectile->tag = "Player"; // Set the name of the player actor
-        //components
-        auto spriteRenderer = std::make_unique<bonzai::SpriteRenderer>();
-        spriteRenderer->textureName = "Textures/laser_shot.png";
-        projectile->addComponent(std::move(spriteRenderer));
-        
-        auto collider = std::make_unique<bonzai::CircleCollider2D>();
-        collider->radius = 100.0f; // Set the radius of the collider
-        projectile->addComponent(std::move(collider));
-
-        scene->addActor(std::move(projectile));
-        */
+		shoot(owner, 0.0f, "laser_shot");
+    
 
     }else{
 		//Normal shot
@@ -330,18 +295,37 @@ void Player::update(float deltaTime){
 
 
 void Player::shoot(bonzai::Actor* owner, float angle, std::string type){
-    bonzai::Transform transform{ owner->transform.position,owner->transform.rotation + angle, 2 };//size
+    float size = 2.0f;
+    if (type == "laser_shot") {
+        size = 36.0f;
+    }
+    bonzai::Transform transform{ owner->transform.position,owner->transform.rotation + angle, size };
 
     auto projectile = bonzai::Instantiate(type, transform);
+    if (type == "laser_shot") {
+        projectile->getComponent<bonzai::SpriteRenderer>()->setColor({ 0.0f,1.0f,1.0f });
+
+    }
+    else {
+        projectile->getComponent<Projectile>()->particleColor = owner->getComponent<bonzai::SpriteRenderer>()->getColor();
+    }
     projectile->getComponent<bonzai::SpriteRenderer>()->setColor({ 1.0f,1.0f,1.0f });
-	projectile->getComponent<Projectile>()->particleColor = owner->getComponent<bonzai::SpriteRenderer>()->getColor();
         
-    projectile->getComponent<Projectile>()->speed= projectile->getComponent<bonzai::RigidBody>()->velocity.length() + 50.0f;
-	projectile->getComponent<bonzai::CircleCollider2D>()->radius = 10.0f; // Set the radius of the collider
-    
-    
-    projectile->lifespan = 4.0f; // seconds
+    if (type == "laser_shot") {
+		projectile->getComponent<Projectile>()->hasParticles = false;
+		projectile->lifespan = 3.0f; // seconds
+    }
+    else {
+        projectile->getComponent<Projectile>()->speed = projectile->getComponent<bonzai::RigidBody>()->velocity.length() + 50.0f;
+        projectile->getComponent<bonzai::CircleCollider2D>()->radius = 10.0f; // Set the radius of the collider
+
+
+        projectile->lifespan = 4.0f; // seconds
+    }
     owner->scene->addActor(std::move(projectile));
+    
+
+        
 }
 
 
