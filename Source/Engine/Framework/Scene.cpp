@@ -4,8 +4,8 @@
 #include "Components/ColliderComponent.h"
 
 //temporary includes, just to test stuff
-#include "../Game/Game/Player.h"
-#include "../Game/Game/Enemy.h"
+//#include "../Game/Game/Player.h"
+//#include "../Game/Game/Enemy.h"
 namespace bonzai {
 
 	void Scene::read(const json::value_t& value) {
@@ -60,17 +60,17 @@ namespace bonzai {
 				if (colliderA->checkCollision(*colliderB)) {
 					actorA->onCollision(actorB.get());
 					actorB->onCollision(actorA.get());
-					//temporary, just to test stuff
-					if (actorA->getComponent<Player>()) {
-						actorA->getComponent<Player>()->onCollision(actorB.get());
-					}else if (actorB->getComponent<Player>()) {
-						actorB->getComponent<Player>()->onCollision(actorA.get());
-					}
-					if (actorA->getComponent<Enemy>()) {
-						actorA->getComponent<Enemy>()->onCollision(actorB.get());
-					}else if (actorB->getComponent<Enemy>()) {
-						actorB->getComponent<Enemy>()->onCollision(actorA.get());
-					}
+					////temporary, just to test stuff
+					//if (actorA->getComponent<Player>()) {
+					//	actorA->getComponent<Player>()->onCollision(actorB.get());
+					//}else if (actorB->getComponent<Player>()) {
+					//	actorB->getComponent<Player>()->onCollision(actorA.get());
+					//}
+					//if (actorA->getComponent<Enemy>()) {
+					//	actorA->getComponent<Enemy>()->onCollision(actorB.get());
+					//}else if (actorB->getComponent<Enemy>()) {
+					//	actorB->getComponent<Enemy>()->onCollision(actorA.get());
+					//}
 				}
 				
 			}

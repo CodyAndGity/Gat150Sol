@@ -75,6 +75,7 @@
     {
       "name": "Rocket",
       "tag": "player",
+      "lifespan": 4,
       "transform": {
         "position": [
           640,
@@ -110,7 +111,7 @@
         },
         {
           "type": "CircleCollider2D",
-          "radius": 60
+          "radius": 10
         }
       ]
     },

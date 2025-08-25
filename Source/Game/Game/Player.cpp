@@ -191,25 +191,18 @@ void Player::shoot(bonzai::Actor* owner, float angle, std::string type){
     bonzai::Transform transform{ owner->transform.position,owner->transform.rotation + angle, size };
 
     auto projectile = bonzai::Instantiate(type, transform);
-    if (type == "laser_shot") {
-        projectile->getComponent<bonzai::SpriteRenderer>()->setColor({ 0.0f,1.0f,1.0f });
-
+    if (type == "rocket") {
+        projectile->getComponent<Projectile>()->particleColor = owner->getComponent<bonzai::SpriteRenderer>()->getColor(); 
     }
-    else {
-        projectile->getComponent<Projectile>()->particleColor = owner->getComponent<bonzai::SpriteRenderer>()->getColor();
-    }
-    projectile->getComponent<bonzai::SpriteRenderer>()->setColor({ 1.0f,1.0f,1.0f });
         
     if (type == "laser_shot") {
-		projectile->getComponent<Projectile>()->hasParticles = false;
-		projectile->lifespan = 3.0f; // seconds
+		projectile->getComponent<Projectile>()->hasParticles = false;//needed?
+		
     }
     else {
+        // try to keep up with the players speed
         projectile->getComponent<Projectile>()->speed = projectile->getComponent<bonzai::RigidBody>()->velocity.length() + 50.0f;
-        projectile->getComponent<bonzai::CircleCollider2D>()->radius = 10.0f; // Set the radius of the collider
 
-
-        projectile->lifespan = 4.0f; // seconds
     }
     owner->scene->addActor(std::move(projectile));
     

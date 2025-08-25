@@ -105,7 +105,7 @@ void SpaceGame::update(float deltaTime){
     }else {
         bonzai::getEngine().getTime().setTimeScale(1.0f);
     }
-    
+
     scene->update(bonzai::getEngine().getTime().getDeltaTime());
 
 }
@@ -165,11 +165,7 @@ void SpaceGame::spawnEnemy(){
 
 
     }
-    /*
-	
-        enemy->speed = 50.0f + bonzai::random::getReal(50.0f, 100.0f); // Random speed between 100 and 200
-        enemy->shootCooldown = 2.0f + bonzai::random::getReal(0.0f, 2.0f); // Random shoot cooldown between 2 and 4 seconds
-    */
+    
 
 }
 void SpaceGame::spawnPowerup(std::string name){
@@ -195,26 +191,5 @@ void SpaceGame::spawnPowerup(std::string name){
     }
     
 
-    /*
-	
-            
-        
-
-        }else if(bonzai::toLower(name) == "tripleshot") {
-            spriteRenderer->textureName = "Textures/Triple_shot_powerup.png";
-            spriteRenderer->setColor({ 1.0f,1.0f,1.0f });
-
-            
-            
-        
-
-       
-		
-        powerup->tag = "Powerup";
-        powerup->name = name;
-        powerup->lifespan = 7 + (float)bonzai::random::getInt(3);
-
-        scene->addActor(std::move(powerup));
-    }
-    */
+    
 }
