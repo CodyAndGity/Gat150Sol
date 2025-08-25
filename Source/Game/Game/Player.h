@@ -3,7 +3,7 @@
 #include "Math/Vector3.h"
 #include "Renderer/Texture.h"
 #include "Core/Json.h"
-class Player : public bonzai::Component, bonzai::ICollidable {
+class Player : public bonzai::Component, public bonzai::ICollidable{
 public:
 	float speed{ 0 };
 	float rotateSpeed{ 0 };
@@ -36,6 +36,6 @@ private:
 	int starColorIndex{ 0 };
 	float powerupTimer{ 0.0f };
 private:
-	void shoot(bonzai::Actor* owner, float angle = 0.0f, std::string type = "Rocket");
+	void shoot( float angle = 0.0f, std::string type = "Rocket");
 
 };

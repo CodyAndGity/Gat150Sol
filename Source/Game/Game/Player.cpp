@@ -4,7 +4,7 @@
 #include "Framework/Scene.h"
 #include "Core/Random.h"
 #include "Projectile.h"
-
+#include "Core/StringHelper.h"
 #include "SpaceGame.h"
 #include "Components/SpriteRenderer.h"
 #include "Components/RigidBody.h"
@@ -50,7 +50,7 @@ void Player::update(float deltaTime){
             
             auto body = owner->getComponent<bonzai::RigidBody>();
             if (body) {
-                body->damping += 0.001f;
+                body->damping += 0.0005f;
             }
             auto sprite = owner->getComponent<bonzai::SpriteRenderer>();
             if (sprite) {
@@ -163,7 +163,7 @@ void Player::update(float deltaTime){
 	//Laser shot
     if (bonzai::getEngine().getInput().getKeyDown(SDL_SCANCODE_SPACE) && laserPowerActive && shootTimer <= 0) {
         shootTimer = shootCooldown/5; // Reset the shoot timer
-		shoot(owner, 0.0f, "laser_shot");
+		shoot( 0.0f, "laser_shot");
     
 
     }else{
@@ -174,10 +174,10 @@ void Player::update(float deltaTime){
             
 			//2 extra shots for triple shot powerup
            
-            shoot(owner);
+            shoot();
             if (tripleShotPowerActive) {
-                shoot(owner, -30.0f);
-			    shoot(owner, 30.0f);
+                shoot( -30.0f);
+			    shoot( 30.0f);
             }
 
         }
@@ -188,7 +188,7 @@ void Player::update(float deltaTime){
 
 
 
-void Player::shoot(bonzai::Actor* owner, float angle, std::string type){
+void Player::shoot( float angle, std::string type){
     float size = 2.0f;
     if (type == "laser_shot") {
         size = 36.0f;
@@ -218,7 +218,7 @@ void Player::shoot(bonzai::Actor* owner, float angle, std::string type){
 
 void Player::onCollision(bonzai::Actor* other){
     
-    if (other->tag == "Enemy" and !starPowerActive) {
+    if (bonzai::toLower(other->tag) == "enemy" and !starPowerActive) {
         if (healthPowerActive) {
             if(bonzai::random::getReal(0.0f,1.0f)<0.5f){
                 health--;
