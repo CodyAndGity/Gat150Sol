@@ -119,7 +119,7 @@
     {
       "name": "Sprite",
       "tag": "background",
-      "lifespan": 40,
+      
       "persistent": true,
       "transform": {
         "position": [

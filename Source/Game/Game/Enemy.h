@@ -4,7 +4,7 @@
 class Enemy : public bonzai::Component {
 public:
 	float speed{ 200 };
-	float shootCooldown{ 0.0f }; // seconds between shots
+	float shootCooldown{ 3.0f }; // seconds between shots
 	Enemy() = default;
 	CLASS_PROTOTYPE(Enemy)
 

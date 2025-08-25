@@ -79,49 +79,27 @@ void Enemy::update(float deltaTime){
 
     owner->transform.position.x = bonzai::math::wrap(owner->transform.position.x, 0.0f, (float)bonzai::getEngine().getRenderer().getWidth());
     owner->transform.position.y = bonzai::math::wrap(owner->transform.position.y, 0.0f, (float)bonzai::getEngine().getRenderer().getHeight());
-    /*
     shootTimer -= deltaTime;
     if ( shootTimer <= 0 && playerSeen) {
         shootTimer = shootCooldown; // Reset the shoot timer
+    
+        bonzai::Transform transform{ owner->transform.position,owner->transform.rotation, 2 };//size
 
-       
-        bonzai::Transform transform{ this->owner->transform.position,this->owner->transform.rotation, 2 };//size
-        std::unique_ptr<Actor> projectile = std::make_unique<Actor>(transform); //, texture);
+        auto projectile = bonzai::Instantiate("Projectile", transform);
+        projectile->getComponent<bonzai::SpriteRenderer>()->setColor({ 1.0f,1.0f,1.0f });
+		projectile->getComponent<bonzai::SpriteRenderer>()->textureName = "Textures/enemy_projectile.png";
+        projectile->getComponent<Projectile>()->particleColor = owner->getComponent<bonzai::SpriteRenderer>()->getColor();
+		projectile->tag = "enemy"; 
+		projectile->name = "projectile"; 
 
-                
-        auto spriteRenderer = std::make_unique<bonzai::SpriteRenderer>();
-        spriteRenderer->textureName = "Textures/Projectile.png";
-        
+        projectile->getComponent<Projectile>()->speed = 300;
+        projectile->getComponent<bonzai::CircleCollider2D>()->radius = 10.0f; // Set the radius of the collider
 
-        projectile->owner->speed = this->speed + bonzai::random::getReal(100.0f)+200;
-        projectile->owner->lifespan = 2.0f; // seconds
 
-        auto sprite = owner->getComponent<bonzai::SpriteRenderer>();
-        if (sprite) {
-            projectile->particleColor = sprite->getColor();
-            
-        }
-        projectile->name = "projectile"; // Set the name of the player actor
-        projectile->owner->tag = "Enemy"; // Set the name of the player actor
-        
-        //components
-		 spriteRenderer = std::make_unique<bonzai::SpriteRenderer>();
-        spriteRenderer->textureName = "Textures/enemy_projectile.png";
-		projectile->addComponent(std::move(spriteRenderer));
-
-		auto body = std::make_unique<bonzai::RigidBody>();
-		body->velocity = bonzai::vec2{ 1,0 }.rotate(bonzai::math::degToRad(transform.rotation)) * projectile->speed;
-		projectile->addComponent(std::move(body));
-
-        auto collider = std::make_unique<bonzai::CircleCollider2D>();
-        collider->radius = 10.0f; // Set the radius of the collider
-        projectile->addComponent(std::move(collider));
-
-        scene->addActor(std::move(projectile));
-
+        projectile->lifespan = 2.0f; // seconds
+        owner->scene->addActor(std::move(projectile));
     }
     
-    */
 }
 
 void Enemy::onCollision(bonzai::Actor* other){

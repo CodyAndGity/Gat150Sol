@@ -8,7 +8,7 @@ namespace bonzai {
     }
 
     bool CircleCollider2D::checkCollision(ColliderComponent& other) {
-        auto distanceT = (owner->transform.position - other.owner->transform.position);
+        
         float distance = (owner->transform.position - other.owner->transform.position).length();
 
 		//check circle to circle collision

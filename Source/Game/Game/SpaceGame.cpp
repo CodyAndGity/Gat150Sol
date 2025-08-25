@@ -57,36 +57,7 @@ void SpaceGame::update(float deltaTime){
         player->getComponent<bonzai::SpriteRenderer>()->setColor({ .8f,0.8f,1.0f });
 		scene->addActor(std::move(player));
 
-        /*
-        bonzai::Transform transform{ { (float)bonzai::getEngine().getRenderer().getWidth() * 0.5f,
-            (float)bonzai::getEngine().getRenderer().getHeight() * 0.5f}//position
-            ,0,//rotation
-            4 };//size
         
-        std::unique_ptr<Player> player = std::make_unique<Player>(transform);
-       
-        player->speed = 510.0f; // Set speed 
-        player->rotateSpeed = 180.0f; // Set rotation speed 
-        player->tag = "Player"; // Set the name of the player actor
-        player->name = "Player"; // Set the name of the player actor
-
-        //components
-        auto spriteRenderer = std::make_unique<bonzai::SpriteRenderer>();
-        spriteRenderer->textureName = "Textures/blue_player_spaceship_.png";
-		spriteRenderer->setColor({ 0.8f,0.8f,1.0f });
-        player->setBaseColor(spriteRenderer.get()->getColor());
-        player->addComponent(std::move(spriteRenderer));
-
-		auto rigidBody = std::make_unique<bonzai::RigidBody>();
-		rigidBody->damping = 0.00025f; 
-		player->addComponent(std::move(rigidBody));
-
-		auto collider = std::make_unique<bonzai::CircleCollider2D>();
-		collider->radius = 60.0f; // Set the radius of the collider
-		player->addComponent(std::move(collider));
-
-        scene->addActor(std::move(player));
-        */
         gameState = GameState::PLAYING_GAME;
     }
         break;
@@ -157,10 +128,11 @@ void SpaceGame::draw( bonzai::Renderer& renderer){
 
 	livesText->create(renderer, "LIVES: " + std::to_string(lives), bonzai::vec3{ 1,1,1 });
 	livesText->draw(renderer, (float)renderer.getWidth() - 200.0f, 10.0f);
+    bonzai::Actor* player = scene->getActorByName<bonzai::Actor>("Player");
     
-    Player* player = dynamic_cast<Player*> (scene->getActorByName("Player"));
+    
     if (player) {
-        healthText->create(renderer, "HP: " + std::to_string(player->health), bonzai::vec3{ 1,0,0 });
+        healthText->create(renderer, "HP: " + std::to_string(player->getComponent<Player>()->health), bonzai::vec3{ 1,0,0 });
         healthText->draw(renderer, (float)renderer.getWidth() - 200.0f, 60.0f);
     }
 
@@ -179,8 +151,8 @@ void SpaceGame::spawnEnemy(){
     if (player) {
         
         // Spawn enemy at a random position around the player, but not too close
-        //bonzai::vec2 position{ player->transform.position+bonzai::random::onUnitCircle() *bonzai::random::getReal(350.0f,650.0f)};
-        bonzai::vec2 position{ player->transform.position};
+        bonzai::vec2 position{ player->transform.position+bonzai::random::onUnitCircle() *bonzai::random::getReal(350.0f,650.0f)};
+        
         //red_spaceship.png
 		bonzai::Transform transform{ position, bonzai::random::getReal(360.0f), 3 };//3 for sprite size
 
