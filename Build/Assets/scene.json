@@ -157,9 +157,6 @@
         }
       ]
     },
-
-
-
     {
       "name": "health",
       "tag": "Powerup",
@@ -187,6 +184,32 @@
       ]
     },
     {
+      "name": "star",
+      "tag": "Powerup",
+      "lifespan": 9,
+      "transform": {
+        "position": [
+          640,
+          512
+        ],
+        "rotation": 0,
+        "scale": 4
+      },
+      "components": [
+        {
+          "type": "Powerup"
+        },
+        {
+          "type": "SpriteRenderer",
+          "textureName": "Textures/star_powerup.png"
+        },
+        {
+          "type": "CircleCollider2D",
+          "radius": 60
+        }
+      ]
+    },
+    {
       "name": "laser",
       "tag": "Powerup",
       "lifespan": 9,
@@ -205,6 +228,32 @@
         {
           "type": "SpriteRenderer",
           "textureName": "Textures/laser_powerup.png"
+        },
+        {
+          "type": "CircleCollider2D",
+          "radius": 60
+        }
+      ]
+    },
+    {
+      "name": "tripleshot",
+      "tag": "Powerup",
+      "lifespan": 9,
+      "transform": {
+        "position": [
+          640,
+          512
+        ],
+        "rotation": 0,
+        "scale": 4
+      },
+      "components": [
+        {
+          "type": "Powerup"
+        },
+        {
+          "type": "SpriteRenderer",
+          "textureName": "Textures/Triple_shot_powerup.png"
         },
         {
           "type": "CircleCollider2D",

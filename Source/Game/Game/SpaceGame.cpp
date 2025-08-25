@@ -105,10 +105,7 @@ void SpaceGame::update(float deltaTime){
     }else {
         bonzai::getEngine().getTime().setTimeScale(1.0f);
     }
-    if (bonzai::getEngine().getInput().getKeyDown(SDL_SCANCODE_H)) {
-        bonzai::Actor* player = scene->getActorByName<bonzai::Actor>("Player");
-		player->getComponent<Player>()->laserPowerActive = true;
-    }
+    
     scene->update(bonzai::getEngine().getTime().getDeltaTime());
 
 }
@@ -184,8 +181,7 @@ void SpaceGame::spawnPowerup(std::string name){
 
 
         bonzai::Transform transform{ position, 0, 3 };//3 for sprite size
-		name = "laser";
-        auto powerup = bonzai::Instantiate(name, transform);
+	    auto powerup = bonzai::Instantiate(name, transform);
         if (name == "laser") {
             powerup->getComponent<bonzai::SpriteRenderer>()->setColor({ 0.0f,1.0f,1.0f });
         }
@@ -200,18 +196,7 @@ void SpaceGame::spawnPowerup(std::string name){
     
 
     /*
-	Player* player = scene->getActorByName<Player>("Player");
-    if (player) {
-
-        auto spriteRenderer = std::make_unique<bonzai::SpriteRenderer>();
-         
-        bonzai::res_t<bonzai::Texture> texture = nullptr;
-        std::unique_ptr<Powerup> powerup = nullptr;
-        
-        if (bonzai::toLower(name) == "star") {
-            spriteRenderer->textureName = "Textures/star_powerup.png";
-            spriteRenderer->setColor({ 1.0f,1.0f,1.0f });
-
+	
             
         
 
@@ -221,24 +206,10 @@ void SpaceGame::spawnPowerup(std::string name){
 
             
             
-        }else if (bonzai::toLower(name) == "laser") {
-            
-            spriteRenderer->textureName = "Textures/laser_powerup.png";
-            spriteRenderer->setColor({ 0.0f,1.0f,1.0f });
-        }
+        
 
        
-		// Spawn power at a random position around the player, but not too close
-        bonzai::vec2 position{ player->transform.position+bonzai::random::onUnitCircle() *bonzai::random::getReal(200.0f,650.0f)};
-
-        bonzai::Transform transform{ position, 0, 4};
-         powerup = std::make_unique<Powerup>(transform);
-         powerup->addComponent(std::move(spriteRenderer));
-
-		 auto collider = std::make_unique<bonzai::CircleCollider2D>();
-		 collider->radius = 40.0f; // Set the radius of the collider
-		 powerup->addComponent(std::move(collider));
-
+		
         powerup->tag = "Powerup";
         powerup->name = name;
         powerup->lifespan = 7 + (float)bonzai::random::getInt(3);
