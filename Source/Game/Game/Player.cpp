@@ -200,11 +200,7 @@ void Player::shoot( float angle, std::string type){
         projectile->getComponent<Projectile>()->particleColor = owner->getComponent<bonzai::SpriteRenderer>()->getColor(); 
     }
         
-    if (type == "laser_shot") {
-		projectile->getComponent<Projectile>()->hasParticles = false;//needed to not have particles
-		
-    }
-    else {
+    if (type == "rocket") {
         // try to keep up with the players speed
         projectile->getComponent<Projectile>()->speed = projectile->getComponent<bonzai::RigidBody>()->velocity.length() + 50.0f;
 

@@ -16,6 +16,7 @@ public:
 	void onCollision(class bonzai::Actor* other) override ;
 
 	bonzai::RigidBody* body{ nullptr };
+	void read(const bonzai::json::value_t& value);
 
 private:
 	float shootTimer{ 0.0f }; // time until next shot

@@ -95,8 +95,7 @@ void Enemy::update(float deltaTime){
 
         projectile->getComponent<Projectile>()->particleColor = owner->getComponent<bonzai::SpriteRenderer>()->getColor();
 
-        //is needed
-        projectile->getComponent<Projectile>()->speed = 300;
+       
         
 
 
@@ -135,7 +134,7 @@ void Enemy::onNotify(const bonzai::Event& event){
     }
 }
 
-void Player::read(const bonzai::json::value_t& value) {
+void Enemy::read(const bonzai::json::value_t& value) {
     Object::read(value);
     JSON_READ(value, speed);
 }

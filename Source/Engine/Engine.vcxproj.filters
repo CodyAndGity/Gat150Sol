@@ -250,5 +250,8 @@
     <ClInclude Include="Event\EventManager.h">
       <Filter>Source\Event</Filter>
     </ClInclude>
+    <ClInclude Include="Physics\Physics.h">
+      <Filter>Source\Physics</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

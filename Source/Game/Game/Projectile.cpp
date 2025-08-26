@@ -44,3 +44,11 @@ void Projectile::onCollision(bonzai::Actor* other){
         this->owner->destroyed = true;
     }
 }
+
+void Projectile::read(const bonzai::json::value_t& value) {
+    Object::read(value);
+    JSON_READ(value, speed);
+    JSON_READ(value, pierce);
+    JSON_READ(value, hasParticles);
+    JSON_READ(value, particleColor);
+}
