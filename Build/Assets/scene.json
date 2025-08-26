@@ -116,6 +116,49 @@
       ]
     },
     {
+      "name": "Enemy_Rocket",
+      "tag": "enemy",
+      "lifespan": 2,
+      "transform": {
+        "position": [
+          640,
+          512
+        ],
+        "rotation": 0,
+        "scale": 2
+      },
+      "components": [
+        {
+          "type": "Projectile",
+          "pierce": 1,
+          "speed": 300,
+          "hasParticles": true,
+          "particleColor": [
+            1,
+            0,
+            0
+          ]
+        },
+        {
+          "type": "SpriteRenderer",
+          "textureName": "Textures/enemy_projectile.png"
+        },
+        {
+          "type": "Rigidbody",
+          "damping": 0.0000,
+          "velocity": [
+            30,
+            0
+          ]
+
+        },
+        {
+          "type": "CircleCollider2D",
+          "radius": 10
+        }
+      ]
+    },
+    {
       "name": "laser_shot",
       "tag": "player",
       "lifespan": 3,

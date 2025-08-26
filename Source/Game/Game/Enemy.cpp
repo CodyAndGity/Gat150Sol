@@ -90,25 +90,23 @@ void Enemy::update(float deltaTime){
     
         bonzai::Transform transform{ owner->transform.position,owner->transform.rotation, 2 };//size
 
-        auto projectile = bonzai::Instantiate("Rocket", transform);
-        
-		projectile->getComponent<bonzai::SpriteRenderer>()->textureName = "Textures/enemy_projectile.png";
-        projectile->getComponent<Projectile>()->particleColor = owner->getComponent<bonzai::SpriteRenderer>()->getColor();
-		projectile->tag = "enemy"; 
-		
+        auto projectile = bonzai::Instantiate("Enemy_Rocket", transform);
 
+        projectile->getComponent<Projectile>()->particleColor = owner->getComponent<bonzai::SpriteRenderer>()->getColor();
+
+        //is needed
         projectile->getComponent<Projectile>()->speed = 300;
         
 
 
-        projectile->lifespan = 2.0f; // seconds
+
         owner->scene->addActor(std::move(projectile));
     }
     
 }
 
 void Enemy::onCollision(bonzai::Actor* other){
-    if (owner->tag !=other->tag) {
+    if (owner->tag !=other->tag && other->tag!="Powerup") {
         this->owner->destroyed = true;
         owner->scene->getGame()->addScore(100);
         for (int i = 0; i < 100; i++) {
