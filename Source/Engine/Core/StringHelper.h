@@ -18,5 +18,13 @@ namespace bonzai {
 		}
 		return result;
 	}
+	inline bool equalsIgnoreCase(const std::string& first, const std::string& second){
+		if (first.length() != second.length()) {
+			return false;
+		}
+		return std::equal(first.begin(), first.end(), second.begin(), [](char a, char b) {
+			return(std::tolower(a) == std::tolower(b));
+			});
+	}
 
 };

@@ -29,6 +29,8 @@ namespace bonzai {
 	}
 	void Engine::shutdown() {
 		resources().clear();
+		Factory::getInstance().removeAll();
+		EventManager::getInstance().removeAll();
 		particles->shutdown();
 		audio->shutdown();
 		input->shutdown();

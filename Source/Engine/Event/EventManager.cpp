@@ -10,8 +10,8 @@ namespace bonzai {
 		//iterate through all event types
 		for (auto& eventType : observers) {
 			//get list of observer for event type
-			auto observers =eventType.second;
-			//remove macthing observers from this event type
+			auto& observers =eventType.second;
+			//remove matching observers from this event type
 			std::erase_if(observers, [observerPointer](auto& observer) {
 				return (observer == observerPointer);
 			});
@@ -19,5 +19,18 @@ namespace bonzai {
 	}
 
 	void bonzai::EventManager::notify(const Event& event){
+		//find observers of event
+		auto iter = observers.find(toLower(event.id));
+		if (iter != observers.end()) {
+			//get observers of event
+			auto observers = iter->second;
+			for (auto& observer : observers) {
+				observer->onNotify(event);
+			}
+
+		}
+		else {
+			Logger::Warning("Could not find event {}", event.id);
+		}
 	}
 }

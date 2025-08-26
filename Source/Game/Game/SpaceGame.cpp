@@ -12,7 +12,10 @@
 
 
 bool SpaceGame::initialize(){
-
+    OBSERVER_ADD(player_dead);
+    OBSERVER_ADD(add_points);
+    
+    
 	scene = std::make_unique<bonzai::Scene>(this);
 
     scene->load("scene.json");
@@ -140,7 +143,15 @@ void SpaceGame::draw( bonzai::Renderer& renderer){
 	bonzai::getEngine().getParticlesSystem().draw(renderer);
 
 }
-
+void SpaceGame::onNotify(const bonzai::Event& event) {
+    if (bonzai::equalsIgnoreCase(event.id, "player_dead")) {
+        onDeath();
+    }
+    else if (bonzai::equalsIgnoreCase(event.id, "add_points")) {
+        addScore(std::get<int>(event.data));
+    }
+    
+}
 void SpaceGame::onDeath(){
 	gameState = GameState::PLAYER_DEAD;
     stateTimer = 2;
@@ -195,3 +206,5 @@ void SpaceGame::spawnPowerup(std::string name){
 
     
 }
+
+

@@ -14,6 +14,7 @@ FACTORY_REGISTER(Enemy)
 
 
 void Enemy::start(){
+    OBSERVER_ADD(player_dead);
     body = owner->getComponent<bonzai::RigidBody>();
 	shootTimer = shootCooldown; // Initialize the shoot timer
 }
@@ -108,7 +109,8 @@ void Enemy::update(float deltaTime){
 void Enemy::onCollision(bonzai::Actor* other){
     if (owner->tag !=other->tag && other->tag!="Powerup") {
         this->owner->destroyed = true;
-        owner->scene->getGame()->addScore(100);
+        EVENT_NOTIFY_DATA(add_points, 100);
+        
         for (int i = 0; i < 100; i++) {
             bonzai::Particle particle;
             particle.position = owner->transform.position;
@@ -125,4 +127,15 @@ void Enemy::onCollision(bonzai::Actor* other){
                 
         }
     }
+}
+
+void Enemy::onNotify(const bonzai::Event& event){
+    if (bonzai::equalsIgnoreCase(event.id, "player_dead")) {
+        owner->destroyed = true;
+    }
+}
+
+void Player::read(const bonzai::json::value_t& value) {
+    Object::read(value);
+    JSON_READ(value, speed);
 }

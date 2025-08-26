@@ -61,7 +61,7 @@ namespace bonzai {
 		template<typename T=Object>
 		requires std::derived_from<T, Object>
 		std::unique_ptr<T> create(const std::string& name);
-
+		void removeAll() { registry.clear(); }
 	private:
 		std::map<std::string, std::unique_ptr<CreatorBase> > registry;
 	};

@@ -4,7 +4,7 @@
 #include "renderer/Text.h"
 #include <string>
 #include <memory>
-class SpaceGame :  public bonzai::Game {
+class SpaceGame :  public bonzai::Game, public bonzai::IObserver {
 public:
 	enum class GameState {
 		INITIALIZING,
@@ -29,6 +29,9 @@ public:
 	void draw(class bonzai::Renderer& renderer) override;
 
 	void onDeath();
+
+	// Inherited via IObserver
+	void onNotify(const bonzai::Event& event) override;
 private:
 
 	void spawnEnemy();
@@ -47,4 +50,6 @@ private:
 	std::unique_ptr<class bonzai::Text> scoreText{ nullptr };
 	std::unique_ptr<class bonzai::Text> livesText{ nullptr };
 	std::unique_ptr<class bonzai::Text> healthText{ nullptr };
+
+	
 };

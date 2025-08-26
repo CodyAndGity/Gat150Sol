@@ -230,7 +230,7 @@ void Player::onCollision(bonzai::Actor* other){
     }
     if(health<=0){
         this->owner->destroyed = true;
-		dynamic_cast<SpaceGame*>(owner->scene->getGame())->onDeath();
+        EVENT_NOTIFY(player_dead);
         for (int i = 0; i < 500; i++) {
             bonzai::Particle particle;
             particle.position = owner->transform.position;
