@@ -201,7 +201,7 @@ void Player::shoot( float angle, std::string type){
     }
         
     if (type == "laser_shot") {
-		projectile->getComponent<Projectile>()->hasParticles = false;//needed?
+		projectile->getComponent<Projectile>()->hasParticles = false;//needed to not have particles
 		
     }
     else {
