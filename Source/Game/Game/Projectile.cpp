@@ -13,7 +13,7 @@ void Projectile::update(float deltaTime) {
     bonzai::vec2 velocity = bonzai::vec2{ 1,0 }.rotate(bonzai::math::degToRad(owner->transform.rotation)) * speed;
     
     if (body) {
-        body->applyForce({ 111 ,111});
+        body->setVelocity(velocity);
     }
 	
 
@@ -54,6 +54,6 @@ void Projectile::read(const bonzai::json::value_t& value) {
 }
 
 void Projectile::start(){
-    auto body = owner->getComponent<bonzai::RigidBody>();
+    body = owner->getComponent<bonzai::RigidBody>();
 
 }
