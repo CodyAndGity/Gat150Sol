@@ -15,7 +15,7 @@
         {
           "type": "Player",
           "speed": 510,
-          "rotateSpeed": 180
+          "rotateSpeed": 10
         },
         {
           "type": "SpriteRenderer",
@@ -23,11 +23,8 @@
         },
         {
           "type": "Rigidbody",
-          "damping": 0.00025,
-          "velocity": [
-            30,
-            0
-          ]
+          "gravityScale": 0.0,
+          "angularDamping": "2.5"
 
         },
         {
@@ -59,11 +56,8 @@
         },
         {
           "type": "Rigidbody",
-          "damping": "0.0001",
-          "velocity": [
-            30,
-            0
-          ]
+          "gravityScale": 0
+          
 
         },
         {
@@ -102,11 +96,9 @@
         },
         {
           "type": "Rigidbody",
-          "damping": 0.0000,
-          "velocity": [
-            30,
-            0
-          ]
+          "gravityScale": 0,
+          "isSensor": true
+
 
         },
         {
@@ -145,11 +137,8 @@
         },
         {
           "type": "Rigidbody",
-          "damping": 0.0000,
-          "velocity": [
-            30,
-            0
-          ]
+          "gravityScale": 0
+
 
         },
         {
@@ -188,11 +177,8 @@
         },
         {
           "type": "Rigidbody",
-          "damping": 0.0000,
-          "velocity": [
-            0,
-            0
-          ]
+          "gravityScale": 0
+
 
         },
         {

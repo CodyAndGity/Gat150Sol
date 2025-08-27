@@ -17,11 +17,11 @@ namespace bonzai {
 		audio = std::make_unique<bonzai::AudioSystem>();
 		audio->initialize();
 
-		particles = std::make_unique<bonzai::ParticleSystem>();
-		particles->initialize(5000);
-
 		physics = std::make_unique<Physics>();
 		physics->initialize();
+
+		particles = std::make_unique<bonzai::ParticleSystem>();
+		particles->initialize(5000);
 		return true;
 	}
 	void Engine::update() {

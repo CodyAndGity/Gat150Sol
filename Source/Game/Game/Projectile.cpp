@@ -11,14 +11,14 @@ void Projectile::update(float deltaTime) {
 
     
     bonzai::vec2 velocity = bonzai::vec2{ 1,0 }.rotate(bonzai::math::degToRad(owner->transform.rotation)) * speed;
-    auto body = owner->getComponent<bonzai::RigidBody>();
+    
     if (body) {
-        body->velocity += velocity.normalized();
+        body->applyForce({ 111 ,111});
     }
 	
 
-    owner->transform.position.x = bonzai::math::wrap(owner->transform.position.x, 0.0f, (float)bonzai::getEngine().getRenderer().getWidth());
-    owner->transform.position.y = bonzai::math::wrap(owner->transform.position.y, 0.0f, (float)bonzai::getEngine().getRenderer().getHeight());
+    //owner->transform.position.x = bonzai::math::wrap(owner->transform.position.x, 0.0f, (float)bonzai::getEngine().getRenderer().getWidth());
+    //owner->transform.position.y = bonzai::math::wrap(owner->transform.position.y, 0.0f, (float)bonzai::getEngine().getRenderer().getHeight());
     
     
     if (hasParticles) {
@@ -51,4 +51,9 @@ void Projectile::read(const bonzai::json::value_t& value) {
     JSON_READ(value, pierce);
     JSON_READ(value, hasParticles);
     JSON_READ(value, particleColor);
+}
+
+void Projectile::start(){
+    auto body = owner->getComponent<bonzai::RigidBody>();
+
 }

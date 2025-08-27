@@ -124,7 +124,8 @@ void Player::update(float deltaTime){
     if (bonzai::getEngine().getInput().getKeyDown(SDL_SCANCODE_D)) {
         rotate = 1;
     }
-    owner->transform.rotation += (rotate *rotateSpeed)* deltaTime;
+    body->applyTorque(rotate* rotateSpeed);
+    
 
     float thrust = 0;
     if (bonzai::getEngine().getInput().getKeyDown(SDL_SCANCODE_W)) {
@@ -137,7 +138,7 @@ void Player::update(float deltaTime){
 	bonzai::vec2 velocity = direction.rotate(bonzai::math::degToRad(owner->transform.rotation)) *thrust * speed;
     
     if (body) {
-        body->velocity += velocity * deltaTime;
+        body->applyForce(velocity);//velocity += velocity * deltaTime;
     }
 
     owner->transform.position.x=bonzai::math::wrap(owner->transform.position.x, 0.0f, (float)bonzai::getEngine().getRenderer().getWidth());
@@ -145,7 +146,7 @@ void Player::update(float deltaTime){
     if (slowDown) {
         
         if (body) {
-            body->damping += 0.0025f;
+            //body->damping += 0.0025f;
         }
         
     }
@@ -154,7 +155,7 @@ void Player::update(float deltaTime){
     if (slowDown) {
         
         if (body) {
-            body->damping -= 0.0025f;
+            //body->damping -= 0.0025f;
         }
         
     }

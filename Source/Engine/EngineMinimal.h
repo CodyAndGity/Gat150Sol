@@ -22,6 +22,8 @@
 #include "Math/Vector3.h"
 
 //physics
+#include "Physics/Physics.h"
+#include "Physics/PhysicsBody.h"
 #include "Physics/ICollidable.h"
 
 //resources

@@ -122,6 +122,9 @@
     <ClCompile Include="Physics\Physics.cpp">
       <Filter>Source\Physics</Filter>
     </ClCompile>
+    <ClCompile Include="Physics\PhysicsBody.cpp">
+      <Filter>Source\Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Random.h">
@@ -254,6 +257,9 @@
       <Filter>Source\Event</Filter>
     </ClInclude>
     <ClInclude Include="Physics\Physics.h">
+      <Filter>Source\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Physics\PhysicsBody.h">
       <Filter>Source\Physics</Filter>
     </ClInclude>
   </ItemGroup>

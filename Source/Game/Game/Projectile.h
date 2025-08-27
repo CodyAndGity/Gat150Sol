@@ -13,12 +13,14 @@ public:
 	Projectile() = default;
 	CLASS_PROTOTYPE(Projectile)
 
+	bonzai::RigidBody* body{ nullptr };
 
 	void update(float deltaTime) override;
 
 	// Inherited via Actor
 	void onCollision(class bonzai::Actor* other) override ;
 	void read(const bonzai::json::value_t& value);
+	void start() override;
 
 
 private:

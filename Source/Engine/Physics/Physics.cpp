@@ -2,10 +2,10 @@
 #include "Physics.h"
 namespace bonzai {
 #include "Physics.h"
-
+	float Physics::pixelsPerUnit = 48.0f;
 	bool Physics::initialize() {
 		b2WorldDef worldDef = b2DefaultWorldDef();
-		worldDef.gravity = b2Vec2{ 0.0f, -10.0f };
+		worldDef.gravity = b2Vec2{ 0.0f, 10.0f };
 		worldId = b2CreateWorld(&worldDef);
 
 		return true;

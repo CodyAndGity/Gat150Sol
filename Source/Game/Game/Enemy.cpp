@@ -61,21 +61,24 @@ void Enemy::update(float deltaTime){
             angle = (bonzai::vec2::signedAngleBetween(forward, direction));
             angle = bonzai::math::sign(angle);
 
-            owner->transform.rotation += bonzai::math::radToDeg(angle * deltaTime * 10);
+            body->applyTorque(angle * 10);
+
             bonzai::vec2 velocity = bonzai::vec2{ 1,0 }.rotate(bonzai::math::degToRad(owner->transform.rotation)) * speed;
             
 
             if(body) {
-                body->velocity +=velocity* deltaTime;
+                body->applyForce(velocity * deltaTime);
+
 			}
 
         }else{
             angle = bonzai::random::getReal(0.1f);
-            owner->transform.rotation += bonzai::math::radToDeg(angle * deltaTime * 10);
+            body->applyTorque(angle* 10);
+           
             bonzai::vec2 velocity = bonzai::vec2{ 1,0 }.rotate(bonzai::math::degToRad(owner->transform.rotation)) * speed*0.1f;
 
             if (body) {
-                body->velocity += velocity * deltaTime;
+                body->applyForce( velocity * deltaTime);
             }
 
         }
