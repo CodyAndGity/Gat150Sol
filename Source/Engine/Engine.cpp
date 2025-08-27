@@ -19,18 +19,23 @@ namespace bonzai {
 
 		particles = std::make_unique<bonzai::ParticleSystem>();
 		particles->initialize(5000);
+
+		physics = std::make_unique<Physics>();
+		physics->initialize();
 		return true;
 	}
 	void Engine::update() {
 		time.tick();
 		input->update();
 		audio->update();
+		physics->update(time.getDeltaTime());
 		particles->update(time.getDeltaTime());
 	}
 	void Engine::shutdown() {
 		resources().clear();
 		Factory::getInstance().removeAll();
 		EventManager::getInstance().removeAll();
+		physics->shutdown();
 		particles->shutdown();
 		audio->shutdown();
 		input->shutdown();

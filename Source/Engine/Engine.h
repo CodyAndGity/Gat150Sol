@@ -6,6 +6,7 @@
 #include "Core/time.h"
 #include "Core/Singleton.h"
 #include "Resources/ResourceManager.h"
+#include "Physics/Physics.h"
 #include <memory>
 namespace bonzai {
 	
@@ -21,6 +22,7 @@ namespace bonzai {
 		InputSystem& getInput() { return *input; }
 		ParticleSystem& getParticlesSystem() { return *particles; }
 		Time& getTime() { return time; }
+		Physics& getPhysics() { return *physics; }
 	private:
 		friend class Singleton<Engine>;
 		Engine() = default;
@@ -30,7 +32,7 @@ namespace bonzai {
 		std::unique_ptr<AudioSystem> audio;
 		std::unique_ptr<InputSystem> input;
 		std::unique_ptr<ParticleSystem> particles;
-
+		std::unique_ptr<Physics> physics;
 
 	};
 	inline Engine& getEngine(){
