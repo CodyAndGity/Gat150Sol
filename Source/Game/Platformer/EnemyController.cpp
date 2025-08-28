@@ -1,5 +1,8 @@
 #include "../GamePCH.h"
 #include "EnemyController.h"
+
+FACTORY_REGISTER(EnemyController)
+
 void EnemyController::start() {
 	body = owner->getComponent<bonzai::RigidBody>();
 

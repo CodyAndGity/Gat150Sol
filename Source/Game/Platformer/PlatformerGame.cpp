@@ -75,7 +75,7 @@ void PlatformerGame::spawnEnemy() {
     auto enemy = bonzai::Instantiate("PlatformEnemy");
     if (enemy) {
         scene->addActor(std::move(enemy));
-        std::cout << "added" << std::endl;
+
     }
 
 }
@@ -83,7 +83,7 @@ void PlatformerGame::spawnPlayer() {
     auto player = bonzai::Instantiate("PlatformPlayer");
     if (player) {
         scene->addActor(std::move(player));
-        std::cout << "added" << std::endl;
+
     }
 }
 void PlatformerGame::spawnPowerup(std::string name) {
