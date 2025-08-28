@@ -63,14 +63,6 @@ namespace bonzai {
 		});
 
 
-		/*for (auto iterator = actors.begin(); iterator != actors.end();) {
-			if ((*iterator)->destroyed) {
-				 iterator= actors.erase(iterator);
-			}
-			else {
-				iterator++;
-			}
-		}*/
 
 		//check for collisions
 		for (auto& actorA : actors) {

@@ -1,0 +1,56 @@
+#pragma once
+#include "Framework/Game.h"
+#include "renderer/Font.h"
+#include "renderer/Text.h"
+#include <string>
+#include <memory>
+class PlatformerGame : public bonzai::Game, public bonzai::IObserver {
+public:
+	enum class GameState {
+		INITIALIZING,
+		TITLE,
+		STARTING_GAME,
+		STARTING_LEVEL,
+		PLAYING_GAME,
+		PLAYER_DEAD,
+		GAME_OVER
+
+	};
+public:
+	PlatformerGame() = default;
+
+	// Inherited via Game
+	bool initialize() override;
+
+	void update(float deltaTime) override;
+
+	void shutdown() override;
+
+	void draw(class bonzai::Renderer& renderer) override;
+
+	void onDeath();
+
+	// Inherited via IObserver
+	void onNotify(const bonzai::Event& event) override;
+private:
+
+	void spawnEnemy();
+	void spawnPlayer();
+	void spawnPowerup(std::string name);
+private:
+
+	GameState gameState = GameState::INITIALIZING;
+	float enemySpawnTimer{ 0.0f };
+	float powerupSpawnTimer{ 0.0f };
+	float stateTimer{ 0.0f };
+	std::string powerups[4]{ "star","health","tripleShot","laser" };
+
+
+
+	std::unique_ptr<class bonzai::Text> titleText{ nullptr };
+	std::unique_ptr<class bonzai::Text> scoreText{ nullptr };
+	std::unique_ptr<class bonzai::Text> livesText{ nullptr };
+	std::unique_ptr<class bonzai::Text> healthText{ nullptr };
+
+
+};

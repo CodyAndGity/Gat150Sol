@@ -20,7 +20,7 @@ namespace bonzai {
 				size = spriteRenderer->texture->getSize();
 			}
 		}
-		physicsBody = std::make_unique<PhysicsBody>(owner->transform,size,bodyDef,getEngine().getPhysics());
+		physicsBody = std::make_unique<PhysicsBody>(owner->transform,size*scale,bodyDef,getEngine().getPhysics());
 	}
 	void RigidBody::update(float deltaTime){
 		owner->transform.position = physicsBody->getPosition();
@@ -48,7 +48,7 @@ namespace bonzai {
 		Object::read(value);
 
 		JSON_READ(value, size);
-		//JSON_READ(value, scale);
+		JSON_READ(value, scale);
 
 
 		JSON_READ_NAME(value, "gravityScale", bodyDef.gravityScale);

@@ -1,0 +1,151 @@
+{
+  "prototypes": [
+    {
+      "name": "PlatformPlayer",
+      "tag": "player",
+      "transform": {
+        "position": [
+          640,
+          512
+        ],
+        "rotation": 0,
+        "scale": 1
+      },
+      "components": [
+        {
+          "type": "PlayerController",
+          "speed": 90,
+          "maxSpeed": 100,
+          "jump": 500
+        },
+        {
+          "type": "SpriteRenderer",
+          "textureName": "Textures/box.png"
+        },
+        {
+          "type": "Rigidbody",
+          "gravityScale": 1.0,
+          "constrainAngle": true,
+          "shape": "capsule",
+          "scale": [ 1, 1 ]
+
+        },
+        {
+          "type": "CircleCollider2D",
+          "radius": 60
+        }
+      ]
+    },
+    {
+      "name": "PlatformEnemy",
+      "tag": "Enemy",
+      "transform": {
+        "position": [
+          640,
+          512
+        ],
+        "rotation": 0,
+        "scale": 1
+      },
+      "components": [
+        {
+          "type": "EnemyController",
+          "speed": 90,
+          "maxSpeed": 100,
+          "jump": 500
+        },
+        {
+          "type": "SpriteRenderer",
+          "textureName": "Textures/Enemy.png"
+        },
+        {
+          "type": "Rigidbody",
+          "gravityScale": 1.0,
+          "constrainAngle": true,
+          "shape": "box",
+          "scale": [ 1, 1 ]
+
+        },
+        {
+          "type": "CircleCollider2D",
+          "radius": 60
+        }
+      ]
+    },
+
+    {
+      "name": "Enemy",
+      "tag": "enemy",
+      "transform": {
+        "position": [
+          140,
+          512
+        ],
+        "rotation": 0,
+        "scale": 3
+      },
+      "components": [
+        {
+          "type": "Enemy",
+          "speed": 75,
+          "shootCooldown": 3
+        },
+        {
+          "type": "SpriteRenderer",
+          "textureName": "Textures/red_enemy_spaceship.png"
+        },
+        {
+          "type": "Rigidbody",
+          "gravityScale": 0
+
+
+        },
+        {
+          "type": "CircleCollider2D",
+          "radius": 60
+        }
+      ]
+    },
+    {
+      "name": "Rocket",
+      "tag": "player",
+      "lifespan": 4,
+      "transform": {
+        "position": [
+          640,
+          512
+        ],
+        "rotation": 0,
+        "scale": 2
+      },
+      "components": [
+        {
+          "type": "Projectile",
+          "pierce": 1,
+          "speed": 200,
+          "hasParticles": true,
+          "particleColor": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "type": "SpriteRenderer",
+          "textureName": "Textures/projectile.png"
+        },
+        {
+          "type": "Rigidbody",
+          "gravityScale": 0,
+          "isSensor": true
+
+
+        },
+        {
+          "type": "CircleCollider2D",
+          "radius": 10
+        }
+      ]
+    }
+  ]
+}

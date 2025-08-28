@@ -2,19 +2,19 @@
 #include "Core/Logger.h"
 #include "Game/SpaceGame.h"
 #include "Math/Vector2.h"
-
+#include "Platformer/PlatformerGame.h"
 
 
 int main(int argc, char* argv[]) {
 	
-    bonzai::file::SetCurrentDirectory("Assets");
+    bonzai::file::SetCurrentDirectory("Assets/Platformer");
     
 
 	bonzai::getEngine().initialize();
    
 	
     //initialize game
-	std::unique_ptr<bonzai::Game> game = std::make_unique<SpaceGame>();
+	std::unique_ptr<bonzai::Game> game = std::make_unique<PlatformerGame>();
 	game->initialize();
 	
 	

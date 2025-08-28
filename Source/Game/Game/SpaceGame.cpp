@@ -106,10 +106,7 @@ void SpaceGame::update(float deltaTime){
     }else {
         bonzai::getEngine().getTime().setTimeScale(1.0f);
     }
-    if (bonzai::getEngine().getInput().getKeyPressed(SDL_SCANCODE_E)) {
-        spawnPowerup(powerups[bonzai::random::getInt(4)]);
-
-    }
+    
     
 
     scene->update(bonzai::getEngine().getTime().getDeltaTime());

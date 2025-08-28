@@ -1,0 +1,290 @@
+{
+  "actors": [
+    {
+      "name": "Sprite",
+      "tag": "background",
+      "persistent": true,
+      "transform": {
+        "position": [
+          640,
+          512
+        ],
+        "rotation": 0,
+        "scale": 5
+      },
+      "components": [
+        {
+          "type": "SpriteRenderer",
+          "textureName": "Textures/sky.png"
+        }
+      ]
+    },
+    {
+      "name": "Sprite",
+      "tag": "Tree",
+      "persistent": true,
+      "transform": {
+        "position": [
+          460,
+          640
+        ],
+        "rotation": 0,
+        "scale": 0.2
+      },
+      "components": [
+        {
+          "type": "SpriteRenderer",
+          "textureName": "textures/tree01.png"
+        }
+      ]
+    },
+    {
+      "name": "Sprite",
+      "tag": "ground",
+      "persistent": true,
+      "transform": {
+        "position": [
+          640,
+          900
+        ],
+        "rotation": 0,
+        "scale": 0.2
+      },
+      "components": [
+        {
+          "type": "SpriteRenderer",
+          "textureName": "textures/platform.png"
+        },
+        {
+          "type": "RigidBody",
+          "isDynamic": false,
+          "scale": [ 0.8, 0.5 ]
+        }
+      ]
+    },
+    {
+      "name": "Sprite",
+      "tag": "ground",
+      "persistent": true,
+      "transform": {
+        "position": [
+          340,
+          600
+        ],
+        "rotation": 90,
+        "scale": 0.2
+      },
+      "components": [
+        {
+          "type": "SpriteRenderer",
+          "textureName": "textures/platform.png"
+        },
+        {
+          "type": "RigidBody",
+          "isDynamic": false,
+          "scale": [ 0.8, 0.8 ]
+        }
+      ]
+    },
+    {
+      "name": "Sprite",
+      "tag": "ground",
+      "persistent": true,
+      "transform": {
+        "position": [
+          940,
+          600
+        ],
+        "rotation": 270,
+        "scale": 0.2
+      },
+      "components": [
+        {
+          "type": "SpriteRenderer",
+          "textureName": "textures/platform.png"
+        },
+        {
+          "type": "RigidBody",
+          "isDynamic": false,
+          "scale": [ 0.8, 0.8 ]
+        }
+      ]
+    },
+    {
+      "name": "Sprite",
+      "tag": "ground",
+      "persistent": true,
+      "transform": {
+        "position": [
+          640,
+          300
+        ],
+        "rotation": 0,
+        "scale": 0.2
+      },
+      "components": [
+        {
+          "type": "SpriteRenderer",
+          "textureName": "textures/platform.png"
+        },
+        {
+          "type": "RigidBody",
+          "isDynamic": false,
+          "scale": [ 0.8, 0.5 ]
+        }
+      ]
+    },
+    {
+      "tag": "crate",
+      "persistent": true,
+      "transform": {
+        "position": [
+          640,
+          9700
+        ],
+        "rotation": 0,
+        "scale": 1
+      },
+      "components": [
+        {
+          "type": "SpriteRenderer",
+          "textureName": "textures/crate02.png"
+        },
+        {
+          "type": "RigidBody",
+
+          "friction": 1,
+          "restitution": 2
+
+        }
+      ]
+    },
+    {
+      "tag": "crate",
+      "persistent": true,
+      "transform": {
+        "position": [
+          640,
+          9400
+        ],
+        "rotation": 0,
+        "scale": 1
+      },
+      "components": [
+        {
+          "type": "SpriteRenderer",
+          "textureName": "textures/crate02.png"
+        },
+        {
+          "type": "RigidBody"
+        }
+      ]
+    },
+    {
+      "tag": "crate",
+      "persistent": true,
+      "transform": {
+        "position": [
+          640,
+          9100
+        ],
+        "rotation": 0,
+        "scale": 1
+      },
+      "components": [
+        {
+          "type": "SpriteRenderer",
+          "textureName": "textures/crate02.png"
+        },
+        {
+          "type": "RigidBody"
+        }
+      ]
+    },
+    {
+      "tag": "crate",
+      "persistent": true,
+      "transform": {
+        "position": [
+          640,
+          -200
+        ],
+        "rotation": 0,
+        "scale": 1
+      },
+      "components": [
+        {
+          "type": "SpriteRenderer",
+          "textureName": "textures/crate02.png"
+        },
+        {
+          "type": "RigidBody"
+        }
+      ]
+    },
+    {
+      "tag": "crate",
+      "persistent": true,
+      "transform": {
+        "position": [
+          640,
+          -500
+        ],
+        "rotation": 0,
+        "scale": 1
+      },
+      "components": [
+        {
+          "type": "SpriteRenderer",
+          "textureName": "textures/crate02.png"
+        },
+        {
+          "type": "RigidBody"
+        }
+      ]
+    },
+    {
+      "tag": "crate",
+      "persistent": true,
+      "transform": {
+        "position": [
+          640,
+          -800
+        ],
+        "rotation": 0,
+        "scale": 1
+      },
+      "components": [
+        {
+          "type": "SpriteRenderer",
+          "textureName": "textures/crate02.png"
+        },
+        {
+          "type": "RigidBody"
+        }
+      ]
+    },
+    {
+      "tag": "crate",
+      "persistent": true,
+      "transform": {
+        "position": [
+          640,
+          -1100
+        ],
+        "rotation": 0,
+        "scale": 1
+      },
+      "components": [
+        {
+          "type": "SpriteRenderer",
+          "textureName": "textures/crate02.png"
+        },
+        {
+          "type": "RigidBody"
+        }
+      ]
+    }
+
+  ]
+}
