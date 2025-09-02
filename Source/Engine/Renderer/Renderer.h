@@ -1,4 +1,5 @@
 #pragma once
+#include "Math/Rect.h"
 #include <SDL3/SDL.h>
 #include <iostream>
 #include <SDL3_ttf/SDL_ttf.h>
@@ -26,6 +27,7 @@ namespace bonzai {
 		int getHeight() const { return height; }
 		void drawTexture(class Texture& texture, float x, float y);
 		void drawTexture(class Texture& texture, float x, float y,float angle, float scale = 1.0f);
+		void drawTexture(class Texture& texture, const rect& sourceRect, float x, float y, float angle, float scale = 1.0f);
 	private:
 		SDL_Window* window = nullptr;
 		SDL_Renderer* renderer = nullptr;

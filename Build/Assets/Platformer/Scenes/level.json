@@ -21,6 +21,25 @@
     },
     {
       "name": "Sprite",
+      "tag": "tilemap",
+      "persistent": true,
+      "transform": {
+        "position": [
+          0,
+          0
+        ],
+        "rotation": 0,
+        "scale": 4
+      },
+      "components": [
+        {
+          "type": "TilemapRenderer",
+          "tilemap_name": "tilemaps/tilemap.json"
+        }
+      ]
+    },
+    {
+      "name": "Sprite",
       "tag": "Tree",
       "persistent": true,
       "transform": {
@@ -62,78 +81,7 @@
         }
       ]
     },
-    {
-      "name": "Sprite",
-      "tag": "ground",
-      "persistent": true,
-      "transform": {
-        "position": [
-          340,
-          600
-        ],
-        "rotation": 90,
-        "scale": 0.2
-      },
-      "components": [
-        {
-          "type": "SpriteRenderer",
-          "textureName": "textures/platform.png"
-        },
-        {
-          "type": "RigidBody",
-          "isDynamic": false,
-          "scale": [ 0.8, 0.8 ]
-        }
-      ]
-    },
-    {
-      "name": "Sprite",
-      "tag": "ground",
-      "persistent": true,
-      "transform": {
-        "position": [
-          940,
-          600
-        ],
-        "rotation": 270,
-        "scale": 0.2
-      },
-      "components": [
-        {
-          "type": "SpriteRenderer",
-          "textureName": "textures/platform.png"
-        },
-        {
-          "type": "RigidBody",
-          "isDynamic": false,
-          "scale": [ 0.8, 0.8 ]
-        }
-      ]
-    },
-    {
-      "name": "Sprite",
-      "tag": "ground",
-      "persistent": true,
-      "transform": {
-        "position": [
-          640,
-          300
-        ],
-        "rotation": 0,
-        "scale": 0.2
-      },
-      "components": [
-        {
-          "type": "SpriteRenderer",
-          "textureName": "textures/platform.png"
-        },
-        {
-          "type": "RigidBody",
-          "isDynamic": false,
-          "scale": [ 0.8, 0.5 ]
-        }
-      ]
-    },
+   
     {
       "tag": "crate",
       "persistent": true,
@@ -282,6 +230,32 @@
         },
         {
           "type": "RigidBody"
+        }
+      ]
+    },
+    {
+      "name": "bat",
+      "tag": "enemy",
+      "transform": {
+        "position": [
+          740,
+          500
+        ],
+        "rotation": 0,
+        "scale": 3
+      },
+      "components": [
+        {
+          "type": "SpriteRenderer"
+        },
+        {
+          "type": "Animator",
+          "animations": [
+            {
+              "name": "idle",
+              "texture_animation": "animations/bat_idle.json"
+            }
+          ]
         }
       ]
     }

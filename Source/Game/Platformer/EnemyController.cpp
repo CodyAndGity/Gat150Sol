@@ -21,7 +21,7 @@ void EnemyController::update(float deltaTime) {
 	}
 	
 	if (dir != 0) {
-		body->applyForce(bonzai::vec2{ 1,0 }*dir * 1000);
+		body->applyForce(bonzai::vec2{ 1,0 }*dir * speed);
 	}
 	
 

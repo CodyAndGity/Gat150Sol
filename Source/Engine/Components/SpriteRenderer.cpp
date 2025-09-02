@@ -6,7 +6,11 @@ namespace bonzai {
 
 
 	void SpriteRenderer::start(){
-		 texture = resources().get<Texture>(textureName, getEngine().getRenderer());
+		// get texture resource if texture doesn't exist and there's a texture name
+		if ((!texture) && (textureName!="")) {
+			texture = resources().get<Texture>(textureName, getEngine().getRenderer());
+		}
+		 
 
 	}
 	void SpriteRenderer::update(float deltaTime) {
@@ -14,11 +18,26 @@ namespace bonzai {
 	}
 
 	void SpriteRenderer::draw(class Renderer& renderer) {
-		texture = resources().get<Texture>(textureName, renderer);
+		//texture = resources().get<Texture>(textureName, renderer);
 		if (texture) {
-		renderer.drawTexture(*texture,
-			owner->transform.position.x, owner->transform.position.y,
-			owner->transform.rotation, owner->transform.scale);
+			
+			if (textureRect.w > 0 && textureRect.h > 0) {
+				renderer.drawTexture(*texture,
+					textureRect,
+					
+					owner->transform.position.x,
+					owner->transform.position.y,
+					owner->transform.rotation,
+					owner->transform.scale);
+			}
+			else {
+				renderer.drawTexture(*texture,
+					owner->transform.position.x,
+					owner->transform.position.y,
+					owner->transform.rotation,
+					owner->transform.scale);
+			}
+		
 		}
 	}
 	bonzai::vec3 SpriteRenderer::getColor()	{

@@ -17,10 +17,10 @@ void PlayerController::update(float deltaTime) {
 		dir = 1;
 	}
 	if (dir != 0) {
-		body->applyForce(bonzai::vec2{ 1,0 }*dir * 1000);
+		body->applyForce(bonzai::vec2{ 1,0 }*dir * speed);
 	}
 	if (bonzai::getEngine().getInput().getKeyPressed(SDL_SCANCODE_SPACE)) {
-		body->applyForce(bonzai::vec2{ 0,-1 } * 100000);
+		body->applyForce(bonzai::vec2{ 0,-1 } * jump);
 
 	}
 

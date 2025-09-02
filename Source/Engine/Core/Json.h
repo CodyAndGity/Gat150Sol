@@ -1,6 +1,7 @@
 #pragma once
 #include <rapidjson/document.h>
 #include <string>
+#include <vector>
 #include "Math/Vector2.h"
 #include "Math/Vector3.h"
 
@@ -22,4 +23,5 @@ namespace bonzai::json{
 	bool read(const value_t& value, const std::string& name, std::string& data, bool required =false);
 	bool read(const value_t& value, const std::string& name, vec2& data, bool required =false);
 	bool read(const value_t& value, const std::string& name, vec3& data, bool required =false);
+	bool read(const value_t& value, const std::string& name, std::vector<int>& data, bool required =false);
 }
