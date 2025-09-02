@@ -27,7 +27,8 @@
           "gravityScale": 1.0,
           "constrainAngle": true,
           "shape": "capsule",
-          "scale": [ 1, 1 ]
+          "scale": [ 1, 1 ],
+          "restitution": 0
 
         },
         {
