@@ -15,6 +15,7 @@ public:
 	bool laserPowerActive{ false };
 	bool healthPowerActive{ false };
 	int health{ 10 };
+	bool playerLeft{ false };
 
 	bonzai::RigidBody* body{ nullptr };
 public:
@@ -31,7 +32,7 @@ public:
 	}
 	void read(const bonzai::json::value_t& value) override;
 
-
+	void shoot(float angle=0, std::string type="PlatformerRocket");
 private:
 	bonzai::vec3 starColors[3]{ { 0.8f,0.8f,1.0f },{100,100,0},{10,0,0} };
 	int starColorIndex{ 0 };

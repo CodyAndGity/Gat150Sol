@@ -203,6 +203,7 @@
     <ClCompile Include="Platformer\EnemyController.cpp" />
     <ClCompile Include="Platformer\PlatformerGame.cpp" />
     <ClCompile Include="Platformer\PlayerController.cpp" />
+    <ClCompile Include="Platformer\ProjectileController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.vcxproj">
@@ -220,6 +221,7 @@
     <ClInclude Include="Platformer\EnemyController.h" />
     <ClInclude Include="Platformer\PlatformerGame.h" />
     <ClInclude Include="Platformer\PlayerController.h" />
+    <ClInclude Include="Platformer\ProjectileController.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\Build\Assets\Meshes\enemy.txt" />

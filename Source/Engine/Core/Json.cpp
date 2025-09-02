@@ -160,7 +160,6 @@ namespace bonzai::json
             }
 
             // get the data
-            std::cout << array[i].GetInt() << std::endl;
             data.push_back(array[i].GetInt());
         }
 

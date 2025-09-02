@@ -42,7 +42,7 @@
       "tag": "Enemy",
       "transform": {
         "position": [
-          640,
+          840,
           512
         ],
         "rotation": 0,
@@ -70,6 +70,47 @@
         {
           "type": "CircleCollider2D",
           "radius": 60
+        }
+      ]
+    },
+    {
+      "name": "PlatformerRocket",
+      "tag": "player",
+      "lifespan": 4,
+      "transform": {
+        "position": [
+          640,
+          512
+        ],
+        "rotation": 0,
+        "scale": 2
+      },
+      "components": [
+        {
+          "type": "ProjectileController",
+          "pierce": 1,
+          "speed": 200,
+          "hasParticles": true,
+          "particleColor": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "type": "SpriteRenderer",
+          "textureName": "Textures/projectile.png"
+        },
+        {
+          "type": "Rigidbody",
+          "gravityScale": 0,
+          "isSensor": true
+
+
+        },
+        {
+          "type": "CircleCollider2D",
+          "radius": 10
         }
       ]
     }
