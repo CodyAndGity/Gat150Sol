@@ -26,10 +26,10 @@
       "transform": {
         "position": [
           0,
-          0
+          100
         ],
         "rotation": 0,
-        "scale": 3
+        "scale": 2.75
       },
       "components": [
         {
