@@ -24,6 +24,8 @@ namespace bonzai {
 		shapeDef.density = def.density;
 		shapeDef.isSensor = def.isSensor;
 
+		if (def.isSensor)shapeDef.enableSensorEvents = true;
+		else shapeDef.enableContactEvents = true;
 		// create shape
 		b2Vec2 hsize = to_b2(Physics::pixelToWorld(size * transform.scale * 0.5f));
 		switch (def.shape)
@@ -51,6 +53,7 @@ namespace bonzai {
 		}
 	}
 	PhysicsBody::~PhysicsBody(){
+
 		b2DestroyBody(bodyId);
 	}
 	vec2 PhysicsBody::getPosition(){
@@ -68,5 +71,8 @@ namespace bonzai {
 	}
 	void PhysicsBody::setVelocity(const vec2& velocity)	{
 		b2Body_SetLinearVelocity(bodyId, to_b2(Physics::pixelToWorld(velocity)));
+	}
+	vec2 PhysicsBody::getVelocity(){
+		return Physics::worldToPixel(to_vec2(b2Body_GetLinearVelocity(bodyId)));
 	}
 }

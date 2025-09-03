@@ -26,8 +26,23 @@ void PlayerController::update(float deltaTime) {
 		body->applyForce(bonzai::vec2{ 0,-1 } * jump);
 
 	}
+	auto spriteRenderer = owner->getComponent<bonzai::SpriteRenderer>();
+	if (spriteRenderer) {
+		if (body->velocity.x != 0) {
+			spriteRenderer->flipH = (body->velocity.x < 0);//playerLeft;
+		}
+	}
 	if (bonzai::getEngine().getInput().getMouseButtonPressed(bonzai::InputSystem::MouseButton::LEFT)) {
-		shoot(playerLeft *180);
+		shoot(playerLeft *180.0f);
+
+	}
+	if (bonzai::getEngine().getInput().getMouseButtonPressed(bonzai::InputSystem::MouseButton::RIGHT)) {
+		bonzai::Transform transform{ {10,500},0, 1 };
+
+		auto bat =bonzai::Instantiate("bat", transform);
+		//bat->getComponent<bonzai::SpriteRenderer>()->setColor({ 0,0,0 });
+
+		owner->scene->addActor(std::move(bat));
 
 	}
 
@@ -57,7 +72,13 @@ void PlayerController::shoot(float angle, std::string type) {
 }
 
 void PlayerController::onCollision(class bonzai::Actor* other) {
+	if (other->tag == "Enemy") {
+		owner->getComponent<bonzai::SpriteRenderer>()->setColor({ 1111,0,0 });
+	}
+	else {
+		owner->getComponent<bonzai::SpriteRenderer>()->setColor({ 1,1,1 });
 
+	}
 }
 void PlayerController::read(const bonzai::json::value_t& value) {
 	Object::read(value);

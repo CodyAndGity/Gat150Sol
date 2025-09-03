@@ -17,11 +17,10 @@ namespace bonzai {
 			animation.second.textureAnimation = resources().get<TextureAnimation>(animation.second.textureAnimationName,
 				getEngine().getRenderer());
 			if (!animation.second.textureAnimation) {
-				Logger::Warning("Could not load Animator texture animation {}", animation.second.textureAnimationName)
-					;
+				Logger::Warning("Could not load Animator texture animation {}", animation.second.textureAnimationName);
 			}
 			else {
-				Logger::Info("Animator animation {}, texture {} loaded", animation.first, animation.second.textureAnimationName);
+				//Logger::Info("Animator animation {}, texture {} loaded", animation.first, animation.second.textureAnimationName);
 			}
 		}
 		// set initial animation, use first map entry

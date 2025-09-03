@@ -23,6 +23,7 @@ namespace bonzai {
 		void applyTorque(const float radians);
 
 		void setVelocity(const vec2& velocity);
+		
 	private:
 		std::unique_ptr<PhysicsBody> physicsBody;
 	};

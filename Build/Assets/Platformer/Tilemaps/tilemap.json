@@ -32,6 +32,11 @@
                  "name":"TextureName",
                  "type":"string",
                  "value":"Textures\\tilemap.png"
+                }, 
+                {
+                 "name":"hasCollision",
+                 "type":"bool",
+                 "value":true
                 }],
          "type":"tilelayer",
          "visible":true,

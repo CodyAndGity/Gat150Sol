@@ -113,8 +113,48 @@
           "radius": 10
         }
       ]
+    },
+    {
+      "name": "bat",
+      "tag": "Enemy",
+      "transform": {
+        "position": [
+          740,
+          500
+        ],
+        "rotation": 0,
+        "scale": 3
+      },
+      "components": [
+        {
+          "type": "FlyingEnemyController",
+          "speed": 100,
+          "maxSpeed": 100
+        },
+        {
+          "type": "SpriteRenderer"
+        },
+        {
+          "type": "Animator",
+          "animations": [
+            {
+              "name": "idle",
+              "texture_animation": "animations/bat_idle.json"
+            }
+          ]
+        },
+        {
+          "type": "RigidBody",
+          "gravityScale": 0.0,
+          "constrainAngle": true,
+          "isSensor": true,
+          "shape": "circle",
+          "scale": [ 1, 1 ],
+          "size": 40
+        }
+      ]
     }
 
-    
+
   ]
 }

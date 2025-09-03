@@ -58,6 +58,9 @@
     <ClCompile Include="Platformer\ProjectileController.cpp">
       <Filter>Source\Platformer</Filter>
     </ClCompile>
+    <ClCompile Include="Platformer\FlyingEnemyController.cpp">
+      <Filter>Source\Platformer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Player.h">
@@ -91,6 +94,9 @@
       <Filter>Source\Platformer</Filter>
     </ClInclude>
     <ClInclude Include="Platformer\ProjectileController.h">
+      <Filter>Source\Platformer</Filter>
+    </ClInclude>
+    <ClInclude Include="Platformer\FlyingEnemyController.h">
       <Filter>Source\Platformer</Filter>
     </ClInclude>
   </ItemGroup>

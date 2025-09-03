@@ -17,6 +17,73 @@ namespace bonzai {
 
 	void Physics::update(float deltaTime) {
 		b2World_Step(worldId, 1.0f / 60.0f, 4);
+		processCollisionEvents();
+	}
+
+	void Physics::processCollisionEvents(){
+		b2ContactEvents contactEvents = b2World_GetContactEvents(worldId);
+
+		//begin contact
+		for (int i = 0; i < contactEvents.beginCount; i++) {
+			b2ContactBeginTouchEvent* contactEvent = contactEvents.beginEvents + i;
+			b2BodyId bodyA = b2Shape_GetBody(contactEvent->shapeIdA);
+			b2BodyId bodyB = b2Shape_GetBody(contactEvent->shapeIdB);
+
+			Actor* actorA= (Actor*) b2Body_GetUserData(bodyA);
+			if (!actorA || actorA->destroyed || !actorA->active) {
+				continue;
+			}
+			Actor* actorB= (Actor*) b2Body_GetUserData(bodyB);
+			if (!actorB || actorB->destroyed || !actorB->active) {
+				continue;
+			}
+			actorA->onCollision(actorB);
+			actorB->onCollision(actorA);
+
+		}
+
+		//end contact
+		/*
+		for (int i = 0; i < contactEvents.endCount; i++) {
+			b2ContactEndTouchEvent* contactEvent = contactEvents.endEvents + i;
+
+			auto test = contactEvent->shapeIdA;
+			auto test2 = b2Shape_GetBody(test);
+			b2BodyId bodyA = test2;//b2Shape_GetBody(contactEvent->shapeIdA);
+			b2BodyId bodyB = b2Shape_GetBody(contactEvent->shapeIdB);
+
+			Actor* actorA= (Actor*) b2Body_GetUserData(bodyA);
+			if (!actorA || actorA->destroyed || !actorA->active) {
+				continue;
+			}
+			Actor* actorB= (Actor*) b2Body_GetUserData(bodyB);
+			if (!actorB || actorB->destroyed || !actorB->active) {
+				continue;
+			}
+			actorA->onCollision(actorB);
+			actorB->onCollision(actorA);
+
+		}
+		*/
+		//sensor contact
+		b2SensorEvents sensorEvents = b2World_GetSensorEvents(worldId);
+		for (int i = 0; i < sensorEvents.beginCount; i++) {
+			b2SensorBeginTouchEvent* sensorEvent = sensorEvents.beginEvents + i;
+			b2BodyId bodyA = b2Shape_GetBody(sensorEvent->sensorShapeId);
+			b2BodyId bodyB = b2Shape_GetBody(sensorEvent->visitorShapeId);
+
+			Actor* actorA = (Actor*)b2Body_GetUserData(bodyA);
+			if (!actorA || actorA->destroyed || !actorA->active) {
+				continue;
+			}
+			Actor* actorB = (Actor*)b2Body_GetUserData(bodyB);
+			if (!actorB || actorB->destroyed || !actorB->active) {
+				continue;
+			}
+			actorA->onCollision(actorB);
+			actorB->onCollision(actorA);
+
+		}
 	}
 	
 

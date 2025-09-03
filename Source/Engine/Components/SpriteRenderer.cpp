@@ -28,14 +28,16 @@ namespace bonzai {
 					owner->transform.position.x,
 					owner->transform.position.y,
 					owner->transform.rotation,
-					owner->transform.scale);
+					owner->transform.scale,
+					flipH);
 			}
 			else {
 				renderer.drawTexture(*texture,
 					owner->transform.position.x,
 					owner->transform.position.y,
 					owner->transform.rotation,
-					owner->transform.scale);
+					owner->transform.scale,
+					flipH);
 			}
 		
 		}
@@ -50,6 +52,7 @@ namespace bonzai {
 	void SpriteRenderer::read(const json::value_t& value) {
 		Object::read(value);
 		JSON_READ(value, textureName);
+		JSON_READ(value, flipH);
 
 	}
 

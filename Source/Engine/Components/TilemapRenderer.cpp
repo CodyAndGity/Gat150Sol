@@ -23,6 +23,8 @@ namespace bonzai {
 
 		PhysicsBody::PhysicsBodyDef bodyDef;
 		bodyDef.isDynamic = false;
+		bodyDef.actor=owner;
+		bodyDef.restitution = 0.1;
 		// iterate through layers
 		for (auto layer : tilemap->getLayers()) {
 			if (!layer.hasCollision) continue;

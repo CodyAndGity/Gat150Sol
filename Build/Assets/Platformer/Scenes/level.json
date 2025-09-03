@@ -20,7 +20,7 @@
       ]
     },
     {
-      "name": "Sprite",
+      "name": "ground_tilemap",
       "tag": "tilemap",
       "persistent": true,
       "transform": {
@@ -230,32 +230,6 @@
         },
         {
           "type": "RigidBody"
-        }
-      ]
-    },
-    {
-      "name": "bat",
-      "tag": "enemy",
-      "transform": {
-        "position": [
-          740,
-          500
-        ],
-        "rotation": 0,
-        "scale": 3
-      },
-      "components": [
-        {
-          "type": "SpriteRenderer"
-        },
-        {
-          "type": "Animator",
-          "animations": [
-            {
-              "name": "idle",
-              "texture_animation": "animations/bat_idle.json"
-            }
-          ]
         }
       ]
     }

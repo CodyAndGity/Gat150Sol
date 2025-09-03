@@ -38,6 +38,7 @@ namespace bonzai {
 			void applyForce(const vec2& force);
 			void applyTorque(const float radians);
 			void setVelocity(const vec2& velocity);
+			vec2 getVelocity();
 	private:
 		b2BodyId bodyId{ b2_nullBodyId };
 	};

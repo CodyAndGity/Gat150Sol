@@ -26,6 +26,8 @@ namespace bonzai {
 		}
 		static float pixelsPerUnit;
 	private:
+		void processCollisionEvents();
+	private:
 		friend class PhysicsBody;
 
 		b2WorldId worldId;

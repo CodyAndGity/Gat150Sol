@@ -25,6 +25,7 @@ namespace bonzai {
 	void RigidBody::update(float deltaTime){
 		owner->transform.position = physicsBody->getPosition();
 		owner->transform.rotation = math::radToDeg(physicsBody->getAngle());
+		velocity = physicsBody->getVelocity();
 		//if (velocity.x != velocity.x) {
 		//	return;
 		//}
@@ -42,6 +43,8 @@ namespace bonzai {
 		physicsBody->setVelocity(velocity);
 
 	}
+
+	
 
 
 	void RigidBody::read(const json::value_t& value){
