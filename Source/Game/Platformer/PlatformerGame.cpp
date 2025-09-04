@@ -41,12 +41,12 @@ void PlatformerGame::update(float deltaTime) {
 				enemySpawnTimeReset -= 0.2f;//faster spawns over time
             }
         }
-        /*powerupSpawnTimer -= deltaTime;
+        powerupSpawnTimer -= deltaTime;
         if (powerupSpawnTimer <= 0.0f) {
             powerupSpawnTimer = 15;
 
             spawnPowerup(powerups[bonzai::random::getInt(4)]);
-        }*/
+        }
         break;
     case PlatformerGame::GameState::PLAYER_DEAD:
         break;
@@ -56,7 +56,9 @@ void PlatformerGame::update(float deltaTime) {
         break;
     }
 
-    if (bonzai::getEngine().getInput().getKeyDown(SDL_SCANCODE_Q)) {
+    if (bonzai::getEngine().getInput().getKeyPressed(SDL_SCANCODE_Q)) {
+        spawnPowerup(powerups[bonzai::random::getInt(4)]);
+
         bonzai::getEngine().getTime().setTimeScale(.2f);
         
     }
@@ -117,5 +119,26 @@ void PlatformerGame::spawnPlayer() {
     }
 }
 void PlatformerGame::spawnPowerup(std::string name) {
+    bonzai::Actor* player = scene->getActorByName<bonzai::Actor>("PlatformPlayer");
+    if (player) {
 
+        // Spawn powerup at a random position around the player, but not too close
+        bonzai::vec2 position{ player->transform.position + bonzai::random::onUnitCircle() * bonzai::random::getReal(350.0f,650.0f) };
+
+
+        bonzai::Transform transform{ position, 0, 3 };//3 for sprite size
+        auto powerup = bonzai::Instantiate(name, transform);
+        if (name == "laser") {
+            powerup->getComponent<bonzai::SpriteRenderer>()->setColor({ 0.0f,1.0f,1.0f });
+        }
+        else {
+            powerup->getComponent<bonzai::SpriteRenderer>()->setColor({ 1.0f,1.0f,1.0f });
+        }
+
+
+        scene->addActor(std::move(powerup));
+
+
+
+    }
 }

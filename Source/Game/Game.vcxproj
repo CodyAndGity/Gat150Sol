@@ -204,6 +204,7 @@
     <ClCompile Include="Platformer\FlyingEnemyController.cpp" />
     <ClCompile Include="Platformer\PlatformerGame.cpp" />
     <ClCompile Include="Platformer\PlayerController.cpp" />
+    <ClCompile Include="Platformer\PowerupController.cpp" />
     <ClCompile Include="Platformer\ProjectileController.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -223,6 +224,7 @@
     <ClInclude Include="Platformer\FlyingEnemyController.h" />
     <ClInclude Include="Platformer\PlatformerGame.h" />
     <ClInclude Include="Platformer\PlayerController.h" />
+    <ClInclude Include="Platformer\PowerupController.h" />
     <ClInclude Include="Platformer\ProjectileController.h" />
   </ItemGroup>
   <ItemGroup>

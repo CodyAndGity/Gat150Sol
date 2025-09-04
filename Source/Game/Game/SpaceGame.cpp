@@ -184,7 +184,7 @@ void SpaceGame::spawnPowerup(std::string name){
     bonzai::Actor* player = scene->getActorByName<bonzai::Actor>("Player");
     if (player) {
         
-        // Spawn enemy at a random position around the player, but not too close
+        // Spawn powerup at a random position around the player, but not too close
         bonzai::vec2 position{ player->transform.position + bonzai::random::onUnitCircle() * bonzai::random::getReal(350.0f,650.0f) };
 
 

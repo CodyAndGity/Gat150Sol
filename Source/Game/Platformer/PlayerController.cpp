@@ -9,6 +9,105 @@ void PlayerController::start() {
 
 }
 void PlayerController::update(float deltaTime) {
+	if (starPowerActive) {
+
+		powerupTimer += deltaTime;
+		//I know it's bad, but it make the player look cool without seizure vibes
+		starColorIndex++;
+		if (starColorIndex % 512 == 128) {
+			auto sprite = owner->getComponent<bonzai::SpriteRenderer>();
+			if (sprite) {
+				sprite->setColor({ starColors[starColorIndex % 3] });
+			}
+		}
+		else if (starColorIndex % 512 == 1) {
+			auto sprite = owner->getComponent<bonzai::SpriteRenderer>();
+			if (sprite) {
+				sprite->setColor({ starColors[starColorIndex % 3] });
+			}
+
+		}
+		else if (starColorIndex % 512 == 258) {
+			auto sprite = owner->getComponent<bonzai::SpriteRenderer>();
+			if (sprite) {
+				sprite->setColor({ starColors[starColorIndex % 3] });
+			}
+
+		}
+
+		if (powerupTimer > 8) {
+			starPowerActive = false;
+			powerupTimer = 0;
+
+			auto body = owner->getComponent<bonzai::RigidBody>();
+			if (body) {
+				body->damping += 0.0005f;
+			}
+			auto sprite = owner->getComponent<bonzai::SpriteRenderer>();
+			if (sprite) {
+				sprite->setColor({ starColors[0] });
+			}
+
+
+
+		}
+	}
+	else if (tripleShotPowerActive) {
+		powerupTimer += deltaTime;
+		auto sprite = owner->getComponent<bonzai::SpriteRenderer>();
+		if (sprite) {
+			sprite->setColor({ 0,1,1 });
+		}
+
+
+
+
+		if (powerupTimer > 10) {
+			tripleShotPowerActive = false;
+			powerupTimer = 0;
+			auto sprite = owner->getComponent<bonzai::SpriteRenderer>();
+			if (sprite) {
+				sprite->setColor({ starColors[0] });
+			}
+
+
+
+		}
+	}
+	else if (laserPowerActive) {
+		powerupTimer += deltaTime;
+
+		auto sprite = owner->getComponent<bonzai::SpriteRenderer>();
+		if (sprite) {
+			sprite->setColor({ 1,0,1 });
+		}
+
+		if (powerupTimer > 11) {
+			laserPowerActive = false;
+			powerupTimer = 0;
+			auto sprite = owner->getComponent<bonzai::SpriteRenderer>();
+			if (sprite) {
+				sprite->setColor({ starColors[0] });
+			}
+		}
+	}else if (healthPowerActive) {
+		powerupTimer += deltaTime;
+
+		auto sprite = owner->getComponent<bonzai::SpriteRenderer>();
+		if (sprite) {
+			sprite->setColor({ 0,1,0 });
+		}
+		if (powerupTimer > 10) {
+			healthPowerActive = false;
+			powerupTimer = 0;
+			auto sprite = owner->getComponent<bonzai::SpriteRenderer>();
+			if (sprite) {
+				sprite->setColor({ starColors[0] });
+			}
+
+		}
+	}
+
 	float dir = 0;
 	if (bonzai::getEngine().getInput().getKeyDown(SDL_SCANCODE_A)) {
 		dir = -1;
@@ -32,8 +131,31 @@ void PlayerController::update(float deltaTime) {
 			spriteRenderer->flipH = (body->velocity.x < 0);//playerLeft;
 		}
 	}
+
 	shootTimer -= deltaTime;
-	if (bonzai::getEngine().getInput().getMouseButtonDown(bonzai::InputSystem::MouseButton::LEFT) && shootTimer <= 0) {
+	if (healthPowerActive && shootTimer<=0) {
+		shootTimer = shootCooldown*2; // Reset the shoot timer
+
+		for (int i = 0; i < 8; i++) {
+			shoot(i*45);
+
+		}
+	}
+	if (starPowerActive && shootTimer<=0) {
+		shootTimer = shootCooldown; // Reset the shoot timer
+
+		for (int i = 0; i < 16; i++) {
+			shoot(bonzai::random::getReal()*8 *45);
+
+		}
+	}
+	if (bonzai::getEngine().getInput().getMouseButtonDown(bonzai::InputSystem::MouseButton::LEFT) && laserPowerActive && shootTimer <= 0) {
+		shootTimer = shootCooldown * 5; // Reset the shoot timer
+		shoot(0.0f, "laser_shot");
+
+
+	}
+	else if (bonzai::getEngine().getInput().getMouseButtonDown(bonzai::InputSystem::MouseButton::LEFT) && shootTimer <= 0) {
 		shootTimer = shootCooldown ; // Reset the shoot timer
 
 		//shoot towards the mouse
@@ -44,6 +166,10 @@ void PlayerController::update(float deltaTime) {
 		}
 		else {
 			owner->getComponent<bonzai::SpriteRenderer>()->flipH = false;
+		}
+		if (tripleShotPowerActive) {
+			shoot(angle - 15.0f);
+			shoot(angle + 15.0f);
 		}
 		shoot(angle);
 
@@ -73,10 +199,11 @@ void PlayerController::shoot(float angle, std::string type) {
 		projectile->getComponent<ProjectileController>()->particleColor = { 1,0,0 };//cache;
 	}
 
-	if (type == "PlatformerRocket") {
-		// try to keep up with the players speed
-		//projectile->getComponent<ProjectileController>()->speed = projectile->getComponent<bonzai::RigidBody>()->velocity.length() + 50.0f;
-
+	if (type != "PlatformerRocket") {
+		/*auto laserBody = projectile->getComponent<bonzai::RigidBody>();
+		if (laserBody) {
+			laserBody->applyTorque(bonzai::random::getReal(-10.0f, 10.0f));
+		}*/
 	}
 	owner->scene->addActor(std::move(projectile));
 

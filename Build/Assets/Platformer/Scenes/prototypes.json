@@ -153,8 +153,194 @@
           "size": 40
         }
       ]
-    }
+    },
 
+    {
+      "name": "laser_shot",
+      "tag": "player",
+      "lifespan": 3,
+      "transform": {
+        "position": [
+          640,
+          512
+        ],
+        "rotation": 0,
+        "scale": 2
+      },
+      "components": [
+        {
+          "type": "ProjectileController",
+          "pierce": 5,
+          "speed": 0,
+          "hasParticles": false,
+          "particleColor": [
+            1,
+            1,
+            1
+          ]
+        },
+        {
+          "type": "SpriteRenderer",
+          "textureName": "Textures/laser_shot.png"
+        },
+        {
+          "type": "RigidBody",
+          "gravityScale": 0.0,
+          "constrainAngle": false,
+          "angularDamping": 0,
+          "isSensor": true,
+          "shape": "circle",
+          "scale": [ 1, 1 ],
+          "size": 40
+
+
+        },
+        {
+          "type": "CircleCollider2D",
+          "radius": 100
+        }
+      ]
+    },
+    {
+      "name": "tripleShot",
+      "tag": "Powerup",
+      "lifespan": 9,
+      "transform": {
+        "position": [
+          640,
+          512
+        ],
+        "rotation": 0,
+        "scale": 4
+      },
+      "components": [
+        {
+          "type": "PowerupController"
+        },
+        {
+          "type": "SpriteRenderer",
+          "textureName": "Textures/Triple_shot_powerup.png"
+        },
+        {
+          "type": "CircleCollider2D",
+          "radius": 60
+        },
+        {
+          "type": "RigidBody",
+          "gravityScale": 0.0,
+          "constrainAngle": true,
+          "isSensor": false,
+          "shape": "circle",
+          "scale": [ 1, 1 ],
+          "size": 40
+        }
+      ]
+    },
+    {
+      "name": "laser",
+      "tag": "Powerup",
+      "lifespan": 9,
+      "transform": {
+        "position": [
+          640,
+          512
+        ],
+        "rotation": 0,
+        "scale": 4
+      },
+      "components": [
+        {
+          "type": "PowerupController"
+        },
+        {
+          "type": "SpriteRenderer",
+          "textureName": "Textures/laser_powerup.png"
+        },
+        {
+          "type": "CircleCollider2D",
+          "radius": 60
+        },
+        {
+          "type": "RigidBody",
+          "gravityScale": 0.0,
+          "constrainAngle": true,
+          "isSensor": false,
+          "shape": "circle",
+          "scale": [ 1, 1 ],
+          "size": 40
+        }
+      ]
+    },
+    {
+      "name": "star",
+      "tag": "Powerup",
+      "lifespan": 9,
+      "transform": {
+        "position": [
+          640,
+          512
+        ],
+        "rotation": 0,
+        "scale": 4
+      },
+      "components": [
+        {
+          "type": "PowerupController"
+        },
+        {
+          "type": "SpriteRenderer",
+          "textureName": "Textures/star_powerup.png"
+        },
+        {
+          "type": "CircleCollider2D",
+          "radius": 60
+        },
+        {
+          "type": "RigidBody",
+          "gravityScale": 0.0,
+          "constrainAngle": true,
+          "isSensor": false,
+          "shape": "circle",
+          "scale": [ 1, 1 ],
+          "size": 40
+        }
+      ]
+    },
+    {
+      "name": "health",
+      "tag": "Powerup",
+      "lifespan": 9,
+      "transform": {
+        "position": [
+          640,
+          512
+        ],
+        "rotation": 0,
+        "scale": 4
+      },
+      "components": [
+        {
+          "type": "PowerupController"
+        },
+        {
+          "type": "SpriteRenderer",
+          "textureName": "Textures/health_powerup.png"
+        },
+        {
+          "type": "CircleCollider2D",
+          "radius": 60
+        },
+        {
+          "type": "RigidBody",
+          "gravityScale": 0.0,
+          "constrainAngle": true,
+          "isSensor": false,
+          "shape": "circle",
+          "scale": [ 1, 1 ],
+          "size": 40
+        }
+      ]
+    }
 
   ]
 }
