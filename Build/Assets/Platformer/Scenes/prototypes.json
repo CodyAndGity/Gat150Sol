@@ -16,7 +16,7 @@
           "type": "PlayerController",
           "speed": 900,
           "maxSpeed": 1000,
-          "jump": 100000
+          "jump": 125000
         },
         {
           "type": "SpriteRenderer",
@@ -51,7 +51,7 @@
       "components": [
         {
           "type": "EnemyController",
-          "speed": 800,
+          "speed": 400,
           "maxSpeed": 1000,
           "jump": 500
         },

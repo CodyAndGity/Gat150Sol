@@ -8,6 +8,7 @@ bool PlatformerGame::initialize() {
 
 
     scene = std::make_unique<bonzai::Scene>(this);
+    scoreText = std::make_unique< bonzai::Text>(bonzai::resources().getWithID<bonzai::Font>("ui_font", "radiospacebitmap.ttf", 32.0f));
 
     scene->load("scenes/prototypes.json");
     scene->load("scenes/level.json");
@@ -31,6 +32,21 @@ void PlatformerGame::update(float deltaTime) {
 
         break;
     case PlatformerGame::GameState::PLAYING_GAME:
+        enemySpawnTimer -= deltaTime;
+        if (enemySpawnTimer <= 0.0f) {
+            enemySpawnTimer = enemySpawnTimeReset;
+
+            spawnEnemy();
+            if(enemySpawnTimeReset>0.5f){
+				enemySpawnTimeReset -= 0.2f;//faster spawns over time
+            }
+        }
+        /*powerupSpawnTimer -= deltaTime;
+        if (powerupSpawnTimer <= 0.0f) {
+            powerupSpawnTimer = 15;
+
+            spawnPowerup(powerups[bonzai::random::getInt(4)]);
+        }*/
         break;
     case PlatformerGame::GameState::PLAYER_DEAD:
         break;
@@ -58,6 +74,8 @@ void PlatformerGame::shutdown(){
 
 void PlatformerGame::draw(class bonzai::Renderer& renderer){
     scene->draw(renderer);
+    scoreText->create(renderer, "SCORE: " + std::to_string(score), bonzai::vec3{ 0,0,0 });
+    scoreText->draw(renderer, 10.0f, 10.0f);
 
     bonzai::getEngine().getParticlesSystem().draw(renderer);
 }
@@ -68,14 +86,26 @@ void PlatformerGame::onDeath() {
 
 // Inherited via IObserver
 void PlatformerGame::onNotify(const bonzai::Event& event){
-
+    if (bonzai::equalsIgnoreCase(event.id, "add_points")) {
+        addScore(std::get<int>(event.data));
+    }
 }
 
 void PlatformerGame::spawnEnemy() {
-    auto enemy = bonzai::Instantiate("PlatformEnemy");
-    if (enemy) {
-        scene->addActor(std::move(enemy));
+    
+    /*bonzai::vec2 position = bonzai::vec2{ bonzai::random::getReal()*600+200,bonzai::random::getBool() ? 300.0f : 600.0f};
+	auto transform = bonzai::Transform{ position,0.0f,1.0f };
+    auto enemy = bonzai::Instantiate("PlatformEnemy");*/
+    bonzai::Actor* player = scene->getActorByName<bonzai::Actor>("PlatformPlayer");
+    if (player) {
+        bonzai::vec2 position{ player->transform.position + bonzai::random::onUnitCircle() * bonzai::random::getReal(450.0f,750.0f) };
 
+        auto transform = bonzai::Transform{ position,0.0f,1.5f };
+        auto enemy = bonzai::Instantiate("bat",transform);
+        if (enemy) {
+            scene->addActor(std::move(enemy));
+
+        }
     }
 
 }

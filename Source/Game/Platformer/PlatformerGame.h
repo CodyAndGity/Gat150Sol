@@ -41,6 +41,7 @@ private:
 
 	GameState gameState = GameState::INITIALIZING;
 	float enemySpawnTimer{ 0.0f };
+	float enemySpawnTimeReset{ 3.0f };
 	float powerupSpawnTimer{ 0.0f };
 	float stateTimer{ 0.0f };
 	std::string powerups[4]{ "star","health","tripleShot","laser" };

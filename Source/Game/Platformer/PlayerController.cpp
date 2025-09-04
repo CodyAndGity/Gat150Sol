@@ -12,12 +12,12 @@ void PlayerController::update(float deltaTime) {
 	float dir = 0;
 	if (bonzai::getEngine().getInput().getKeyDown(SDL_SCANCODE_A)) {
 		dir = -1;
-		playerLeft = true;
+		
 
 	}
 	if (bonzai::getEngine().getInput().getKeyDown(SDL_SCANCODE_D)) {
 		dir = 1;
-		playerLeft = false;
+		
 	}
 	if (dir != 0) {
 		body->applyForce(bonzai::vec2{ 1,0 }*dir * speed);
@@ -32,11 +32,24 @@ void PlayerController::update(float deltaTime) {
 			spriteRenderer->flipH = (body->velocity.x < 0);//playerLeft;
 		}
 	}
-	if (bonzai::getEngine().getInput().getMouseButtonPressed(bonzai::InputSystem::MouseButton::LEFT)) {
-		shoot(playerLeft *180.0f);
+	shootTimer -= deltaTime;
+	if (bonzai::getEngine().getInput().getMouseButtonDown(bonzai::InputSystem::MouseButton::LEFT) && shootTimer <= 0) {
+		shootTimer = shootCooldown ; // Reset the shoot timer
+
+		//shoot towards the mouse
+		auto shootDirection=owner->transform.position - bonzai::getEngine().getInput().getMousePosition();
+		auto angle = (bonzai::math::pi + bonzai::math::halfPi -atan2f(shootDirection.x, shootDirection.y))* 180.0f / bonzai::math::pi;
+		if (angle>90&&angle<270) {
+			owner->getComponent<bonzai::SpriteRenderer>()->flipH = true;
+		}
+		else {
+			owner->getComponent<bonzai::SpriteRenderer>()->flipH = false;
+		}
+		shoot(angle);
 
 	}
-	if (bonzai::getEngine().getInput().getMouseButtonPressed(bonzai::InputSystem::MouseButton::RIGHT)) {
+	
+	if (bonzai::getEngine().getInput().getMouseButtonPressed(bonzai::InputSystem::MouseButton::RIGHT) ) {
 		bonzai::Transform transform{ {10,500},0, 1 };
 
 		auto bat =bonzai::Instantiate("bat", transform);
@@ -56,8 +69,8 @@ void PlayerController::shoot(float angle, std::string type) {
 
 	auto projectile = bonzai::Instantiate(type, transform);
 	if (type == "PlatformerRocket") {
-		auto cache= owner->getComponent<bonzai::SpriteRenderer>()->getColor();
-		projectile->getComponent<ProjectileController>()->particleColor = cache;
+		//auto cache= owner->getComponent<bonzai::SpriteRenderer>()->getColor();
+		projectile->getComponent<ProjectileController>()->particleColor = { 1,0,0 };//cache;
 	}
 
 	if (type == "PlatformerRocket") {

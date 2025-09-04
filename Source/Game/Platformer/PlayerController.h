@@ -15,7 +15,7 @@ public:
 	bool laserPowerActive{ false };
 	bool healthPowerActive{ false };
 	int health{ 10 };
-	bool playerLeft{ false };
+	
 
 	bonzai::RigidBody* body{ nullptr };
 public:

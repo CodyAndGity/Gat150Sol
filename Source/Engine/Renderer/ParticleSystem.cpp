@@ -23,8 +23,8 @@ namespace bonzai{
 				particle.lifespan -= deltaTime;
 				particle.active = particle.lifespan > 0;
 				particle.position += particle.velocity * deltaTime;
-                particle.position.x = bonzai::math::wrap(particle.position.x, 0.0f, (float)bonzai::getEngine().getRenderer().getWidth());
-                particle.position.y = bonzai::math::wrap(particle.position.y, 0.0f, (float)bonzai::getEngine().getRenderer().getHeight());
+                //particle.position.x = bonzai::math::wrap(particle.position.x, 0.0f, (float)bonzai::getEngine().getRenderer().getWidth());
+                //particle.position.y = bonzai::math::wrap(particle.position.y, 0.0f, (float)bonzai::getEngine().getRenderer().getHeight());
 
             }
         }
