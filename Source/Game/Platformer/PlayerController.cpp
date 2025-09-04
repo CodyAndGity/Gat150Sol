@@ -161,6 +161,7 @@ void PlayerController::update(float deltaTime) {
 		//shoot towards the mouse
 		auto shootDirection=owner->transform.position - bonzai::getEngine().getInput().getMousePosition();
 		auto angle = (bonzai::math::pi + bonzai::math::halfPi -atan2f(shootDirection.x, shootDirection.y))* 180.0f / bonzai::math::pi;
+		
 		if (angle>90&&angle<270) {
 			owner->getComponent<bonzai::SpriteRenderer>()->flipH = true;
 		}

@@ -35,10 +35,19 @@ void PlatformerGame::update(float deltaTime) {
         enemySpawnTimer -= deltaTime;
         if (enemySpawnTimer <= 0.0f) {
             enemySpawnTimer = enemySpawnTimeReset;
+            int enemyCount = 0;
+            for(auto enemy : scene->getActorByTag("Enemy")) {
+                if (enemy && !enemy->destroyed && enemy->active) {
+                    enemyCount++;
+                }
+			}
+            
+            if (enemyCount < 20) {
+                spawnEnemy();
 
-            spawnEnemy();
-            if(enemySpawnTimeReset>0.5f){
-				enemySpawnTimeReset -= 0.2f;//faster spawns over time
+                if (enemySpawnTimeReset > 0.5f) {
+                    enemySpawnTimeReset -= 0.2f;//faster spawns over time
+                }
             }
         }
         powerupSpawnTimer -= deltaTime;

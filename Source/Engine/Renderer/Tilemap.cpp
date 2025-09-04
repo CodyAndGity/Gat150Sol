@@ -40,6 +40,7 @@ namespace bonzai {
 							layer.texture = resources().get<Texture>(value, renderer);
 							if (!layer.texture) {
 								Logger::Warning("Could not read tilemap layer texture {}.", value);
+								return false;
 							}
 						}
 						else if (equalsIgnoreCase(name, "Collision")) {
